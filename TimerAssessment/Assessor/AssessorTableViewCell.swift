@@ -9,7 +9,6 @@ import UIKit
 
 final class AssessorTableViewCell: UITableViewCell {
     @IBOutlet private weak var nameLabel: UILabel!
-//　サンプル　後で消す
     func configue(assessor: Assessor) {
         nameLabel.text = assessor.name
     }

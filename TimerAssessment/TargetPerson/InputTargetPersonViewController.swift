@@ -10,7 +10,6 @@ import UIKit
 final class InputTargetPersonViewController: UIViewController {
     // 画面遷移時に値を受け取る変数
     var assessorUUID: UUID?
-// サンプル　このコメント後で消す
     enum Mode {
         case input
         case edit

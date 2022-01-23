@@ -10,7 +10,6 @@ import UIKit
 final class AssessorViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak private var tableview: UITableView!
     @IBOutlet weak private var inputButton: UIButton!
-// コメント
     override func viewDidLoad() {
         super.viewDidLoad()
         tableview.delegate = self

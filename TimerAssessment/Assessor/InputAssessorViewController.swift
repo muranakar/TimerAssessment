@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SwiftUI
 
 final class InputAssessorViewController: UIViewController {
     // 画面遷移元から、値を代入される変数
