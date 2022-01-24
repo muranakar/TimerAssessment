@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SwiftUI
 
 final class AssessmentViewController: UIViewController {
     //　画面遷移で値を受け取る変数
