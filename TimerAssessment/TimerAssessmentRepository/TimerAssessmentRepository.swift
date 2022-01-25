@@ -14,48 +14,65 @@ final class TimerAssessmentRepository {
 
     // MARK: - AssessorRepository
     // 全評価者の呼び出し
-    func loadAssessor() -> [RealmAssessor] {
-        let assessors = realm.objects(RealmAssessor.self)
-        let assessorsArray = Array(assessors)
-        return assessorsArray
+    func loadAssessor() -> [Assessor] {
+        let realmAssessors = realm.objects(RealmAssessor.self)
+        let realmAssessorsArray = Array(realmAssessors)
+        let Assessors = realmAssessorsArray.map {Assessor(managedObject: $0) }
+        return Assessors
     }
     // 評価者UUIDによる評価者（一人）の呼び出し
-    func loadAssessor(assessorUUID: UUID) -> RealmAssessor? {
-        let assessor = realm.object(ofType: RealmAssessor.self, forPrimaryKey: assessorUUID.uuidString)
+    func loadAssessor(assessorUUID: UUID) -> Assessor? {
+        let realmAssessor = realm.object(ofType: RealmAssessor.self, forPrimaryKey: assessorUUID.uuidString)
+        guard let realmAssessor = realmAssessor else {
+            return nil
+        }
+        let assessor = Assessor(managedObject: realmAssessor)
         return assessor
     }
     // 対象者UUIDによる評価者（一人）の呼び出し
-    func loadAssessor(targetPersonUUID: UUID) -> RealmAssessor? {
-        guard let fetchedTargetPerson = realm.object(
+    func loadAssessor(targetPersonUUID: UUID) -> Assessor? {
+        guard let fetchedRealmTargetPerson = realm.object(
             ofType: RealmTargetPerson.self,
             forPrimaryKey: targetPersonUUID.uuidString
-        ) else { return nil }
-        return fetchedTargetPerson.assessors.first
+        ) else {
+            return nil
+        }
+        let realmAssessor = fetchedRealmTargetPerson.assessors.first
+        guard let realmAssessor = realmAssessor else {
+            return nil
+        }
+        let assessor = Assessor(managedObject: realmAssessor)
+        return assessor
     }
+
     //　評価者の追加
-    func apppendAssessor(assesor: RealmAssessor) {
+    func apppendAssessor(assesor: Assessor) {
         // swiftlint:disable:next force_cast
         try! realm.write {
-            realm.add(assesor)
+            let realmAssessor = assesor.managedObject()
+            realm.add(realmAssessor)
         }
     }
+
     // 評価者の更新
-    func updateAssessor(uuid: UUID, name: String) {
+    func updateAssessor(assessor: Assessor) {
         // swiftlint:disable:next force_cast
         try! realm.write {
-            let assessor = realm.object(ofType: RealmAssessor.self, forPrimaryKey: uuid.uuidString)
-            assessor?.name = name
+            let realmAssessor = realm.object(ofType: RealmAssessor.self, forPrimaryKey: assessor.uuidString)
+            realmAssessor?.name = assessor.name
         }
     }
+
     // 評価者の削除
-    func removeAssessor(uuid: UUID) {
-        guard let assessor = realm.object(ofType: RealmAssessor.self, forPrimaryKey: uuid.uuidString) else { return }
+    func removeAssessor(assessor: Assessor) {
+        guard let assessor = realm.object(ofType: RealmAssessor.self, forPrimaryKey: assessor.uuidString) else { return }
         // swiftlint:disable:next force_cast
         try! realm.write {
             realm.delete(assessor)
         }
     }
 
+    // MARK: - ここまで完了
     // MARK: - TargetPersonRepository
     // 一人の評価者が評価するor評価した、対象者の配列の呼び出し
     func loadTargetPerson(assessorUUID: UUID) -> [RealmTargetPerson] {
@@ -183,72 +200,41 @@ final class TimerAssessmentRepository {
         return timerAssessmentListArray
     }
 
-    // MARK: - ここまで実装
     //  一人のAssessmentItemのTimerAssessmentデータの追加
-    func appendFIM(targetPersonUUID: UUID, fim: FIM) {
+    func appendTimerAssessment(assessmentItemUUID: UUID, timerAssessment: RealmTimerAssessment) {
         guard let list = realm.object(
-            ofType: TargetPerson.self,
-            forPrimaryKey: targetPersonUUID.uuidString
-        )?.FIM else { return }
+            ofType: RealmAssessmentItem.self,
+            forPrimaryKey: assessmentItemUUID.uuidString
+        )?.timerAssessments else { return }
         // swiftlint:disable:next force_cast
         try! realm.write {
-            fim.createdAt = Date()
-            list.append(fim)
+            timerAssessment.createdAt = Date()
+            list.append(timerAssessment)
         }
     }
-    // TimerAssessmentデータの更新
-    func updateFIM(fimItemNumArray: [Int], fimUUID: UUID) {
-        // swiftlint:disable:next force_cast
-        try! realm.write {
-            let loadedFIM = realm.object(ofType: FIM.self, forPrimaryKey: fimUUID.uuidString)
-            loadedFIM?.eating = fimItemNumArray[0]
-            loadedFIM?.grooming = fimItemNumArray[1]
-            loadedFIM?.bathing = fimItemNumArray[2]
-            loadedFIM?.dressingUpperBody = fimItemNumArray[3]
-            loadedFIM?.dressingLowerBody = fimItemNumArray[4]
-            loadedFIM?.toileting = fimItemNumArray[5]
-            loadedFIM?.bladderManagement = fimItemNumArray[6]
-            loadedFIM?.bowelManagement = fimItemNumArray[7]
-            loadedFIM?.transfersBedChairWheelchair = fimItemNumArray[8]
-            loadedFIM?.transfersToilet = fimItemNumArray[9]
-            loadedFIM?.transfersBathShower = fimItemNumArray[10]
-            loadedFIM?.walkWheelchair = fimItemNumArray[11]
-            loadedFIM?.stairs = fimItemNumArray[12]
-            loadedFIM?.comprehension = fimItemNumArray[13]
-            loadedFIM?.expression = fimItemNumArray[14]
-            loadedFIM?.socialInteraction = fimItemNumArray[15]
-            loadedFIM?.problemSolving = fimItemNumArray[16]
-            loadedFIM?.memory = fimItemNumArray[17]
-            loadedFIM?.updatedAt = Date()
-            //            loadedFIM.eating = fimItemNumArray.eating
-            //            loadedFIM.grooming = fimItemNumArray.grooming
-            //            loadedFIM.bathing = fimItemNumArray.bathing
-            //            loadedFIM.dressingUpperBody = fimItemNumArray.dressingUpperBody
-            //            loadedFIM.dressingLowerBody = fimItemNumArray.dressingLowerBody
-            //            loadedFIM.toileting = fimItemNumArray.toileting
-            //            loadedFIM.bladderManagement = fimItemNumArray.bladderManagement
-            //            loadedFIM.bowelManagement = fimItemNumArray.bowelManagement
-            //            loadedFIM.transfersBedChairWheelchair = fimItemNumArray.transfersBedChairWheelchair
-            //            loadedFIM.transfersToilet = fimItemNumArray.transfersToilet
-            //            loadedFIM.transfersBathShower = fimItemNumArray.transfersBathShower
-            //            loadedFIM.walkWheelchair = fimItemNumArray.walkWheelchair
-            //            loadedFIM.stairs = fimItemNumArray.stairs
-            //            loadedFIM.comprehension = fimItemNumArray.comprehension
-            //            loadedFIM.expression = fimItemNumArray.expression
-            //            loadedFIM.socialInteraction = fimItemNumArray.socialInteraction
-            //            loadedFIM.problemSolving = fimItemNumArray.problemSolving
-            //            loadedFIM.memory = fimItemNumArray.memory
 
-            //            realm.add(fimItemNumArray, update: .modified)
-            //            fimItemNumArray.updatedAt = Date()
-        }
-    }
-    // TimerAssessmentデータの削除
-    func removeFIM(fimUUID: UUID) {
-        guard let fetchedFIM = realm.object(ofType: FIM.self, forPrimaryKey: fimUUID.uuidString) else { return }
+    // TimerAssessmentデータの更新
+    func updateTimerAssessment(resultTimer: Float, timerAssessmentUUID: UUID) {
         // swiftlint:disable:next force_cast
         try! realm.write {
-            realm.delete(fetchedFIM)
+            let loadedTimerAssessment = realm.object(
+                ofType: RealmTimerAssessment.self,
+                forPrimaryKey: timerAssessmentUUID.uuidString
+            )
+            loadedTimerAssessment?.resultTimer = resultTimer
+            loadedTimerAssessment?.updatedAt = Date()
+            }
+    }
+
+    // TimerAssessmentデータの削除
+    func removeTimerAssessment(timerAssessmentUUID: UUID) {
+        guard let fetchedTimerAssessment = realm.object(
+            ofType: RealmTimerAssessment.self,
+            forPrimaryKey: timerAssessmentUUID.uuidString
+        ) else { return }
+        // swiftlint:disable:next force_cast
+        try! realm.write {
+            realm.delete(fetchedTimerAssessment)
         }
     }
 }

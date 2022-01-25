@@ -35,6 +35,7 @@
 		B27A1F2227790FAA00ECBA0F /* FIMTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27A1F2027790FAA00ECBA0F /* FIMTableViewCell.swift */; };
 		B27A1F2327790FAA00ECBA0F /* FIMTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B27A1F2127790FAA00ECBA0F /* FIMTableViewCell.xib */; };
 		B2892862278DBBE700965E86 /* TargetPersonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2892861278DBBE700965E86 /* TargetPersonViewController.swift */; };
+		B2ADB23C27A0A01500BDF423 /* TimerAssessment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2ADB23B27A0A01500BDF423 /* TimerAssessment.swift */; };
 		B2AEFF152784E9CA0010F539 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2AEFF142784E9CA0010F539 /* Colors.swift */; };
 		B2AF2576277BB26100F40DC9 /* EditFIM.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2AF2575277BB26100F40DC9 /* EditFIM.storyboard */; };
 		B2AF2578277BB29300F40DC9 /* EditFIMTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2AF2577277BB29300F40DC9 /* EditFIMTableViewController.swift */; };
@@ -76,6 +77,7 @@
 		B27A1F2027790FAA00ECBA0F /* FIMTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FIMTableViewCell.swift; sourceTree = "<group>"; };
 		B27A1F2127790FAA00ECBA0F /* FIMTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FIMTableViewCell.xib; sourceTree = "<group>"; };
 		B2892861278DBBE700965E86 /* TargetPersonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetPersonViewController.swift; sourceTree = "<group>"; };
+		B2ADB23B27A0A01500BDF423 /* TimerAssessment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerAssessment.swift; sourceTree = "<group>"; };
 		B2AEFF142784E9CA0010F539 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		B2AF2575277BB26100F40DC9 /* EditFIM.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EditFIM.storyboard; sourceTree = "<group>"; };
 		B2AF2577277BB29300F40DC9 /* EditFIMTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFIMTableViewController.swift; sourceTree = "<group>"; };
@@ -193,6 +195,7 @@
 			children = (
 				B2B38BAD279F73B2004174A5 /* RealmTimerAssessment.swift */,
 				B2377182275EACE400A48640 /* TimerAssessmentRepository.swift */,
+				B2ADB23B27A0A01500BDF423 /* TimerAssessment.swift */,
 			);
 			path = TimerAssessmentRepository;
 			sourceTree = "<group>";
@@ -402,6 +405,7 @@
 				B237716D275EA97000A48640 /* FunctionSelectionViewController.swift in Sources */,
 				B2B38BAE279F73B2004174A5 /* RealmTimerAssessment.swift in Sources */,
 				B2377183275EACE400A48640 /* TimerAssessmentRepository.swift in Sources */,
+				B2ADB23C27A0A01500BDF423 /* TimerAssessment.swift in Sources */,
 				B2AF257A277BB42C00F40DC9 /* EditFIMTableViewCell.swift in Sources */,
 				B237714F275EA64D00A48640 /* AppDelegate.swift in Sources */,
 				B2377186275EBF4000A48640 /* InputTargetPersonViewController.swift in Sources */,

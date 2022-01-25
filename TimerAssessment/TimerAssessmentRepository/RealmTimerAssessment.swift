@@ -10,7 +10,7 @@ import RealmSwift
 
 // MARK: - RealmAssessor 評価者
 final class RealmAssessor: Object {
-    @objc dynamic var uuidString = UUID().uuidString
+    @objc dynamic var uuidString = ""
     @objc dynamic var name = ""
     var targetPersons = List<RealmTargetPerson>()
     var uuid: UUID? {
@@ -25,6 +25,7 @@ final class RealmAssessor: Object {
         self.name = name
     }
 }
+
 
 // MARK: - RealmTagetPerson　対象者
 final class RealmTargetPerson: Object {
@@ -66,7 +67,7 @@ final class RealmAssessmentItem: Object {
     }
 }
 
-// MARK: - RealmAssessmentItem　対象者
+// MARK: - RealmTimerAssessment 時間評価
 final class RealmTimerAssessment: Object {
     @objc dynamic var uuidString = UUID().uuidString
     @objc dynamic var resultTimer: Float = 0
