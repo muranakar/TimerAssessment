@@ -26,7 +26,6 @@ final class RealmAssessor: Object {
     }
 }
 
-
 // MARK: - RealmTagetPerson　対象者
 final class RealmTargetPerson: Object {
     @objc dynamic var uuidString = UUID().uuidString
@@ -95,3 +94,5 @@ final class RealmTimerAssessment: Object {
         }
     }
 }
+
+

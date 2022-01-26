@@ -17,8 +17,8 @@ final class TimerAssessmentRepository {
     func loadAssessor() -> [Assessor] {
         let realmAssessors = realm.objects(RealmAssessor.self)
         let realmAssessorsArray = Array(realmAssessors)
-        let Assessors = realmAssessorsArray.map {Assessor(managedObject: $0) }
-        return Assessors
+        let assessors = realmAssessorsArray.map {Assessor(managedObject: $0) }
+        return assessors
     }
     // 評価者UUIDによる評価者（一人）の呼び出し
     func loadAssessor(assessorUUID: UUID) -> Assessor? {
@@ -65,33 +65,51 @@ final class TimerAssessmentRepository {
 
     // 評価者の削除
     func removeAssessor(assessor: Assessor) {
-        guard let assessor = realm.object(ofType: RealmAssessor.self, forPrimaryKey: assessor.uuidString) else { return }
+        guard let assessor = realm.object(
+            ofType: RealmAssessor.self,
+            forPrimaryKey: assessor.uuidString
+        ) else { return }
         // swiftlint:disable:next force_cast
         try! realm.write {
             realm.delete(assessor)
         }
     }
 
-    // MARK: - ここまで完了
     // MARK: - TargetPersonRepository
     // 一人の評価者が評価するor評価した、対象者の配列の呼び出し
-    func loadTargetPerson(assessorUUID: UUID) -> [RealmTargetPerson] {
-        let assessor = realm.object(ofType: RealmAssessor.self, forPrimaryKey: assessorUUID.uuidString)
-        guard let targetPersons = assessor?.targetPersons else { return [] }
-        let targetPersonsArray = Array(targetPersons)
-        return targetPersonsArray
+    func loadTargetPerson(assessorUUID: UUID) -> [TargetPerson] {
+        let realmAssessor = realm.object(ofType: RealmAssessor.self, forPrimaryKey: assessorUUID.uuidString)
+        guard let realmTargetPersons = realmAssessor?.targetPersons else { return [] }
+        let targetPersonsArray = Array(realmTargetPersons)
+        let targetPersons = targetPersonsArray.map {TargetPerson(managedObject: $0)}
+        return targetPersons
     }
     // 一人の対象者のUUIDから、一人の対象者の呼び出し
-    func loadTargetPerson(targetPersonUUID: UUID) -> RealmTargetPerson? {
-        let targetPerson = realm.object(ofType: RealmTargetPerson.self, forPrimaryKey: targetPersonUUID.uuidString)
+    func loadTargetPerson(targetPersonUUID: UUID) -> TargetPerson? {
+        guard let realmTargetPerson = realm.object(
+            ofType: RealmTargetPerson.self,
+            forPrimaryKey: targetPersonUUID.uuidString
+        ) else {
+            return nil
+        }
+        let targetPerson = TargetPerson(managedObject: realmTargetPerson)
         return targetPerson
     }
-
-    // 一つのFIMのUUIDから、そのAssessmentItemがどの対象者かの呼び出し
-    func loadTargetPerson(assessmentItemUUID: UUID) -> RealmTargetPerson? {
-        guard let fetchedFIM = realm.object(ofType: RealmAssessmentItem.self, forPrimaryKey: assessmentItemUUID.uuidString) else { return nil }
-        return fetchedFIM.targetPersons.first
+    // 一つのAssessmentItemのUUIDから、そのAssessmentItemがどの対象者かの呼び出し
+    func loadTargetPerson(assessmentItemUUID: UUID) -> TargetPerson? {
+        guard let fetchedAssessmentItem = realm.object(
+            ofType: RealmAssessmentItem.self,
+            forPrimaryKey: assessmentItemUUID.uuidString
+        ) else {
+            return nil
+        }
+        guard let realmTargetPerson = fetchedAssessmentItem.targetPersons.first else {
+            return nil
+        }
+        let targetPerson = TargetPerson(managedObject: realmTargetPerson)
+        return targetPerson
     }
+    // MARK: - ここまで完了
     //  一人の評価者の対象者の追加
     func appendTargetPerson(assessorUUID: UUID, targetPerson: RealmTargetPerson) {
         guard let list = realm.object(
@@ -223,7 +241,7 @@ final class TimerAssessmentRepository {
             )
             loadedTimerAssessment?.resultTimer = resultTimer
             loadedTimerAssessment?.updatedAt = Date()
-            }
+        }
     }
 
     // TimerAssessmentデータの削除
@@ -236,5 +254,66 @@ final class TimerAssessmentRepository {
         try! realm.write {
             realm.delete(fetchedTimerAssessment)
         }
+    }
+}
+
+// MARK: - struct構造体、Realmオブジェクトへの変換、Realmオブジェクトからの変換のイニシャライザ・メソッド追加
+private extension Assessor {
+    init(managedObject: RealmAssessor) {
+        self.uuidString = managedObject.uuidString
+        self.name = managedObject.name
+    }
+
+    func managedObject() -> RealmAssessor {
+        let realmAssessor = RealmAssessor()
+        realmAssessor.uuidString = self.uuidString
+        realmAssessor.name = self.name
+        return realmAssessor
+    }
+}
+
+private extension TargetPerson {
+    init(managedObject: RealmTargetPerson) {
+        self.uuidString = managedObject.uuidString
+        self.name = managedObject.name
+    }
+
+    func managedObject() -> RealmTargetPerson {
+        let realmTargetPerson = RealmTargetPerson()
+        realmTargetPerson.uuidString = self.uuidString
+        realmTargetPerson.name = self.name
+        return realmTargetPerson
+    }
+}
+
+private extension AssessmentItem{
+    init(managedObject: RealmAssessmentItem) {
+        self.uuidString = managedObject.uuidString
+        self.name = managedObject.name
+    }
+
+    func managedObject() -> RealmAssessmentItem {
+        let realmAssessmentItem = RealmAssessmentItem()
+        realmAssessmentItem.uuidString = self.uuidString
+        realmAssessmentItem.name = self.name
+        return realmAssessmentItem
+    }
+}
+
+private extension TimerAssessment {
+    init(managedObject: RealmTimerAssessment) {
+        self.uuidString = managedObject.uuidString
+        self.resultTimer = managedObject.resultTimer
+        self.createdAt = managedObject.createdAt
+        self.updatedAt = managedObject.updatedAt
+    }
+
+    func managedObject() -> RealmTimerAssessment {
+        let realmTimerAssessment = RealmTimerAssessment()
+        realmTimerAssessment.uuidString = self.uuidString
+        realmTimerAssessment.resultTimer = self.resultTimer
+        realmTimerAssessment.createdAt = self.createdAt
+        realmTimerAssessment.updatedAt = self.updatedAt
+        return realmTimerAssessment
     }
 }

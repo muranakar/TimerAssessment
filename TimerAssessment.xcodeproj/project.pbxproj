@@ -8,9 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		2FBC7FFAC4F941B08582C4C8 /* Pods_TimerAssessment.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F6226C84A5CA5D5B456F833 /* Pods_TimerAssessment.framework */; };
-		B20E68DB276DB6C1008CD04E /* Assessment.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B20E68DA276DB6C1008CD04E /* Assessment.storyboard */; };
-		B20E68DD276DB723008CD04E /* FIMTable.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B20E68DC276DB723008CD04E /* FIMTable.storyboard */; };
-		B20E68E2276DBDEA008CD04E /* FIM.json in Resources */ = {isa = PBXBuildFile; fileRef = B20E68E1276DBDE9008CD04E /* FIM.json */; };
 		B22FBEFE275FFA8600DA71C8 /* InputAssessor.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B22FBEFD275FFA8600DA71C8 /* InputAssessor.storyboard */; };
 		B22FBF00275FFCB200DA71C8 /* TargetPerson.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B22FBEFF275FFCB200DA71C8 /* TargetPerson.storyboard */; };
 		B22FBF02275FFCC900DA71C8 /* InputTargetPerson.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B22FBF01275FFCC900DA71C8 /* InputTargetPerson.storyboard */; };
@@ -20,37 +17,21 @@
 		B2377158275EA64E00A48640 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2377157275EA64E00A48640 /* Assets.xcassets */; };
 		B237715B275EA64E00A48640 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2377159275EA64E00A48640 /* LaunchScreen.storyboard */; };
 		B2377167275EA6E300A48640 /* InputAssessorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2377166275EA6E200A48640 /* InputAssessorViewController.swift */; };
-		B237716D275EA97000A48640 /* FunctionSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B237716C275EA97000A48640 /* FunctionSelectionViewController.swift */; };
-		B237716F275EAA0F00A48640 /* AssessmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B237716E275EAA0F00A48640 /* AssessmentViewController.swift */; };
-		B2377175275EAAB100A48640 /* FIMTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2377174275EAAB100A48640 /* FIMTableViewController.swift */; };
 		B237717A275EAB8F00A48640 /* AssessorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2377179275EAB8F00A48640 /* AssessorTableViewCell.swift */; };
 		B237717C275EABA300A48640 /* TargetPersonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B237717B275EABA300A48640 /* TargetPersonTableViewCell.swift */; };
 		B2377183275EACE400A48640 /* TimerAssessmentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2377182275EACE400A48640 /* TimerAssessmentRepository.swift */; };
 		B2377186275EBF4000A48640 /* InputTargetPersonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2377185275EBF4000A48640 /* InputTargetPersonViewController.swift */; };
-		B23EA88B27614BC2000B64C7 /* FunctionSelection.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B23EA88A27614BC2000B64C7 /* FunctionSelection.storyboard */; };
-		B2767C492774AC4C004E59C3 /* DetailTextlBoldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2767C482774AC4C004E59C3 /* DetailTextlBoldTableViewCell.swift */; };
-		B2767C4B27750F15004E59C3 /* DetailFIMViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2767C4A27750F15004E59C3 /* DetailFIMViewController.swift */; };
-		B2767C4D27750FCC004E59C3 /* DetailFIM.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2767C4C27750FCC004E59C3 /* DetailFIM.storyboard */; };
 		B277D4F4278D021800E6CADB /* AssessorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B277D4F3278D021800E6CADB /* AssessorViewController.swift */; };
-		B27A1F2227790FAA00ECBA0F /* FIMTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27A1F2027790FAA00ECBA0F /* FIMTableViewCell.swift */; };
-		B27A1F2327790FAA00ECBA0F /* FIMTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B27A1F2127790FAA00ECBA0F /* FIMTableViewCell.xib */; };
 		B2892862278DBBE700965E86 /* TargetPersonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2892861278DBBE700965E86 /* TargetPersonViewController.swift */; };
 		B2ADB23C27A0A01500BDF423 /* TimerAssessment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2ADB23B27A0A01500BDF423 /* TimerAssessment.swift */; };
 		B2AEFF152784E9CA0010F539 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2AEFF142784E9CA0010F539 /* Colors.swift */; };
-		B2AF2576277BB26100F40DC9 /* EditFIM.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2AF2575277BB26100F40DC9 /* EditFIM.storyboard */; };
-		B2AF2578277BB29300F40DC9 /* EditFIMTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2AF2577277BB29300F40DC9 /* EditFIMTableViewController.swift */; };
-		B2AF257A277BB42C00F40DC9 /* EditFIMTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2AF2579277BB42C00F40DC9 /* EditFIMTableViewCell.swift */; };
 		B2B38BAE279F73B2004174A5 /* RealmTimerAssessment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B38BAD279F73B2004174A5 /* RealmTimerAssessment.swift */; };
-		B2C301302773CE7C0051FC1A /* DetailFIMTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C3012F2773CE7C0051FC1A /* DetailFIMTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1390E737DB06F589457664BE /* Pods-TimerAssessment.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimerAssessment.debug.xcconfig"; path = "Target Support Files/Pods-TimerAssessment/Pods-TimerAssessment.debug.xcconfig"; sourceTree = "<group>"; };
 		2F6226C84A5CA5D5B456F833 /* Pods_TimerAssessment.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TimerAssessment.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BF500A3B0DFAE63EA38E5CB /* Pods-TimerAssessment.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimerAssessment.release.xcconfig"; path = "Target Support Files/Pods-TimerAssessment/Pods-TimerAssessment.release.xcconfig"; sourceTree = "<group>"; };
-		B20E68DA276DB6C1008CD04E /* Assessment.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Assessment.storyboard; sourceTree = "<group>"; };
-		B20E68DC276DB723008CD04E /* FIMTable.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FIMTable.storyboard; sourceTree = "<group>"; };
-		B20E68E1276DBDE9008CD04E /* FIM.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = FIM.json; sourceTree = "<group>"; };
 		B22FBEFD275FFA8600DA71C8 /* InputAssessor.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = InputAssessor.storyboard; sourceTree = "<group>"; };
 		B22FBEFF275FFCB200DA71C8 /* TargetPerson.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TargetPerson.storyboard; sourceTree = "<group>"; };
 		B22FBF01275FFCC900DA71C8 /* InputTargetPerson.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = InputTargetPerson.storyboard; sourceTree = "<group>"; };
@@ -62,28 +43,15 @@
 		B237715A275EA64E00A48640 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B237715C275EA64E00A48640 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B2377166275EA6E200A48640 /* InputAssessorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputAssessorViewController.swift; sourceTree = "<group>"; };
-		B237716C275EA97000A48640 /* FunctionSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionSelectionViewController.swift; sourceTree = "<group>"; };
-		B237716E275EAA0F00A48640 /* AssessmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssessmentViewController.swift; sourceTree = "<group>"; };
-		B2377174275EAAB100A48640 /* FIMTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FIMTableViewController.swift; sourceTree = "<group>"; };
 		B2377179275EAB8F00A48640 /* AssessorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssessorTableViewCell.swift; sourceTree = "<group>"; };
 		B237717B275EABA300A48640 /* TargetPersonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetPersonTableViewCell.swift; sourceTree = "<group>"; };
 		B2377182275EACE400A48640 /* TimerAssessmentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerAssessmentRepository.swift; sourceTree = "<group>"; };
 		B2377185275EBF4000A48640 /* InputTargetPersonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTargetPersonViewController.swift; sourceTree = "<group>"; };
-		B23EA88A27614BC2000B64C7 /* FunctionSelection.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FunctionSelection.storyboard; sourceTree = "<group>"; };
-		B2767C482774AC4C004E59C3 /* DetailTextlBoldTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTextlBoldTableViewCell.swift; sourceTree = "<group>"; };
-		B2767C4A27750F15004E59C3 /* DetailFIMViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailFIMViewController.swift; sourceTree = "<group>"; };
-		B2767C4C27750FCC004E59C3 /* DetailFIM.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DetailFIM.storyboard; sourceTree = "<group>"; };
 		B277D4F3278D021800E6CADB /* AssessorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssessorViewController.swift; sourceTree = "<group>"; };
-		B27A1F2027790FAA00ECBA0F /* FIMTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FIMTableViewCell.swift; sourceTree = "<group>"; };
-		B27A1F2127790FAA00ECBA0F /* FIMTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FIMTableViewCell.xib; sourceTree = "<group>"; };
 		B2892861278DBBE700965E86 /* TargetPersonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetPersonViewController.swift; sourceTree = "<group>"; };
 		B2ADB23B27A0A01500BDF423 /* TimerAssessment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerAssessment.swift; sourceTree = "<group>"; };
 		B2AEFF142784E9CA0010F539 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
-		B2AF2575277BB26100F40DC9 /* EditFIM.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EditFIM.storyboard; sourceTree = "<group>"; };
-		B2AF2577277BB29300F40DC9 /* EditFIMTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFIMTableViewController.swift; sourceTree = "<group>"; };
-		B2AF2579277BB42C00F40DC9 /* EditFIMTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFIMTableViewCell.swift; sourceTree = "<group>"; };
 		B2B38BAD279F73B2004174A5 /* RealmTimerAssessment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmTimerAssessment.swift; sourceTree = "<group>"; };
-		B2C3012F2773CE7C0051FC1A /* DetailFIMTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailFIMTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,11 +104,6 @@
 				B2377184275EACF100A48640 /* TimerAssessmentRepository */,
 				B2377176275EAAD400A48640 /* Assessor */,
 				B2377177275EAAFC00A48640 /* TargetPerson */,
-				B29FFC3D27766BF200DD0865 /* FunctionSelectionViewController */,
-				B237717F275EAC0100A48640 /* Assessment */,
-				B2377178275EAB2100A48640 /* FIM */,
-				B2767C5027752BB3004E59C3 /* DetailFIM */,
-				B2767C5127752BFE004E59C3 /* EditFIM */,
 			);
 			path = TimerAssessment;
 			sourceTree = "<group>";
@@ -169,27 +132,6 @@
 			path = TargetPerson;
 			sourceTree = "<group>";
 		};
-		B2377178275EAB2100A48640 /* FIM */ = {
-			isa = PBXGroup;
-			children = (
-				B2377174275EAAB100A48640 /* FIMTableViewController.swift */,
-				B27A1F2027790FAA00ECBA0F /* FIMTableViewCell.swift */,
-				B27A1F2127790FAA00ECBA0F /* FIMTableViewCell.xib */,
-				B20E68DC276DB723008CD04E /* FIMTable.storyboard */,
-			);
-			path = FIM;
-			sourceTree = "<group>";
-		};
-		B237717F275EAC0100A48640 /* Assessment */ = {
-			isa = PBXGroup;
-			children = (
-				B237716E275EAA0F00A48640 /* AssessmentViewController.swift */,
-				B20E68E1276DBDE9008CD04E /* FIM.json */,
-				B20E68DA276DB6C1008CD04E /* Assessment.storyboard */,
-			);
-			path = Assessment;
-			sourceTree = "<group>";
-		};
 		B2377184275EACF100A48640 /* TimerAssessmentRepository */ = {
 			isa = PBXGroup;
 			children = (
@@ -198,36 +140,6 @@
 				B2ADB23B27A0A01500BDF423 /* TimerAssessment.swift */,
 			);
 			path = TimerAssessmentRepository;
-			sourceTree = "<group>";
-		};
-		B2767C5027752BB3004E59C3 /* DetailFIM */ = {
-			isa = PBXGroup;
-			children = (
-				B2767C4A27750F15004E59C3 /* DetailFIMViewController.swift */,
-				B2C3012F2773CE7C0051FC1A /* DetailFIMTableViewCell.swift */,
-				B2767C482774AC4C004E59C3 /* DetailTextlBoldTableViewCell.swift */,
-				B2767C4C27750FCC004E59C3 /* DetailFIM.storyboard */,
-			);
-			path = DetailFIM;
-			sourceTree = "<group>";
-		};
-		B2767C5127752BFE004E59C3 /* EditFIM */ = {
-			isa = PBXGroup;
-			children = (
-				B2AF2577277BB29300F40DC9 /* EditFIMTableViewController.swift */,
-				B2AF2579277BB42C00F40DC9 /* EditFIMTableViewCell.swift */,
-				B2AF2575277BB26100F40DC9 /* EditFIM.storyboard */,
-			);
-			path = EditFIM;
-			sourceTree = "<group>";
-		};
-		B29FFC3D27766BF200DD0865 /* FunctionSelectionViewController */ = {
-			isa = PBXGroup;
-			children = (
-				B237716C275EA97000A48640 /* FunctionSelectionViewController.swift */,
-				B23EA88A27614BC2000B64C7 /* FunctionSelection.storyboard */,
-			);
-			path = FunctionSelectionViewController;
 			sourceTree = "<group>";
 		};
 		B2AEFF132784E9B30010F539 /* Color */ = {
@@ -310,16 +222,9 @@
 			files = (
 				B237715B275EA64E00A48640 /* LaunchScreen.storyboard in Resources */,
 				B22FBF02275FFCC900DA71C8 /* InputTargetPerson.storyboard in Resources */,
-				B20E68DB276DB6C1008CD04E /* Assessment.storyboard in Resources */,
 				B2377158275EA64E00A48640 /* Assets.xcassets in Resources */,
-				B20E68E2276DBDEA008CD04E /* FIM.json in Resources */,
-				B2767C4D27750FCC004E59C3 /* DetailFIM.storyboard in Resources */,
-				B20E68DD276DB723008CD04E /* FIMTable.storyboard in Resources */,
 				B22FBF00275FFCB200DA71C8 /* TargetPerson.storyboard in Resources */,
 				B22FBEFE275FFA8600DA71C8 /* InputAssessor.storyboard in Resources */,
-				B23EA88B27614BC2000B64C7 /* FunctionSelection.storyboard in Resources */,
-				B27A1F2327790FAA00ECBA0F /* FIMTableViewCell.xib in Resources */,
-				B2AF2576277BB26100F40DC9 /* EditFIM.storyboard in Resources */,
 				B2377156275EA64D00A48640 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -394,23 +299,14 @@
 				B2AEFF152784E9CA0010F539 /* Colors.swift in Sources */,
 				B277D4F4278D021800E6CADB /* AssessorViewController.swift in Sources */,
 				B237717C275EABA300A48640 /* TargetPersonTableViewCell.swift in Sources */,
-				B27A1F2227790FAA00ECBA0F /* FIMTableViewCell.swift in Sources */,
-				B2AF2578277BB29300F40DC9 /* EditFIMTableViewController.swift in Sources */,
 				B237717A275EAB8F00A48640 /* AssessorTableViewCell.swift in Sources */,
 				B2892862278DBBE700965E86 /* TargetPersonViewController.swift in Sources */,
-				B2377175275EAAB100A48640 /* FIMTableViewController.swift in Sources */,
-				B237716F275EAA0F00A48640 /* AssessmentViewController.swift in Sources */,
-				B2767C492774AC4C004E59C3 /* DetailTextlBoldTableViewCell.swift in Sources */,
-				B2C301302773CE7C0051FC1A /* DetailFIMTableViewCell.swift in Sources */,
-				B237716D275EA97000A48640 /* FunctionSelectionViewController.swift in Sources */,
 				B2B38BAE279F73B2004174A5 /* RealmTimerAssessment.swift in Sources */,
 				B2377183275EACE400A48640 /* TimerAssessmentRepository.swift in Sources */,
 				B2ADB23C27A0A01500BDF423 /* TimerAssessment.swift in Sources */,
-				B2AF257A277BB42C00F40DC9 /* EditFIMTableViewCell.swift in Sources */,
 				B237714F275EA64D00A48640 /* AppDelegate.swift in Sources */,
 				B2377186275EBF4000A48640 /* InputTargetPersonViewController.swift in Sources */,
 				B2377151275EA64D00A48640 /* SceneDelegate.swift in Sources */,
-				B2767C4B27750F15004E59C3 /* DetailFIMViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

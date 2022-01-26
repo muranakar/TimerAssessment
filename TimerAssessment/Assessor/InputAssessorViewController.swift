@@ -16,7 +16,7 @@ final class InputAssessorViewController: UIViewController {
         case edit
     }
     var mode: Mode?
-    private let fimRepository = FIMRepository()
+    let timerAssessmentRepository = TimerAssessmentRepository()
 
     var assessor: Assessor?
     @IBOutlet weak private var assessorNameTextField: UITextField!
@@ -37,7 +37,7 @@ final class InputAssessorViewController: UIViewController {
                 fatalError("editingAssessorUUID の中身が入っていない")
             }
             let assesorName =
-            fimRepository.loadAssessor(assessorUUID: editingAssessorUUID)?.name
+            timerAssessmentRepository.loadAssessor(assessorUUID: editingAssessorUUID)?.name
             return assesorName
         }
     }
@@ -48,19 +48,19 @@ final class InputAssessorViewController: UIViewController {
 
         switch mode {
         case .input:
-            let newAssessor = Assessor()
-            newAssessor.name = assessorNameTextField.text ?? ""
-            fimRepository.apppendAssessor(assesor: newAssessor)
+            let newAssessor = Assessor(name: assessorNameTextField.text ?? "")
+            timerAssessmentRepository.apppendAssessor(assesor: newAssessor)
         case .edit:
             guard let editingAssessorUUID = editingAssessorUUID else {
                 return
             }
             let editAssessorName = assessorNameTextField.text ?? ""
-            fimRepository.updateAssessor(
-                uuid: editingAssessorUUID,
-                name: editAssessorName)
+            timerAssessmentRepository.updateAssessor(
+                assessor: Assessor(
+                    uuidString: editingAssessorUUID.uuidString,
+                    name: editAssessorName
+                ))
         }
-
         performSegue(
             withIdentifier: "save",
             sender: sender

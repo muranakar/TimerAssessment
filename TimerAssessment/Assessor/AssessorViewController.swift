@@ -19,7 +19,7 @@ final class AssessorViewController: UIViewController, UITableViewDelegate, UITab
     }
     var selectedAssessorUUID: UUID?
     var editingAssessorUUID: UUID?
-    let fimRepository = FIMRepository()
+    let timerAssessmentRepository = TimerAssessmentRepository()
 
     // MARK: - Segue-　AssessorTableViewController →　inputAccessoryViewController
     @IBAction private func input(_ sender: Any) {
@@ -54,8 +54,7 @@ final class AssessorViewController: UIViewController, UITableViewDelegate, UITab
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        fimRepository.loadAssessor().count
-    }
+        timerAssessmentRepository.loadAssessor().count    }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         44
     }
@@ -63,18 +62,18 @@ final class AssessorViewController: UIViewController, UITableViewDelegate, UITab
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // swiftlint:disable:next force_cast
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! AssessorTableViewCell
-        let assessor = fimRepository.loadAssessor()[indexPath.row]
+        let assessor = timerAssessmentRepository.loadAssessor()[indexPath.row]
         cell.configue(assessor: assessor)
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedAssessorUUID = fimRepository.loadAssessor()[indexPath.row].uuid
+        selectedAssessorUUID = timerAssessmentRepository.loadAssessor()[indexPath.row].uuid
         toTargetPersonViewController(selectedAssessorUUID: selectedAssessorUUID)
     }
 
     func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-        editingAssessorUUID = fimRepository.loadAssessor()[indexPath.row].uuid
+        editingAssessorUUID = timerAssessmentRepository.loadAssessor()[indexPath.row].uuid
         performSegue(withIdentifier: "edit", sender: nil)
     }
 
@@ -82,9 +81,11 @@ final class AssessorViewController: UIViewController, UITableViewDelegate, UITab
                    commit editingStyle: UITableViewCell.EditingStyle,
                    forRowAt indexPath: IndexPath) {
         guard editingStyle == .delete else { return }
-        guard let uuid = fimRepository.loadAssessor()[indexPath.row].uuid else { return }
-        fimRepository.removeAssessor(uuid: uuid)
+        let assessors = timerAssessmentRepository.loadAssessor()
+        let assessor = assessors[indexPath.row]
+        timerAssessmentRepository.removeAssessor(assessor: assessor)
         tableView.reloadData()
+
     }
     // MARK: - Method
     private func toTargetPersonViewController(selectedAssessorUUID: UUID?) {
