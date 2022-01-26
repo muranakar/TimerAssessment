@@ -28,7 +28,7 @@ final class RealmAssessor: Object {
 
 // MARK: - RealmTagetPerson　対象者
 final class RealmTargetPerson: Object {
-    @objc dynamic var uuidString = UUID().uuidString
+    @objc dynamic var uuidString = ""
     @objc dynamic var name = ""
     var assessmentItems = List<RealmAssessmentItem>()
     var uuid: UUID? {
@@ -48,7 +48,7 @@ final class RealmTargetPerson: Object {
 
 // MARK: - RealmAssessmentItem　評価項目
 final class RealmAssessmentItem: Object {
-    @objc dynamic var uuidString = UUID().uuidString
+    @objc dynamic var uuidString = ""
     @objc dynamic var name = ""
     var timerAssessments = List<RealmTimerAssessment>()
     var uuid: UUID? {
@@ -68,7 +68,7 @@ final class RealmAssessmentItem: Object {
 
 // MARK: - RealmTimerAssessment 時間評価
 final class RealmTimerAssessment: Object {
-    @objc dynamic var uuidString = UUID().uuidString
+    @objc dynamic var uuidString = ""
     @objc dynamic var resultTimer: Float = 0
     @objc dynamic var createdAt: Date?
     @objc dynamic var updatedAt: Date?
