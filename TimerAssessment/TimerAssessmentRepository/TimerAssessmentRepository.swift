@@ -151,12 +151,6 @@ final class TimerAssessmentRepository {
         return assessmentItemsArray
     }
 
-//    // 一つのAssessmentItemのUUIDから、一つのAssessmentItemの呼び出し
-//    func loadAssessmentItem(assessmentItem: AssessmentItem) -> AssessmentItem? {
-//  let assessmentItem = realm.object(ofType: RealmAssessmentItem.self, forPrimaryKey: assessmentItemUUID.uuidString)
-//        return assessmentItem
-//    }
-
     // 一つのTimerAssessmentのUUIDから、そのTimerAssessmentが、どのAssessmentItemかの呼び出し
     func loadAssessmentItem(timerAssessment: TimerAssessment) -> AssessmentItem? {
         guard let fetchedRealmTimerAssessment = realm.object(
@@ -211,13 +205,6 @@ final class TimerAssessmentRepository {
     }
 
     // MARK: - TimerAssessmentRepository
-//    // 一つのTimerAssessmentのUUIDから、TimerAssessmentのデータの呼び出し
-//    func loadTimerAssessment(timerAssessmentUUID: UUID) -> TimerAssessment? {
-//        let timerAssessment = realm.object(
-// ofType: RealmTimerAssessment.self,
-// forPrimaryKey: timerAssessmentUUID.uuidString)
-//        return timerAssessment
-//    }
 
     //　一つのAssessmentItemのUUIDから、複数のTimerAssessmentのデータの呼び出し(並び替えあり)
     func loadTimerAssessment(
@@ -236,7 +223,6 @@ final class TimerAssessmentRepository {
         let timerAssessments = realmTimerAssessmentsArray.map { TimerAssessment(managedObject: $0)}
         return timerAssessments
     }
-    // MARK: - ここまで完了
     //  一人のAssessmentItemのTimerAssessmentデータの追加
     func appendTimerAssessment(
         assessmentItem: AssessmentItem,
