@@ -94,5 +94,3 @@ final class RealmTimerAssessment: Object {
         }
     }
 }
-
-

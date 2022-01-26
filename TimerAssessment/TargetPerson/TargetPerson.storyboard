@@ -11,7 +11,7 @@
         <!--対象者-->
         <scene sceneID="6Ww-r0-X45">
             <objects>
-                <viewController storyboardIdentifier="targetPerson" id="AgY-rI-kT1" customClass="TargetPersonViewController" customModule="FunctionalIndependenceMeasure" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="targetPerson" id="AgY-rI-kT1" customClass="TargetPersonViewController" customModule="TimerAssessment" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="CBn-f6-Sbm">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -20,7 +20,7 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="detailButton" indentationWidth="10" reuseIdentifier="cell" id="A1I-FQ-Sso" customClass="TargetPersonTableViewCell" customModule="FunctionalIndependenceMeasure" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="detailButton" indentationWidth="10" reuseIdentifier="cell" id="A1I-FQ-Sso" customClass="TargetPersonTableViewCell" customModule="TimerAssessment" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="A1I-FQ-Sso" id="c1X-JW-4ba">
@@ -81,7 +81,6 @@
                         <outlet property="tableView" destination="ECf-b5-uvp" id="f6i-PV-ZnG"/>
                         <segue destination="8XL-25-veN" kind="presentation" identifier="input" modalPresentationStyle="fullScreen" id="sah-RH-ZnE"/>
                         <segue destination="8XL-25-veN" kind="presentation" identifier="edit" id="07U-jD-VJo"/>
-                        <segue destination="au8-MM-zzM" kind="presentation" identifier="next" modalPresentationStyle="fullScreen" id="RdC-B7-qh3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Zr-md-KuU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -96,14 +95,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BXc-Wr-T9n" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2618" y="923"/>
-        </scene>
-        <!--FunctionSelection-->
-        <scene sceneID="QWT-ql-lIw">
-            <objects>
-                <viewControllerPlaceholder storyboardName="FunctionSelection" id="au8-MM-zzM" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5a6-3F-zkz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2578" y="728"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="eL9-10-Md0">

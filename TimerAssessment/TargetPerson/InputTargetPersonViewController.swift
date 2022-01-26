@@ -16,7 +16,7 @@ final class InputTargetPersonViewController: UIViewController {
     }
 
     var mode: Mode?
-    private let fimRepository = FIMRepository()
+    private let timerAssessmentRepository = TimerAssessmentRepository()
     var editingTargetPersonUUID: UUID?
     var targetPerson: TargetPerson?
     @IBOutlet weak private var targetPersonNameTextField: UITextField!
@@ -39,7 +39,9 @@ final class InputTargetPersonViewController: UIViewController {
             guard let editingTargetPersonUUID = editingTargetPersonUUID else {
                 fatalError("editingAssessorUUID の中身がありません。メソッド名：[\(#function)]")
             }
-            let targetPersonName = fimRepository.loadTargetPerson(targetPersonUUID: editingTargetPersonUUID)?.name
+            let targetPersonName = timerAssessmentRepository.loadTargetPerson(
+                targetPersonUUID: editingTargetPersonUUID
+            )?.name
             return targetPersonName
         }
     }
@@ -60,19 +62,18 @@ final class InputTargetPersonViewController: UIViewController {
 
         switch mode {
         case .input:
-            let newTargetPerson = TargetPerson()
-            newTargetPerson.name = targetPersonNameTextField.text ?? ""
-            fimRepository.appendTargetPerson(assessorUUID: assessorUUID!, targetPerson: newTargetPerson)
+            let newTargetPerson = TargetPerson(name: targetPersonNameTextField.text ?? "")
+            timerAssessmentRepository.appendTargetPerson(assessorUUID: assessorUUID!, targetPerson: newTargetPerson)
+
         case .edit:
             guard let editingTargetPersonUUID = editingTargetPersonUUID else {
                 fatalError("editingTargetPersonUUID　の中身がありません。メソッド名：[\(#function)]")
             }
-
-            let editingTargetPersonName = targetPersonNameTextField.text ?? ""
-            fimRepository.updateTargetPerson(
-                uuid: editingTargetPersonUUID,
-                name: editingTargetPersonName
+            let targetPerson = TargetPerson(
+                uuidString: editingTargetPersonUUID.uuidString,
+                name: targetPersonNameTextField.text ?? ""
             )
+            timerAssessmentRepository.updateTargetPerson(targetPerson: targetPerson)
         }
 
         performSegue(

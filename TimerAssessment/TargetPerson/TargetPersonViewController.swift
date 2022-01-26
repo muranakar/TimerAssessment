@@ -11,7 +11,7 @@ final class TargetPersonViewController: UIViewController, UITableViewDelegate, U
     var assessorUUID: UUID?
     private var selectedTargetPersonUUID: UUID?
     private var editingTargetPersonUUID: UUID?
-    private let fimRepository = FIMRepository()
+    private let timerAssessmentRepository = TimerAssessmentRepository()
     @IBOutlet weak private var tableView: UITableView!
     @IBOutlet weak private var inputButton: UIButton!
 
@@ -19,7 +19,7 @@ final class TargetPersonViewController: UIViewController, UITableViewDelegate, U
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
-        guard let assessorName = fimRepository.loadAssessor(assessorUUID: assessorUUID!)?.name else {
+        guard let assessorName = timerAssessmentRepository.loadAssessor(assessorUUID: assessorUUID!)?.name else {
             return
         }
         navigationItem.title = "\(assessorName)　様の対象者リスト"
@@ -62,7 +62,7 @@ final class TargetPersonViewController: UIViewController, UITableViewDelegate, U
         1
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        fimRepository.loadTargetPerson(assessorUUID: assessorUUID!).count
+        timerAssessmentRepository.loadTargetPerson(assessorUUID: assessorUUID!).count
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -72,18 +72,22 @@ final class TargetPersonViewController: UIViewController, UITableViewDelegate, U
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // swiftlint:disable:next force_cast
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! TargetPersonTableViewCell
-        let tagetPerson = fimRepository.loadTargetPerson(assessorUUID: assessorUUID!)[indexPath.row]
-        cell.configue(name: tagetPerson.name)
+        let targetPerson = timerAssessmentRepository.loadTargetPerson(assessorUUID: assessorUUID!)[indexPath.row]
+        cell.configue(name: targetPerson.name)
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedTargetPersonUUID = fimRepository.loadTargetPerson(assessorUUID: assessorUUID!)[indexPath.row].uuid
+        selectedTargetPersonUUID = timerAssessmentRepository.loadTargetPerson(
+            assessorUUID: assessorUUID!
+        )[indexPath.row].uuid
         toFunctionSelectionViewController(selectedTargetPersonUUID: selectedTargetPersonUUID)
     }
 
     func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-        editingTargetPersonUUID = fimRepository.loadTargetPerson(assessorUUID: assessorUUID!)[indexPath.row].uuid
+        editingTargetPersonUUID = timerAssessmentRepository.loadTargetPerson(
+            assessorUUID: assessorUUID!
+        )[indexPath.row].uuid
         performSegue(withIdentifier: "edit", sender: nil)
     }
 
@@ -93,17 +97,17 @@ final class TargetPersonViewController: UIViewController, UITableViewDelegate, U
         forRowAt indexPath: IndexPath
     ) {
         guard editingStyle == .delete else { return }
-        guard let uuid = fimRepository.loadTargetPerson(assessorUUID: assessorUUID!)[indexPath.row].uuid else { return }
-        fimRepository.removeTargetPerson(targetPersonUUID: uuid)
+        let targetPerson = timerAssessmentRepository.loadTargetPerson(assessorUUID: assessorUUID!)[indexPath.row]
+        timerAssessmentRepository.removeTargetPerson(targetPerson: targetPerson)
         tableView.reloadData()
     }
     // MARK: - Method
     private func toFunctionSelectionViewController(selectedTargetPersonUUID: UUID?) {
-        let storyboard = UIStoryboard(name: "FunctionSelection", bundle: nil)
-        let nextVC =
-        storyboard.instantiateViewController(withIdentifier: "functionSelection") as! FunctionSelectionViewController
-        nextVC.targetPersonUUID = selectedTargetPersonUUID
-        navigationController?.pushViewController(nextVC, animated: true)
+//        let storyboard = UIStoryboard(name: "FunctionSelection", bundle: nil)
+//        let nextVC =
+//        storyboard.instantiateViewController(withIdentifier: "functionSelection") as! FunctionSelectionViewController
+//        nextVC.targetPersonUUID = selectedTargetPersonUUID
+//        navigationController?.pushViewController(nextVC, animated: true)
     }
     // MARK: - View Configue
     private func configueViewColor() {

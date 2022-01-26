@@ -39,11 +39,9 @@ struct AssessmentItem {
 struct TimerAssessment {
     var uuidString = UUID().uuidString
     var resultTimer: Float
-    var createdAt: Date?
+    var createdAt: Date? = Date()
     var updatedAt: Date?
     var uuid: UUID? {
         UUID(uuidString: uuidString)
     }
 }
-
-

@@ -85,7 +85,6 @@ final class AssessorViewController: UIViewController, UITableViewDelegate, UITab
         let assessor = assessors[indexPath.row]
         timerAssessmentRepository.removeAssessor(assessor: assessor)
         tableView.reloadData()
-
     }
     // MARK: - Method
     private func toTargetPersonViewController(selectedAssessorUUID: UUID?) {
