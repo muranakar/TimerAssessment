@@ -25,7 +25,6 @@
 		B2892862278DBBE700965E86 /* TargetPersonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2892861278DBBE700965E86 /* TargetPersonViewController.swift */; };
 		B2ADB23C27A0A01500BDF423 /* TimerAssessment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2ADB23B27A0A01500BDF423 /* TimerAssessment.swift */; };
 		B2AEFF152784E9CA0010F539 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2AEFF142784E9CA0010F539 /* Colors.swift */; };
-		B2B38BAE279F73B2004174A5 /* RealmTimerAssessment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B38BAD279F73B2004174A5 /* RealmTimerAssessment.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,7 +50,6 @@
 		B2892861278DBBE700965E86 /* TargetPersonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetPersonViewController.swift; sourceTree = "<group>"; };
 		B2ADB23B27A0A01500BDF423 /* TimerAssessment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerAssessment.swift; sourceTree = "<group>"; };
 		B2AEFF142784E9CA0010F539 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
-		B2B38BAD279F73B2004174A5 /* RealmTimerAssessment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmTimerAssessment.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,7 +133,6 @@
 		B2377184275EACF100A48640 /* TimerAssessmentRepository */ = {
 			isa = PBXGroup;
 			children = (
-				B2B38BAD279F73B2004174A5 /* RealmTimerAssessment.swift */,
 				B2377182275EACE400A48640 /* TimerAssessmentRepository.swift */,
 				B2ADB23B27A0A01500BDF423 /* TimerAssessment.swift */,
 			);
@@ -301,7 +298,6 @@
 				B237717C275EABA300A48640 /* TargetPersonTableViewCell.swift in Sources */,
 				B237717A275EAB8F00A48640 /* AssessorTableViewCell.swift in Sources */,
 				B2892862278DBBE700965E86 /* TargetPersonViewController.swift in Sources */,
-				B2B38BAE279F73B2004174A5 /* RealmTimerAssessment.swift in Sources */,
 				B2377183275EACE400A48640 /* TimerAssessmentRepository.swift in Sources */,
 				B2ADB23C27A0A01500BDF423 /* TimerAssessment.swift in Sources */,
 				B237714F275EA64D00A48640 /* AppDelegate.swift in Sources */,
