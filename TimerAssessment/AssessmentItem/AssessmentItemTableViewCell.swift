@@ -8,9 +8,9 @@
 import UIKit
 
 class AssessmentItemTableViewCell: UITableViewCell {
-    @IBOutlet private weak var tagetPeronName: UILabel!
+    @IBOutlet private weak var assessmentItemName: UILabel!
 
     func configue(name: String) {
-        tagetPeronName.text = name
+        assessmentItemName.text = name
     }
 }

@@ -229,8 +229,8 @@ final class TimerAssessmentRepository {
 
     // MARK: - AssessmentItemRepository
     // 一人の評価者が評価するor評価した、対象者の配列の呼び出し
-    func loadAssessmentItem(targetPersonUUID: UUID) -> [AssessmentItem] {
-        let realmTargetPerson = realm.object(ofType: RealmTargetPerson.self, forPrimaryKey: targetPersonUUID.uuidString)
+    func loadAssessmentItem(targetPerson: TargetPerson) -> [AssessmentItem] {
+        let realmTargetPerson = realm.object(ofType: RealmTargetPerson.self, forPrimaryKey: targetPerson.uuidString)
         guard let realmAssessmentItems = realmTargetPerson?.assessmentItems else { return [] }
         let realmAssessmentItemsArray = Array(realmAssessmentItems)
         let assessmentItemsArray = realmAssessmentItemsArray.map { AssessmentItem(managedObject: $0) }
@@ -410,4 +410,5 @@ private extension TimerAssessment {
         realmTimerAssessment.updatedAt = self.updatedAt
         return realmTimerAssessment
     }
+    // swiftlint:disable:next file_length
 }

@@ -103,11 +103,12 @@ final class TargetPersonViewController: UIViewController, UITableViewDelegate, U
     }
     // MARK: - Method
     private func toFunctionSelectionViewController(selectedTargetPersonUUID: UUID?) {
-//        let storyboard = UIStoryboard(name: "FunctionSelection", bundle: nil)
-//        let nextVC =
-//        storyboard.instantiateViewController(withIdentifier: "functionSelection") as! FunctionSelectionViewController
-//        nextVC.targetPersonUUID = selectedTargetPersonUUID
-//        navigationController?.pushViewController(nextVC, animated: true)
+        let storyboard = UIStoryboard(name: "AssessmentItem", bundle: nil)
+        let nextVC = storyboard.instantiateViewController(
+            withIdentifier: "assessmentItem"
+        ) as! AssessmentItemViewController
+        nextVC.targetPerson = timerAssessmentRepository.loadTargetPerson(targetPersonUUID: selectedTargetPersonUUID!)
+        navigationController?.pushViewController(nextVC, animated: true)
     }
     // MARK: - View Configue
     private func configueViewColor() {

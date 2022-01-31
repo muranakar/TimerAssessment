@@ -20,7 +20,6 @@ class InputAssessmentItemViewController: UIViewController {
     var editingAssessmentItem: AssessmentItem?
     var assessmentItem: AssessmentItem?
     @IBOutlet weak private var assessmentItemNameTextField: UITextField!
-    // MARK: -ここまで完了。
     override func viewDidLoad() {
         super.viewDidLoad()
         guard let mode = mode else {
@@ -36,13 +35,7 @@ class InputAssessmentItemViewController: UIViewController {
         case .input:
             return ""
         case .edit:
-            guard let editingTargetPersonUUID = editingTargetPersonUUID else {
-                fatalError("editingAssessorUUID の中身がありません。メソッド名：[\(#function)]")
-            }
-            let targetPersonName = timerAssessmentRepository.loadTargetPerson(
-                targetPersonUUID: editingTargetPersonUUID
-            )?.name
-            return targetPersonName
+            return editingAssessmentItem?.name
         }
     }
 
@@ -55,25 +48,25 @@ class InputAssessmentItemViewController: UIViewController {
         navigationItem.scrollEdgeAppearance = appearance
         navigationItem.compactAppearance = appearance
     }
-
+    // MARK: - ここまで完了。
     // MARK: - 対象者データを保存するUIButtonのIBAction
     @IBAction private func saveAction(_ sender: Any) {
         guard let mode = mode else { return }
 
         switch mode {
         case .input:
-            let newTargetPerson = TargetPerson(name: targetPersonNameTextField.text ?? "")
-            timerAssessmentRepository.appendTargetPerson(assessorUUID: assessorUUID!, targetPerson: newTargetPerson)
+            let newAssessmentItem = AssessmentItem(name: assessmentItemNameTextField.text ?? "")
+            timerAssessmentRepository.appendAssessmentItem(
+                targetPerson: targetPerson!,
+                assessmentItem: newAssessmentItem
+            )
 
         case .edit:
-            guard let editingTargetPersonUUID = editingTargetPersonUUID else {
-                fatalError("editingTargetPersonUUID　の中身がありません。メソッド名：[\(#function)]")
-            }
-            let targetPerson = TargetPerson(
-                uuidString: editingTargetPersonUUID.uuidString,
-                name: targetPersonNameTextField.text ?? ""
+            let assessmentItem: AssessmentItem = AssessmentItem(
+                uuidString: editingAssessmentItem!.uuidString,
+                name: assessmentItemNameTextField.text ?? ""
             )
-            timerAssessmentRepository.updateTargetPerson(targetPerson: targetPerson)
+            timerAssessmentRepository.updateAssessmentItem(assessmentItem: assessmentItem)
         }
 
         performSegue(

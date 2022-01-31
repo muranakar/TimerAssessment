@@ -7,18 +7,24 @@
 
 import UIKit
 
-class AssessmentItemViewController: UIViewController ,UITableViewDelegate, UITableViewDataSource {
+class AssessmentItemViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    // 画面遷移時の変数の受け取り
     var targetPerson: TargetPerson?
+
+    // 画面遷移した際に使用したり、一時的に保存する変数
     private var selectedAssessmentItem: AssessmentItem?
     private var editingAssessmentItem: AssessmentItem?
     private let timerAssessmentRepository = TimerAssessmentRepository()
     @IBOutlet weak private var tableView: UITableView!
     @IBOutlet weak private var inputButton: UIButton!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
-        guard let targetPersonName = timerAssessmentRepository.loadTargetPerson(targetPersonUUID: (targetPerson?.uuid)!)?.name else {
+        guard let targetPersonName = timerAssessmentRepository.loadTargetPerson(
+            targetPersonUUID: (targetPerson?.uuid)!
+        )?.name else {
             return
         }
         navigationItem.title = "\(targetPersonName)　様の評価項目リスト"
@@ -53,13 +59,12 @@ class AssessmentItemViewController: UIViewController ,UITableViewDelegate, UITab
         tableView.reloadData()
     }
 
-    // MARK: -ここまで完了
     // MARK: - Table view data source
     func numberOfSections(in tableView: UITableView) -> Int {
         1
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        timerAssessmentRepository.loadTargetPerson(assessorUUID: assessorUUID!).count
+        timerAssessmentRepository.loadAssessmentItem(targetPerson: targetPerson!).count
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -68,23 +73,26 @@ class AssessmentItemViewController: UIViewController ,UITableViewDelegate, UITab
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // swiftlint:disable:next force_cast
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! TargetPersonTableViewCell
-        let targetPerson = timerAssessmentRepository.loadTargetPerson(assessorUUID: assessorUUID!)[indexPath.row]
-        cell.configue(name: targetPerson.name)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! AssessmentItemTableViewCell
+        let assessmentItem = timerAssessmentRepository.loadAssessmentItem(targetPerson: targetPerson!)[indexPath.row]
+        cell.configue(name: assessmentItem.name)
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedTargetPersonUUID = timerAssessmentRepository.loadTargetPerson(
-            assessorUUID: assessorUUID!
-        )[indexPath.row].uuid
-        toFunctionSelectionViewController(selectedTargetPersonUUID: selectedTargetPersonUUID)
+        selectedAssessmentItem = timerAssessmentRepository.loadAssessmentItem(
+            targetPerson: targetPerson!
+        )[indexPath.row]
+
+        // MARK: - 次の画面を作成したあとに作成。
+        //        selectedTargetPersonUUID = timerAssessmentRepository.loadTargetPerson(
+        //            assessorUUID: assessorUUID!
+        //        )[indexPath.row].uuid
+        //        toFunctionSelectionViewController(selectedTargetPersonUUID: selectedTargetPersonUUID)
     }
 
     func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-        editingTargetPersonUUID = timerAssessmentRepository.loadTargetPerson(
-            assessorUUID: assessorUUID!
-        )[indexPath.row].uuid
+        editingAssessmentItem = timerAssessmentRepository.loadAssessmentItem(targetPerson: targetPerson!)[indexPath.row]
         performSegue(withIdentifier: "edit", sender: nil)
     }
 
@@ -94,17 +102,20 @@ class AssessmentItemViewController: UIViewController ,UITableViewDelegate, UITab
         forRowAt indexPath: IndexPath
     ) {
         guard editingStyle == .delete else { return }
-        let targetPerson = timerAssessmentRepository.loadTargetPerson(assessorUUID: assessorUUID!)[indexPath.row]
-        timerAssessmentRepository.removeTargetPerson(targetPerson: targetPerson)
+        let assessmentItem = timerAssessmentRepository.loadAssessmentItem(targetPerson: targetPerson!)[indexPath.row]
+        timerAssessmentRepository.removeAssessmentItem(assessmentItem: assessmentItem)
         tableView.reloadData()
     }
     // MARK: - Method
-    private func toFunctionSelectionViewController(selectedTargetPersonUUID: UUID?) {
-//        let storyboard = UIStoryboard(name: "FunctionSelection", bundle: nil)
-//        let nextVC =
-//        storyboard.instantiateViewController(withIdentifier: "functionSelection") as! FunctionSelectionViewController
-//        nextVC.targetPersonUUID = selectedTargetPersonUUID
-//        navigationController?.pushViewController(nextVC, animated: true)
+    private func toFunctionSelectionViewController(selectedAssessmentItem: AssessmentItem) {
+        // MARK: - 次の画面を作成したあとに作成。
+        //        let storyboard = UIStoryboard(name: "FunctionSelection", bundle: nil)
+        //        let nextVC =
+        //        storyboard.instantiateViewController(
+        //    withIdentifier: "functionSelection"
+        //        ) as! FunctionSelectionViewController
+        //        nextVC.targetPersonUUID = selectedTargetPersonUUID
+        //        navigationController?.pushViewController(nextVC, animated: true)
     }
     // MARK: - View Configue
     private func configueViewColor() {
@@ -128,5 +139,4 @@ class AssessmentItemViewController: UIViewController ,UITableViewDelegate, UITab
         inputButton.layer.shadowColor = Colors.mainColor.cgColor
         inputButton.layer.shadowOffset = CGSize(width: 1, height: 1)
     }
-
 }

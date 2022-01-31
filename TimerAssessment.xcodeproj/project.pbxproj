@@ -29,6 +29,17 @@
 		B277D4F4278D021800E6CADB /* AssessorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B277D4F3278D021800E6CADB /* AssessorViewController.swift */; };
 		B2892862278DBBE700965E86 /* TargetPersonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2892861278DBBE700965E86 /* TargetPersonViewController.swift */; };
 		B2ADB23C27A0A01500BDF423 /* TimerAssessment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2ADB23B27A0A01500BDF423 /* TimerAssessment.swift */; };
+		B2AE981027A89A38003148ED /* FunctionSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2AE980F27A89A38003148ED /* FunctionSelectionViewController.swift */; };
+		B2AE981227A89A58003148ED /* FunctionSelection.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2AE981127A89A58003148ED /* FunctionSelection.storyboard */; };
+		B2AE981427A89A7D003148ED /* PastAssessmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2AE981327A89A7D003148ED /* PastAssessmentViewController.swift */; };
+		B2AE981627A89A8E003148ED /* PastAssessment.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2AE981527A89A8E003148ED /* PastAssessment.storyboard */; };
+		B2AE981827A89AAB003148ED /* PastAssessmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2AE981727A89AAB003148ED /* PastAssessmentTableViewCell.swift */; };
+		B2AE981A27A89ACC003148ED /* Assessment.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2AE981927A89ACC003148ED /* Assessment.storyboard */; };
+		B2AE981C27A89AE8003148ED /* AssessmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2AE981B27A89AE8003148ED /* AssessmentViewController.swift */; };
+		B2AE981E27A89B1A003148ED /* DetailAssessment.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2AE981D27A89B1A003148ED /* DetailAssessment.storyboard */; };
+		B2AE982027A89B33003148ED /* DetailAssessmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2AE981F27A89B33003148ED /* DetailAssessmentViewController.swift */; };
+		B2AE982227A89B47003148ED /* InputAssessment.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2AE982127A89B47003148ED /* InputAssessment.storyboard */; };
+		B2AE982427A89B55003148ED /* InputAssessmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2AE982327A89B55003148ED /* InputAssessmentViewController.swift */; };
 		B2AEFF152784E9CA0010F539 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2AEFF142784E9CA0010F539 /* Colors.swift */; };
 /* End PBXBuildFile section */
 
@@ -59,6 +70,17 @@
 		B277D4F3278D021800E6CADB /* AssessorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssessorViewController.swift; sourceTree = "<group>"; };
 		B2892861278DBBE700965E86 /* TargetPersonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetPersonViewController.swift; sourceTree = "<group>"; };
 		B2ADB23B27A0A01500BDF423 /* TimerAssessment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerAssessment.swift; sourceTree = "<group>"; };
+		B2AE980F27A89A38003148ED /* FunctionSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionSelectionViewController.swift; sourceTree = "<group>"; };
+		B2AE981127A89A58003148ED /* FunctionSelection.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FunctionSelection.storyboard; sourceTree = "<group>"; };
+		B2AE981327A89A7D003148ED /* PastAssessmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastAssessmentViewController.swift; sourceTree = "<group>"; };
+		B2AE981527A89A8E003148ED /* PastAssessment.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PastAssessment.storyboard; sourceTree = "<group>"; };
+		B2AE981727A89AAB003148ED /* PastAssessmentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastAssessmentTableViewCell.swift; sourceTree = "<group>"; };
+		B2AE981927A89ACC003148ED /* Assessment.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Assessment.storyboard; sourceTree = "<group>"; };
+		B2AE981B27A89AE8003148ED /* AssessmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssessmentViewController.swift; sourceTree = "<group>"; };
+		B2AE981D27A89B1A003148ED /* DetailAssessment.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DetailAssessment.storyboard; sourceTree = "<group>"; };
+		B2AE981F27A89B33003148ED /* DetailAssessmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailAssessmentViewController.swift; sourceTree = "<group>"; };
+		B2AE982127A89B47003148ED /* InputAssessment.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = InputAssessment.storyboard; sourceTree = "<group>"; };
+		B2AE982327A89B55003148ED /* InputAssessmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputAssessmentViewController.swift; sourceTree = "<group>"; };
 		B2AEFF142784E9CA0010F539 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -113,6 +135,11 @@
 				B2377176275EAAD400A48640 /* Assessor */,
 				B2377177275EAAFC00A48640 /* TargetPerson */,
 				B275A30D27A8120C00623E99 /* AssessmentItem */,
+				B2AE980A27A898D2003148ED /* FunctionSelection */,
+				B2AE980B27A8991D003148ED /* PastAssessment */,
+				B2AE980C27A89934003148ED /* Assessment */,
+				B2AE980D27A89942003148ED /* DetailAssessment */,
+				B2AE980E27A8996B003148ED /* InputAssessment */,
 			);
 			path = TimerAssessment;
 			sourceTree = "<group>";
@@ -160,6 +187,52 @@
 				B275A31027A8127200623E99 /* InputAssessmentItem.storyboard */,
 			);
 			path = AssessmentItem;
+			sourceTree = "<group>";
+		};
+		B2AE980A27A898D2003148ED /* FunctionSelection */ = {
+			isa = PBXGroup;
+			children = (
+				B2AE980F27A89A38003148ED /* FunctionSelectionViewController.swift */,
+				B2AE981127A89A58003148ED /* FunctionSelection.storyboard */,
+			);
+			path = FunctionSelection;
+			sourceTree = "<group>";
+		};
+		B2AE980B27A8991D003148ED /* PastAssessment */ = {
+			isa = PBXGroup;
+			children = (
+				B2AE981327A89A7D003148ED /* PastAssessmentViewController.swift */,
+				B2AE981527A89A8E003148ED /* PastAssessment.storyboard */,
+				B2AE981727A89AAB003148ED /* PastAssessmentTableViewCell.swift */,
+			);
+			path = PastAssessment;
+			sourceTree = "<group>";
+		};
+		B2AE980C27A89934003148ED /* Assessment */ = {
+			isa = PBXGroup;
+			children = (
+				B2AE981B27A89AE8003148ED /* AssessmentViewController.swift */,
+				B2AE981927A89ACC003148ED /* Assessment.storyboard */,
+			);
+			path = Assessment;
+			sourceTree = "<group>";
+		};
+		B2AE980D27A89942003148ED /* DetailAssessment */ = {
+			isa = PBXGroup;
+			children = (
+				B2AE981D27A89B1A003148ED /* DetailAssessment.storyboard */,
+				B2AE981F27A89B33003148ED /* DetailAssessmentViewController.swift */,
+			);
+			path = DetailAssessment;
+			sourceTree = "<group>";
+		};
+		B2AE980E27A8996B003148ED /* InputAssessment */ = {
+			isa = PBXGroup;
+			children = (
+				B2AE982127A89B47003148ED /* InputAssessment.storyboard */,
+				B2AE982327A89B55003148ED /* InputAssessmentViewController.swift */,
+			);
+			path = InputAssessment;
 			sourceTree = "<group>";
 		};
 		B2AEFF132784E9B30010F539 /* Color */ = {
@@ -240,14 +313,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2AE981627A89A8E003148ED /* PastAssessment.storyboard in Resources */,
 				B237715B275EA64E00A48640 /* LaunchScreen.storyboard in Resources */,
 				B22FBF02275FFCC900DA71C8 /* InputTargetPerson.storyboard in Resources */,
+				B2AE981E27A89B1A003148ED /* DetailAssessment.storyboard in Resources */,
 				B275A31127A8127200623E99 /* InputAssessmentItem.storyboard in Resources */,
 				B2377158275EA64E00A48640 /* Assets.xcassets in Resources */,
 				B22FBF00275FFCB200DA71C8 /* TargetPerson.storyboard in Resources */,
 				B22FBEFE275FFA8600DA71C8 /* InputAssessor.storyboard in Resources */,
 				B2377156275EA64D00A48640 /* Main.storyboard in Resources */,
+				B2AE981227A89A58003148ED /* FunctionSelection.storyboard in Resources */,
 				B275A30F27A8125C00623E99 /* AssessmentItem.storyboard in Resources */,
+				B2AE982227A89B47003148ED /* InputAssessment.storyboard in Resources */,
+				B2AE981A27A89ACC003148ED /* Assessment.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -319,18 +397,24 @@
 			files = (
 				B2377167275EA6E300A48640 /* InputAssessorViewController.swift in Sources */,
 				B2AEFF152784E9CA0010F539 /* Colors.swift in Sources */,
+				B2AE981C27A89AE8003148ED /* AssessmentViewController.swift in Sources */,
+				B2AE981427A89A7D003148ED /* PastAssessmentViewController.swift in Sources */,
 				B277D4F4278D021800E6CADB /* AssessorViewController.swift in Sources */,
 				B237717C275EABA300A48640 /* TargetPersonTableViewCell.swift in Sources */,
 				B237717A275EAB8F00A48640 /* AssessorTableViewCell.swift in Sources */,
 				B2892862278DBBE700965E86 /* TargetPersonViewController.swift in Sources */,
+				B2AE981827A89AAB003148ED /* PastAssessmentTableViewCell.swift in Sources */,
 				B2377183275EACE400A48640 /* TimerAssessmentRepository.swift in Sources */,
 				B2ADB23C27A0A01500BDF423 /* TimerAssessment.swift in Sources */,
 				B275A31727A812C000623E99 /* AssessmentItemTableViewCell.swift in Sources */,
+				B2AE982027A89B33003148ED /* DetailAssessmentViewController.swift in Sources */,
+				B2AE981027A89A38003148ED /* FunctionSelectionViewController.swift in Sources */,
 				B237714F275EA64D00A48640 /* AppDelegate.swift in Sources */,
 				B275A31327A8128900623E99 /* AssessmentItemViewController.swift in Sources */,
 				B2377186275EBF4000A48640 /* InputTargetPersonViewController.swift in Sources */,
 				B2377151275EA64D00A48640 /* SceneDelegate.swift in Sources */,
 				B275A31527A812A200623E99 /* InputAssessmentItemViewController.swift in Sources */,
+				B2AE982427A89B55003148ED /* InputAssessmentViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,31 +11,45 @@
         <!--Assessment Item View Controller-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController id="Y6W-OH-hqX" customClass="AssessmentItemViewController" customModule="TimerAssessment" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="assessmentItem" id="Y6W-OH-hqX" customClass="AssessmentItemViewController" customModule="TimerAssessment" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="kxZ-QT-tin">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="kxZ-QT-tin">
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="fQy-gN-bxZ" customClass="AssessmentItemTableViewCell" customModule="TimerAssessment" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="detailButton" indentationWidth="10" reuseIdentifier="cell" id="fQy-gN-bxZ" customClass="AssessmentItemTableViewCell" customModule="TimerAssessment" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fQy-gN-bxZ" id="EiN-XX-Ov8">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="373.5" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sft-rc-Ycd">
+                                                    <rect key="frame" x="37" y="11" width="200" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="assessmentItemName" destination="sft-rc-Ycd" id="ELL-eT-bV9"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dVl-tQ-g7M">
-                                <rect key="frame" x="173" y="716" width="67" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dVl-tQ-g7M">
+                                <rect key="frame" x="284" y="732" width="80" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="gnm-vp-J0A"/>
+                                    <constraint firstAttribute="height" constant="80" id="o9e-S0-TiJ"/>
+                                </constraints>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="plus" catalog="system"/>
                                 <connections>
                                     <action selector="input:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="rR8-yQ-ol2"/>
                                 </connections>
@@ -43,16 +57,41 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="dVl-tQ-g7M" secondAttribute="bottom" constant="50" id="Xug-kL-apM"/>
+                            <constraint firstItem="kxZ-QT-tin" firstAttribute="bottom" secondItem="vDu-zF-Fre" secondAttribute="bottom" id="djM-nl-9Zz"/>
+                            <constraint firstItem="kxZ-QT-tin" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="gXC-bZ-3Xo"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="dVl-tQ-g7M" secondAttribute="trailing" constant="50" id="h70-KC-i30"/>
+                            <constraint firstItem="kxZ-QT-tin" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="laM-sF-mG9"/>
+                            <constraint firstItem="kxZ-QT-tin" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="pcv-KI-tZY"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="2w8-Nn-JyL"/>
+                    <navigationItem key="navigationItem" id="2w8-Nn-JyL">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="chevron.backward" catalog="system" id="qfU-l0-KOv">
+                            <connections>
+                                <segue destination="gqo-pL-pfg" kind="unwind" unwindAction="backToTargetPersonTableViewControllerWithSegue:" id="Wcf-Bm-5Wc"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="inputButton" destination="dVl-tQ-g7M" id="uaZ-3b-SdY"/>
                         <outlet property="tableView" destination="kxZ-QT-tin" id="KV7-kb-jQt"/>
+                        <segue destination="jvt-jb-pRL" kind="presentation" identifier="edit" modalPresentationStyle="fullScreen" id="G8D-5z-4c1"/>
+                        <segue destination="jvt-jb-pRL" kind="presentation" identifier="input" modalPresentationStyle="fullScreen" id="EGi-87-bi4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="gqo-pL-pfg" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1042.0289855072465" y="90.401785714285708"/>
+        </scene>
+        <!--InputAssessmentItem-->
+        <scene sceneID="y3g-A0-X2K">
+            <objects>
+                <viewControllerPlaceholder storyboardName="InputAssessmentItem" id="jvt-jb-pRL" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7vY-bs-Cja" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1769" y="205"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="UAk-Tv-7di">
@@ -73,7 +112,12 @@
             <point key="canvasLocation" x="131.8840579710145" y="90.401785714285708"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="G8D-5z-4c1"/>
+    </inferredMetricsTieBreakers>
     <resources>
+        <image name="chevron.backward" catalog="system" width="96" height="128"/>
+        <image name="plus" catalog="system" width="128" height="113"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
