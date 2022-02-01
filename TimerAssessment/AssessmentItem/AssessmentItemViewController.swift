@@ -83,8 +83,9 @@ class AssessmentItemViewController: UIViewController, UITableViewDelegate, UITab
         selectedAssessmentItem = timerAssessmentRepository.loadAssessmentItem(
             targetPerson: targetPerson!
         )[indexPath.row]
-
+        toFunctionSelectionViewController(selectedAssessmentItem: selectedAssessmentItem!)
         // MARK: - 次の画面を作成したあとに作成。
+
         //        selectedTargetPersonUUID = timerAssessmentRepository.loadTargetPerson(
         //            assessorUUID: assessorUUID!
         //        )[indexPath.row].uuid
@@ -108,14 +109,13 @@ class AssessmentItemViewController: UIViewController, UITableViewDelegate, UITab
     }
     // MARK: - Method
     private func toFunctionSelectionViewController(selectedAssessmentItem: AssessmentItem) {
-        // MARK: - 次の画面を作成したあとに作成。
-        //        let storyboard = UIStoryboard(name: "FunctionSelection", bundle: nil)
-        //        let nextVC =
-        //        storyboard.instantiateViewController(
-        //    withIdentifier: "functionSelection"
-        //        ) as! FunctionSelectionViewController
-        //        nextVC.targetPersonUUID = selectedTargetPersonUUID
-        //        navigationController?.pushViewController(nextVC, animated: true)
+                let storyboard = UIStoryboard(name: "FunctionSelection", bundle: nil)
+                let nextVC =
+                storyboard.instantiateViewController(
+            withIdentifier: "functionSelection"
+                ) as! FunctionSelectionViewController
+                nextVC.assessmentItem = selectedAssessmentItem
+                navigationController?.pushViewController(nextVC, animated: true)
     }
     // MARK: - View Configue
     private func configueViewColor() {

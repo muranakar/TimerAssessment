@@ -136,8 +136,8 @@
 				B2377177275EAAFC00A48640 /* TargetPerson */,
 				B275A30D27A8120C00623E99 /* AssessmentItem */,
 				B2AE980A27A898D2003148ED /* FunctionSelection */,
-				B2AE980B27A8991D003148ED /* PastAssessment */,
 				B2AE980C27A89934003148ED /* Assessment */,
+				B2AE980B27A8991D003148ED /* PastAssessment */,
 				B2AE980D27A89942003148ED /* DetailAssessment */,
 				B2AE980E27A8996B003148ED /* InputAssessment */,
 			);

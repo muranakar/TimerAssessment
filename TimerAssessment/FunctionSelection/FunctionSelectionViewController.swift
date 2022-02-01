@@ -12,12 +12,15 @@ class FunctionSelectionViewController: UIViewController {
     let timerAssessmetRepository = TimerAssessmentRepository()
     @IBOutlet weak private var asssessmentButton: UIButton!
     @IBOutlet weak private var assessmentListButton: UIButton!
+    @IBOutlet weak private var assessmentItemLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let targetPersonName = timerAssessmetRepository.loadTargetPerson(assessmentItem: assessmentItem!)?.name
-        let assessmentItemName = assessmentItem?.name
-        navigationItem.title = "対象者:\(targetPersonName)様\n評価項目名\(assessmentItemName)"
+        let targetPersonName = timerAssessmetRepository.loadTargetPerson(assessmentItem: assessmentItem!)?.name ?? ""
+        let assessmentItemName = assessmentItem?.name ?? ""
+
+        navigationItem.title = "対象者:\(targetPersonName)様"
+        assessmentItemLabel.text = assessmentItemName
         configueViewNavigationBarColor()
         configueViewButtonStyle()
     }
