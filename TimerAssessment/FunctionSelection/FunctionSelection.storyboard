@@ -1,28 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17150" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xr0-9j-ayu">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17122"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="s0d-6b-0kx">
+        <!--Function Selection View Controller-->
+        <scene sceneID="CHd-ME-Gbl">
             <objects>
-                <viewController id="Y6W-OH-hqX" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                <viewController storyboardIdentifier="functionSelection" id="Ga9-a2-xr2" customClass="FunctionSelectionViewController" customModule="TimerAssessment" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="r7D-1r-vOT">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eoC-gw-awt">
+                                <rect key="frame" x="117" y="353" width="180" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="180" id="D2H-o3-auR"/>
+                                    <constraint firstAttribute="height" constant="50" id="RI1-nT-Xdq"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="applepencil" catalog="system" title="評価開始"/>
+                                <connections>
+                                    <action selector="toAssessmentVC:" destination="Ga9-a2-xr2" eventType="touchUpInside" id="ITe-YO-INJ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bKZ-3w-6GD">
+                                <rect key="frame" x="117" y="493" width="180" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Iea-q4-IS0"/>
+                                    <constraint firstAttribute="width" constant="180" id="l79-YI-KGl"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="list.dash" catalog="system" title="過去評価一覧"/>
+                                <connections>
+                                    <action selector="toFIMTableVC:" destination="Ga9-a2-xr2" eventType="touchUpInside" id="Tao-4l-kzg"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="cpP-KG-AGu"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="eoC-gw-awt" firstAttribute="centerY" secondItem="r7D-1r-vOT" secondAttribute="centerY" constant="-70" id="LGd-Ai-WjH"/>
+                            <constraint firstItem="eoC-gw-awt" firstAttribute="centerX" secondItem="r7D-1r-vOT" secondAttribute="centerX" id="LhX-lf-gcO"/>
+                            <constraint firstItem="bKZ-3w-6GD" firstAttribute="centerX" secondItem="r7D-1r-vOT" secondAttribute="centerX" id="iOt-1a-7a1"/>
+                            <constraint firstItem="bKZ-3w-6GD" firstAttribute="centerY" secondItem="r7D-1r-vOT" secondAttribute="centerY" constant="70" id="xbp-pR-LXu"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="rSb-08-pdM">
+                        <barButtonItem key="leftBarButtonItem" image="chevron.backward" catalog="system" id="cUS-Ca-MX6">
+                            <connections>
+                                <segue destination="oel-Pm-gZu" kind="unwind" unwindAction="backToTargetPersonTableViewControllerWithSegue:" id="o5O-uo-UP3"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="assessmentListButton" destination="bKZ-3w-6GD" id="GI3-xc-kTy"/>
+                        <outlet property="asssessmentButton" destination="eoC-gw-awt" id="UqV-fO-7ap"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="s3g-Rx-O1n" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="oel-Pm-gZu" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
+            <point key="canvasLocation" x="1802.8985507246377" y="79.6875"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="w0H-Ik-gtv">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="xr0-9j-ayu" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="eaB-us-3aI">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Ga9-a2-xr2" kind="relationship" relationship="rootViewController" id="FQP-Ey-zfJ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lVB-NA-baS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="892.75362318840587" y="79.6875"/>
         </scene>
     </scenes>
     <resources>
+        <image name="applepencil" catalog="system" width="128" height="113"/>
+        <image name="chevron.backward" catalog="system" width="96" height="128"/>
+        <image name="list.dash" catalog="system" width="128" height="85"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

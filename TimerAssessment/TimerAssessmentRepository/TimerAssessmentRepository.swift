@@ -183,10 +183,10 @@ final class TimerAssessmentRepository {
         return targetPerson
     }
     // 一つのAssessmentItemのUUIDから、そのAssessmentItemがどの対象者かの呼び出し
-    func loadTargetPerson(assessmentItemUUID: UUID) -> TargetPerson? {
+    func loadTargetPerson(assessmentItem: AssessmentItem) -> TargetPerson? {
         guard let fetchedAssessmentItem = realm.object(
             ofType: RealmAssessmentItem.self,
-            forPrimaryKey: assessmentItemUUID.uuidString
+            forPrimaryKey: assessmentItem.uuidString
         ) else {
             return nil
         }
