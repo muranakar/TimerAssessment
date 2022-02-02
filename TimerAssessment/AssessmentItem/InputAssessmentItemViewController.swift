@@ -7,7 +7,7 @@
 
 import UIKit
 
-class InputAssessmentItemViewController: UIViewController {
+final class InputAssessmentItemViewController: UIViewController {
     // 画面遷移時に値を受け取る変数
     var targetPerson: TargetPerson?
     enum Mode {

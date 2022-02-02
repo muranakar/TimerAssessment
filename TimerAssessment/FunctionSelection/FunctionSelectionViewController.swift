@@ -7,7 +7,8 @@
 
 import UIKit
 
-class FunctionSelectionViewController: UIViewController {
+final class FunctionSelectionViewController: UIViewController {
+    // 変数の受け皿
     var assessmentItem: AssessmentItem?
     let timerAssessmetRepository = TimerAssessmentRepository()
     @IBOutlet weak private var asssessmentButton: UIButton!
@@ -26,7 +27,7 @@ class FunctionSelectionViewController: UIViewController {
     }
 
     @IBAction private func toAssessmentVC(_ sender: Any) {
-//        toAssessmentViewController(targetPersonUUID: targetPersonUUID)
+        toAssessmentViewController(assessmentItem: assessmentItem!)
     }
 
     @IBAction private func toFIMTableVC(_ sender: Any) {
@@ -38,11 +39,10 @@ class FunctionSelectionViewController: UIViewController {
     }
     // MARK: - Method
     private func toAssessmentViewController(assessmentItem: AssessmentItem) {
-//        let storyboard = UIStoryboard(name: "Assessment", bundle: nil)
-//        let nextVC =
-//        storyboard.instantiateViewController(withIdentifier: "assessment") as! AssessmentViewController
-//        nextVC.targetPersonUUID = targetPersonUUID
-//        navigationController?.pushViewController(nextVC, animated: true)
+        let storyboard = UIStoryboard(name: "Assessment", bundle: nil)
+        let nextVC =  storyboard.instantiateViewController(withIdentifier: "assessment") as! AssessmentViewController
+        nextVC.assessmentItem = assessmentItem
+        navigationController?.pushViewController(nextVC, animated: true)
     }
 
     private func toFIMTableViewController(assessmentItem: AssessmentItem) {

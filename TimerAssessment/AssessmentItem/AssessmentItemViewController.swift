@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AssessmentItemViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+final class AssessmentItemViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     // 画面遷移時の変数の受け取り
     var targetPerson: TargetPerson?
 
