@@ -37,7 +37,7 @@ struct AssessmentItem {
 // MARK: - TimerAssessment 時間評価
 struct TimerAssessment {
     var uuidString = UUID().uuidString
-    var resultTimer: Float
+    var resultTimer: Double
     var createdAt: Date? = Date()
     var updatedAt: Date?
     var uuid: UUID? {

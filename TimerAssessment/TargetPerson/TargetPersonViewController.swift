@@ -8,9 +8,9 @@
 import UIKit
 
 final class TargetPersonViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    var assessorUUID: UUID?
-    private var selectedTargetPersonUUID: UUID?
-    private var editingTargetPersonUUID: UUID?
+    var assessor: Assessor?
+    private var selectedTargetPerson: TargetPerson?
+    private var editingTargetPerson: TargetPerson?
     private let timerAssessmentRepository = TimerAssessmentRepository()
     @IBOutlet weak private var tableView: UITableView!
     @IBOutlet weak private var inputButton: UIButton!
@@ -19,7 +19,7 @@ final class TargetPersonViewController: UIViewController, UITableViewDelegate, U
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
-        guard let assessorName = timerAssessmentRepository.loadAssessor(assessorUUID: assessorUUID!)?.name else {
+        guard let assessorName = timerAssessmentRepository.loadAssessor(assessor: assessor!)?.name else {
             return
         }
         navigationItem.title = "\(assessorName)　様の対象者リスト"
@@ -33,13 +33,13 @@ final class TargetPersonViewController: UIViewController, UITableViewDelegate, U
             switch segue.identifier ?? "" {
             case "input":
                 inputVC.mode = .input
-                inputVC.assessorUUID = assessorUUID
+                inputVC.assessor = assessor
             case "edit":
-                guard let editingTargetPersonUUID = editingTargetPersonUUID else {
+                guard let editingTargetPerson = editingTargetPerson else {
                     return
                 }
                 inputVC.mode = .edit
-                inputVC.editingTargetPersonUUID = editingTargetPersonUUID
+                inputVC.editingTargetPerson = editingTargetPerson
             default:
                 break
             }
@@ -62,7 +62,7 @@ final class TargetPersonViewController: UIViewController, UITableViewDelegate, U
         1
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        timerAssessmentRepository.loadTargetPerson(assessorUUID: assessorUUID!).count
+        timerAssessmentRepository.loadTargetPerson(assessor: assessor!).count
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -72,22 +72,22 @@ final class TargetPersonViewController: UIViewController, UITableViewDelegate, U
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // swiftlint:disable:next force_cast
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! TargetPersonTableViewCell
-        let targetPerson = timerAssessmentRepository.loadTargetPerson(assessorUUID: assessorUUID!)[indexPath.row]
+        let targetPerson = timerAssessmentRepository.loadTargetPerson(assessor: assessor!)[indexPath.row]
         cell.configue(name: targetPerson.name)
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedTargetPersonUUID = timerAssessmentRepository.loadTargetPerson(
-            assessorUUID: assessorUUID!
-        )[indexPath.row].uuid
-        toFunctionSelectionViewController(selectedTargetPersonUUID: selectedTargetPersonUUID)
+        selectedTargetPerson = timerAssessmentRepository.loadTargetPerson(
+            assessor: assessor!
+        )[indexPath.row]
+        toFunctionSelectionViewController(selectedTargetPerson: selectedTargetPerson)
     }
 
     func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-        editingTargetPersonUUID = timerAssessmentRepository.loadTargetPerson(
-            assessorUUID: assessorUUID!
-        )[indexPath.row].uuid
+        editingTargetPerson = timerAssessmentRepository.loadTargetPerson(
+            assessor: assessor!
+        )[indexPath.row]
         performSegue(withIdentifier: "edit", sender: nil)
     }
 
@@ -97,17 +97,17 @@ final class TargetPersonViewController: UIViewController, UITableViewDelegate, U
         forRowAt indexPath: IndexPath
     ) {
         guard editingStyle == .delete else { return }
-        let targetPerson = timerAssessmentRepository.loadTargetPerson(assessorUUID: assessorUUID!)[indexPath.row]
+        let targetPerson = timerAssessmentRepository.loadTargetPerson(assessor: assessor!)[indexPath.row]
         timerAssessmentRepository.removeTargetPerson(targetPerson: targetPerson)
         tableView.reloadData()
     }
     // MARK: - Method
-    private func toFunctionSelectionViewController(selectedTargetPersonUUID: UUID?) {
+    private func toFunctionSelectionViewController(selectedTargetPerson: TargetPerson?) {
         let storyboard = UIStoryboard(name: "AssessmentItem", bundle: nil)
         let nextVC = storyboard.instantiateViewController(
             withIdentifier: "assessmentItem"
         ) as! AssessmentItemViewController
-        nextVC.targetPerson = timerAssessmentRepository.loadTargetPerson(targetPersonUUID: selectedTargetPersonUUID!)
+        nextVC.targetPerson = timerAssessmentRepository.loadTargetPerson(targetPerson: selectedTargetPerson!)
         navigationController?.pushViewController(nextVC, animated: true)
     }
     // MARK: - View Configue

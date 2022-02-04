@@ -9,7 +9,7 @@ import UIKit
 
 final class InputTargetPersonViewController: UIViewController {
     // 画面遷移時に値を受け取る変数
-    var assessorUUID: UUID?
+    var assessor: Assessor?
     enum Mode {
         case input
         case edit
@@ -17,7 +17,7 @@ final class InputTargetPersonViewController: UIViewController {
 
     var mode: Mode?
     private let timerAssessmentRepository = TimerAssessmentRepository()
-    var editingTargetPersonUUID: UUID?
+    var editingTargetPerson: TargetPerson?
     var targetPerson: TargetPerson?
     @IBOutlet weak private var targetPersonNameTextField: UITextField!
 
@@ -36,11 +36,11 @@ final class InputTargetPersonViewController: UIViewController {
         case .input:
             return ""
         case .edit:
-            guard let editingTargetPersonUUID = editingTargetPersonUUID else {
-                fatalError("editingAssessorUUID の中身がありません。メソッド名：[\(#function)]")
+            guard let editingTargetPerson = editingTargetPerson else {
+                fatalError("editingAssessor の中身がありません。メソッド名：[\(#function)]")
             }
             let targetPersonName = timerAssessmentRepository.loadTargetPerson(
-                targetPersonUUID: editingTargetPersonUUID
+                targetPerson: editingTargetPerson
             )?.name
             return targetPersonName
         }
@@ -63,14 +63,14 @@ final class InputTargetPersonViewController: UIViewController {
         switch mode {
         case .input:
             let newTargetPerson = TargetPerson(name: targetPersonNameTextField.text ?? "")
-            timerAssessmentRepository.appendTargetPerson(assessorUUID: assessorUUID!, targetPerson: newTargetPerson)
+            timerAssessmentRepository.appendTargetPerson(assessor: assessor!, targetPerson: newTargetPerson)
 
         case .edit:
-            guard let editingTargetPersonUUID = editingTargetPersonUUID else {
+            guard let editingTargetPerson = editingTargetPerson else {
                 fatalError("editingTargetPersonUUID　の中身がありません。メソッド名：[\(#function)]")
             }
             let targetPerson = TargetPerson(
-                uuidString: editingTargetPersonUUID.uuidString,
+                uuidString: editingTargetPerson.uuidString,
                 name: targetPersonNameTextField.text ?? ""
             )
             timerAssessmentRepository.updateTargetPerson(targetPerson: targetPerson)

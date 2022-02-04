@@ -41,6 +41,15 @@
                                     <action selector="stop:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="C46-HB-m5h"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JXL-Fh-19C">
+                                <rect key="frame" x="158" y="647" width="98" height="61"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="reset"/>
+                                <connections>
+                                    <action selector="reset:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="46h-IU-WWl"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -53,7 +62,10 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="resetButton" destination="JXL-Fh-19C" id="T8F-lR-Xme"/>
                         <outlet property="sec" destination="qhR-eP-KkX" id="lU9-tI-xLI"/>
+                        <outlet property="startButton" destination="npX-Vr-7hl" id="ySL-sL-wPF"/>
+                        <outlet property="stopButton" destination="wYL-v9-VRY" id="eyI-OE-Kie"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

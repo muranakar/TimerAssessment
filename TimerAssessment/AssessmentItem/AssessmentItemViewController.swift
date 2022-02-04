@@ -22,9 +22,7 @@ final class AssessmentItemViewController: UIViewController, UITableViewDelegate,
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
-        guard let targetPersonName = timerAssessmentRepository.loadTargetPerson(
-            targetPersonUUID: (targetPerson?.uuid)!
-        )?.name else {
+        guard let targetPersonName = targetPerson?.name else {
             return
         }
         navigationItem.title = "\(targetPersonName)　様の評価項目リスト"

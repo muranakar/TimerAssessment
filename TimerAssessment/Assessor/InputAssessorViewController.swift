@@ -9,7 +9,7 @@ import UIKit
 
 final class InputAssessorViewController: UIViewController {
     // 画面遷移元から、値を代入される変数
-    var editingAssessorUUID: UUID?
+    var editingAssessor: Assessor?
 
     enum Mode {
         case input
@@ -33,11 +33,11 @@ final class InputAssessorViewController: UIViewController {
         case .input:
             return ""
         case .edit:
-            guard let editingAssessorUUID = editingAssessorUUID else {
-                fatalError("editingAssessorUUID の中身が入っていない")
+            guard let editingAssessor = editingAssessor else {
+                fatalError("editingAssessor の中身が入っていない")
             }
             let assesorName =
-            timerAssessmentRepository.loadAssessor(assessorUUID: editingAssessorUUID)?.name
+            timerAssessmentRepository.loadAssessor(assessor: editingAssessor)?.name
             return assesorName
         }
     }
@@ -51,13 +51,13 @@ final class InputAssessorViewController: UIViewController {
             let newAssessor = Assessor(name: assessorNameTextField.text ?? "")
             timerAssessmentRepository.apppendAssessor(assesor: newAssessor)
         case .edit:
-            guard let editingAssessorUUID = editingAssessorUUID else {
+            guard let editingAssessor = editingAssessor else {
                 return
             }
             let editAssessorName = assessorNameTextField.text ?? ""
             timerAssessmentRepository.updateAssessor(
                 assessor: Assessor(
-                    uuidString: editingAssessorUUID.uuidString,
+                    uuidString: editingAssessor.uuidString,
                     name: editAssessorName
                 ))
         }

@@ -17,8 +17,8 @@ final class AssessorViewController: UIViewController, UITableViewDelegate, UITab
         configueViewColor()
         configueViewButton()
     }
-    var selectedAssessorUUID: UUID?
-    var editingAssessorUUID: UUID?
+    var selectedAssessor: Assessor?
+    var editingAssessor: Assessor?
     let timerAssessmentRepository = TimerAssessmentRepository()
 
     // MARK: - Segue-　AssessorTableViewController →　inputAccessoryViewController
@@ -33,7 +33,7 @@ final class AssessorViewController: UIViewController, UITableViewDelegate, UITab
             case "input":
                 inputVC.mode = .input
             case "edit":
-                inputVC.editingAssessorUUID = editingAssessorUUID
+                inputVC.editingAssessor = editingAssessor
                 inputVC.mode = .edit
             default:
                 break
@@ -68,12 +68,12 @@ final class AssessorViewController: UIViewController, UITableViewDelegate, UITab
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedAssessorUUID = timerAssessmentRepository.loadAssessor()[indexPath.row].uuid
-        toTargetPersonViewController(selectedAssessorUUID: selectedAssessorUUID)
+        selectedAssessor = timerAssessmentRepository.loadAssessor()[indexPath.row]
+        toTargetPersonViewController(selectedAssessor: selectedAssessor)
     }
 
     func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-        editingAssessorUUID = timerAssessmentRepository.loadAssessor()[indexPath.row].uuid
+        editingAssessor = timerAssessmentRepository.loadAssessor()[indexPath.row]
         performSegue(withIdentifier: "edit", sender: nil)
     }
 
@@ -87,10 +87,10 @@ final class AssessorViewController: UIViewController, UITableViewDelegate, UITab
         tableView.reloadData()
     }
     // MARK: - Method
-    private func toTargetPersonViewController(selectedAssessorUUID: UUID?) {
+    private func toTargetPersonViewController(selectedAssessor: Assessor?) {
         let storyboard = UIStoryboard(name: "TargetPerson", bundle: nil)
         let nextVC = storyboard.instantiateViewController(withIdentifier: "targetPerson") as! TargetPersonViewController
-        nextVC.assessorUUID = selectedAssessorUUID
+        nextVC.assessor = selectedAssessor
         navigationController?.pushViewController(nextVC, animated: true)
     }
 

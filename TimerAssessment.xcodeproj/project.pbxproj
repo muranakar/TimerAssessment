@@ -28,6 +28,7 @@
 		B275A31727A812C000623E99 /* AssessmentItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B275A31627A812C000623E99 /* AssessmentItemTableViewCell.swift */; };
 		B277D4F4278D021800E6CADB /* AssessorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B277D4F3278D021800E6CADB /* AssessorViewController.swift */; };
 		B2892862278DBBE700965E86 /* TargetPersonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2892861278DBBE700965E86 /* TargetPersonViewController.swift */; };
+		B29038F627ADD07200CC69DE /* CopyAndPasteFunctionDetailAssessment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29038F527ADD07200CC69DE /* CopyAndPasteFunctionDetailAssessment.swift */; };
 		B2ADB23C27A0A01500BDF423 /* TimerAssessment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2ADB23B27A0A01500BDF423 /* TimerAssessment.swift */; };
 		B2AE981027A89A38003148ED /* FunctionSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2AE980F27A89A38003148ED /* FunctionSelectionViewController.swift */; };
 		B2AE981227A89A58003148ED /* FunctionSelection.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2AE981127A89A58003148ED /* FunctionSelection.storyboard */; };
@@ -69,6 +70,7 @@
 		B275A31627A812C000623E99 /* AssessmentItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssessmentItemTableViewCell.swift; sourceTree = "<group>"; };
 		B277D4F3278D021800E6CADB /* AssessorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssessorViewController.swift; sourceTree = "<group>"; };
 		B2892861278DBBE700965E86 /* TargetPersonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetPersonViewController.swift; sourceTree = "<group>"; };
+		B29038F527ADD07200CC69DE /* CopyAndPasteFunctionDetailAssessment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyAndPasteFunctionDetailAssessment.swift; sourceTree = "<group>"; };
 		B2ADB23B27A0A01500BDF423 /* TimerAssessment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerAssessment.swift; sourceTree = "<group>"; };
 		B2AE980F27A89A38003148ED /* FunctionSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionSelectionViewController.swift; sourceTree = "<group>"; };
 		B2AE981127A89A58003148ED /* FunctionSelection.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FunctionSelection.storyboard; sourceTree = "<group>"; };
@@ -222,6 +224,7 @@
 			children = (
 				B2AE981D27A89B1A003148ED /* DetailAssessment.storyboard */,
 				B2AE981F27A89B33003148ED /* DetailAssessmentViewController.swift */,
+				B29038F527ADD07200CC69DE /* CopyAndPasteFunctionDetailAssessment.swift */,
 			);
 			path = DetailAssessment;
 			sourceTree = "<group>";
@@ -407,6 +410,7 @@
 				B2377183275EACE400A48640 /* TimerAssessmentRepository.swift in Sources */,
 				B2ADB23C27A0A01500BDF423 /* TimerAssessment.swift in Sources */,
 				B275A31727A812C000623E99 /* AssessmentItemTableViewCell.swift in Sources */,
+				B29038F627ADD07200CC69DE /* CopyAndPasteFunctionDetailAssessment.swift in Sources */,
 				B2AE982027A89B33003148ED /* DetailAssessmentViewController.swift in Sources */,
 				B2AE981027A89A38003148ED /* FunctionSelectionViewController.swift in Sources */,
 				B237714F275EA64D00A48640 /* AppDelegate.swift in Sources */,
