@@ -31,7 +31,7 @@ final class FunctionSelectionViewController: UIViewController {
     }
 
     @IBAction private func toFIMTableVC(_ sender: Any) {
-//        toFIMTableViewController(targetPersonUUID: targetPersonUUID)
+        toPastAssessmentViewController(assessmentItem: assessmentItem!)
     }
 
     // MARK: - Segue- FunctionSelectionViewController ← AssessmentViewController
@@ -45,12 +45,12 @@ final class FunctionSelectionViewController: UIViewController {
         navigationController?.pushViewController(nextVC, animated: true)
     }
 
-    private func toFIMTableViewController(assessmentItem: AssessmentItem) {
-//        let storyboard = UIStoryboard(name: "PastAssessment", bundle: nil)
-//        let nextVC =
-//        storyboard.instantiateViewController(withIdentifier: "pastAssessment") as! FIMTableViewController
-//        nextVC.targetPersonUUID = targetPersonUUID
-//        navigationController?.pushViewController(nextVC, animated: true)
+    private func toPastAssessmentViewController(assessmentItem: AssessmentItem) {
+        let storyboard = UIStoryboard(name: "PastAssessment", bundle: nil)
+        let nextVC =
+        storyboard.instantiateViewController(withIdentifier: "pastAssessment") as! PastAssessmentViewController
+        nextVC.assessmentItem = assessmentItem
+        navigationController?.pushViewController(nextVC, animated: true)
     }
 
     // MARK: - View Configue

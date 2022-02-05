@@ -20,6 +20,7 @@ final class AssessmentViewController: UIViewController {
     }
     let timerAssessmetRepository = TimerAssessmentRepository()
     private var assessmentResultNum: Double?
+    private var timerAssessment: TimerAssessment?
     private var timerMode: TimerMode?
 
     deinit {
@@ -27,6 +28,8 @@ final class AssessmentViewController: UIViewController {
     }
 
     // MARK: - IBOutlet
+    @IBOutlet private weak var saveBarButton: UIBarButtonItem!
+    @IBOutlet private weak var assessmentItemLabel: UILabel!
     @IBOutlet private weak var sec: UILabel!
     @IBOutlet private weak var startButton: UIButton!
     @IBOutlet private weak var stopButton: UIButton!
@@ -39,7 +42,9 @@ final class AssessmentViewController: UIViewController {
     // MARK: - Method
     override func viewDidLoad() {
         super.viewDidLoad()
+        assessmentItemLabel.text = assessmentItem?.name
         stopButton.isEnabled = false
+        saveBarButton.isEnabled = false
     }
 
     @IBAction private func save(_ sender: Any) {
@@ -57,11 +62,12 @@ final class AssessmentViewController: UIViewController {
             return
         }
         let newTruncationStopTimerNum = floor(stopTimerNum * 100) / 100
-        let newTimerAssessment = TimerAssessment(resultTimer: newTruncationStopTimerNum)
+        timerAssessment = TimerAssessment(resultTimer: newTruncationStopTimerNum)
         timerAssessmetRepository.appendTimerAssessment(
             assessmentItem: assessmentItem!,
-            timerAssessment: newTimerAssessment
+            timerAssessment: timerAssessment!
         )
+        toDetailAssessmentViewController(timerAssessment: timerAssessment!)
     }
 
     @IBAction private func start(_ sender: Any) {
@@ -70,6 +76,7 @@ final class AssessmentViewController: UIViewController {
         startTime = CFAbsoluteTimeGetCurrent()
         assessmentResultNum = nil
         stopButton.isEnabled = true
+        saveBarButton.isEnabled = false
     }
 
     @IBAction private func stop(_ sender: Any) {
@@ -79,6 +86,7 @@ final class AssessmentViewController: UIViewController {
         assessmentResultNum = Double(stopTime)
         sec.text = "\(floor(stopTime*100)/100)"
         stopButton.isEnabled = false
+        saveBarButton.isEnabled = true
     }
     @IBAction private func reset(_ sender: Any) {
         timerMode = .reset
@@ -86,11 +94,21 @@ final class AssessmentViewController: UIViewController {
         assessmentResultNum = nil
         sec.text = "0"
         stopButton.isEnabled = false
+        saveBarButton.isEnabled = false
     }
 
     @objc func step(displaylink: CADisplayLink) {
         stopTime = CFAbsoluteTimeGetCurrent() - startTime
         sec.text = "\(floor(stopTime*100)/100)"
+    }
+    // MARK: - Method
+    private func toDetailAssessmentViewController(timerAssessment: TimerAssessment?) {
+        let storyboard = UIStoryboard(name: "DetailAssessment", bundle: nil)
+        let nextVC = storyboard.instantiateViewController(
+            withIdentifier: "detailAssessment"
+        ) as! DetailAssessmentViewController
+        nextVC.timerAssessment = timerAssessment
+        navigationController?.pushViewController(nextVC, animated: true)
     }
     // MARK: - UIUIAlertController
     private func timerAlert() {

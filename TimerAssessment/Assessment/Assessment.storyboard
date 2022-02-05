@@ -25,13 +25,6 @@
                                     <action selector="start:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="57x-GJ-9gJ"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="タイマー" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qhR-eP-KkX">
-                                <rect key="frame" x="125" y="289" width="164" height="113"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wYL-v9-VRY">
                                 <rect key="frame" x="256" y="526" width="96" height="45"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -50,6 +43,20 @@
                                     <action selector="reset:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="46h-IU-WWl"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yi4-9h-3Wf">
+                                <rect key="frame" x="131" y="212" width="153" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="タイマー" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qhR-eP-KkX">
+                                <rect key="frame" x="125" y="284" width="164" height="113"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -62,7 +69,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="assessmentItemLabel" destination="Yi4-9h-3Wf" id="ChF-1e-qjM"/>
                         <outlet property="resetButton" destination="JXL-Fh-19C" id="T8F-lR-Xme"/>
+                        <outlet property="saveBarButton" destination="ynM-h1-L6Z" id="dQK-DJ-zAY"/>
                         <outlet property="sec" destination="qhR-eP-KkX" id="lU9-tI-xLI"/>
                         <outlet property="startButton" destination="npX-Vr-7hl" id="ySL-sL-wPF"/>
                         <outlet property="stopButton" destination="wYL-v9-VRY" id="eyI-OE-Kie"/>

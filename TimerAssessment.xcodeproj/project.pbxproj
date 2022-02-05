@@ -11,6 +11,8 @@
 		B22FBEFE275FFA8600DA71C8 /* InputAssessor.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B22FBEFD275FFA8600DA71C8 /* InputAssessor.storyboard */; };
 		B22FBF00275FFCB200DA71C8 /* TargetPerson.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B22FBEFF275FFCB200DA71C8 /* TargetPerson.storyboard */; };
 		B22FBF02275FFCC900DA71C8 /* InputTargetPerson.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B22FBF01275FFCC900DA71C8 /* InputTargetPerson.storyboard */; };
+		B234EA3127AF1A2C00D7D406 /* PastAssessmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B234EA2F27AF1A2C00D7D406 /* PastAssessmentTableViewCell.swift */; };
+		B234EA3227AF1A2C00D7D406 /* PastAssessmentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B234EA3027AF1A2C00D7D406 /* PastAssessmentTableViewCell.xib */; };
 		B237714F275EA64D00A48640 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B237714E275EA64D00A48640 /* AppDelegate.swift */; };
 		B2377151275EA64D00A48640 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2377150275EA64D00A48640 /* SceneDelegate.swift */; };
 		B2377156275EA64D00A48640 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2377154275EA64D00A48640 /* Main.storyboard */; };
@@ -28,13 +30,12 @@
 		B275A31727A812C000623E99 /* AssessmentItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B275A31627A812C000623E99 /* AssessmentItemTableViewCell.swift */; };
 		B277D4F4278D021800E6CADB /* AssessorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B277D4F3278D021800E6CADB /* AssessorViewController.swift */; };
 		B2892862278DBBE700965E86 /* TargetPersonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2892861278DBBE700965E86 /* TargetPersonViewController.swift */; };
-		B29038F627ADD07200CC69DE /* CopyAndPasteFunctionDetailAssessment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29038F527ADD07200CC69DE /* CopyAndPasteFunctionDetailAssessment.swift */; };
+		B29038F627ADD07200CC69DE /* CopyAndPasteFunctionAssessment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29038F527ADD07200CC69DE /* CopyAndPasteFunctionAssessment.swift */; };
 		B2ADB23C27A0A01500BDF423 /* TimerAssessment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2ADB23B27A0A01500BDF423 /* TimerAssessment.swift */; };
 		B2AE981027A89A38003148ED /* FunctionSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2AE980F27A89A38003148ED /* FunctionSelectionViewController.swift */; };
 		B2AE981227A89A58003148ED /* FunctionSelection.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2AE981127A89A58003148ED /* FunctionSelection.storyboard */; };
 		B2AE981427A89A7D003148ED /* PastAssessmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2AE981327A89A7D003148ED /* PastAssessmentViewController.swift */; };
 		B2AE981627A89A8E003148ED /* PastAssessment.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2AE981527A89A8E003148ED /* PastAssessment.storyboard */; };
-		B2AE981827A89AAB003148ED /* PastAssessmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2AE981727A89AAB003148ED /* PastAssessmentTableViewCell.swift */; };
 		B2AE981A27A89ACC003148ED /* Assessment.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2AE981927A89ACC003148ED /* Assessment.storyboard */; };
 		B2AE981C27A89AE8003148ED /* AssessmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2AE981B27A89AE8003148ED /* AssessmentViewController.swift */; };
 		B2AE981E27A89B1A003148ED /* DetailAssessment.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2AE981D27A89B1A003148ED /* DetailAssessment.storyboard */; };
@@ -51,6 +52,8 @@
 		B22FBEFD275FFA8600DA71C8 /* InputAssessor.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = InputAssessor.storyboard; sourceTree = "<group>"; };
 		B22FBEFF275FFCB200DA71C8 /* TargetPerson.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TargetPerson.storyboard; sourceTree = "<group>"; };
 		B22FBF01275FFCC900DA71C8 /* InputTargetPerson.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = InputTargetPerson.storyboard; sourceTree = "<group>"; };
+		B234EA2F27AF1A2C00D7D406 /* PastAssessmentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastAssessmentTableViewCell.swift; sourceTree = "<group>"; };
+		B234EA3027AF1A2C00D7D406 /* PastAssessmentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PastAssessmentTableViewCell.xib; sourceTree = "<group>"; };
 		B237714B275EA64D00A48640 /* TimerAssessment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimerAssessment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B237714E275EA64D00A48640 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B2377150275EA64D00A48640 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -70,13 +73,12 @@
 		B275A31627A812C000623E99 /* AssessmentItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssessmentItemTableViewCell.swift; sourceTree = "<group>"; };
 		B277D4F3278D021800E6CADB /* AssessorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssessorViewController.swift; sourceTree = "<group>"; };
 		B2892861278DBBE700965E86 /* TargetPersonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetPersonViewController.swift; sourceTree = "<group>"; };
-		B29038F527ADD07200CC69DE /* CopyAndPasteFunctionDetailAssessment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyAndPasteFunctionDetailAssessment.swift; sourceTree = "<group>"; };
+		B29038F527ADD07200CC69DE /* CopyAndPasteFunctionAssessment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyAndPasteFunctionAssessment.swift; sourceTree = "<group>"; };
 		B2ADB23B27A0A01500BDF423 /* TimerAssessment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerAssessment.swift; sourceTree = "<group>"; };
 		B2AE980F27A89A38003148ED /* FunctionSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionSelectionViewController.swift; sourceTree = "<group>"; };
 		B2AE981127A89A58003148ED /* FunctionSelection.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FunctionSelection.storyboard; sourceTree = "<group>"; };
 		B2AE981327A89A7D003148ED /* PastAssessmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastAssessmentViewController.swift; sourceTree = "<group>"; };
 		B2AE981527A89A8E003148ED /* PastAssessment.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PastAssessment.storyboard; sourceTree = "<group>"; };
-		B2AE981727A89AAB003148ED /* PastAssessmentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastAssessmentTableViewCell.swift; sourceTree = "<group>"; };
 		B2AE981927A89ACC003148ED /* Assessment.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Assessment.storyboard; sourceTree = "<group>"; };
 		B2AE981B27A89AE8003148ED /* AssessmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssessmentViewController.swift; sourceTree = "<group>"; };
 		B2AE981D27A89B1A003148ED /* DetailAssessment.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DetailAssessment.storyboard; sourceTree = "<group>"; };
@@ -106,6 +108,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		B234EA3427AF2B5800D7D406 /* CopyAndPaste */ = {
+			isa = PBXGroup;
+			children = (
+				B29038F527ADD07200CC69DE /* CopyAndPasteFunctionAssessment.swift */,
+			);
+			path = CopyAndPaste;
+			sourceTree = "<group>";
+		};
 		B2377142275EA64D00A48640 = {
 			isa = PBXGroup;
 			children = (
@@ -132,6 +142,7 @@
 			children = (
 				B237714E275EA64D00A48640 /* AppDelegate.swift */,
 				B2377150275EA64D00A48640 /* SceneDelegate.swift */,
+				B234EA3427AF2B5800D7D406 /* CopyAndPaste */,
 				B2AEFF132784E9B30010F539 /* Color */,
 				B2377184275EACF100A48640 /* TimerAssessmentRepository */,
 				B2377176275EAAD400A48640 /* Assessor */,
@@ -205,7 +216,8 @@
 			children = (
 				B2AE981327A89A7D003148ED /* PastAssessmentViewController.swift */,
 				B2AE981527A89A8E003148ED /* PastAssessment.storyboard */,
-				B2AE981727A89AAB003148ED /* PastAssessmentTableViewCell.swift */,
+				B234EA2F27AF1A2C00D7D406 /* PastAssessmentTableViewCell.swift */,
+				B234EA3027AF1A2C00D7D406 /* PastAssessmentTableViewCell.xib */,
 			);
 			path = PastAssessment;
 			sourceTree = "<group>";
@@ -224,7 +236,6 @@
 			children = (
 				B2AE981D27A89B1A003148ED /* DetailAssessment.storyboard */,
 				B2AE981F27A89B33003148ED /* DetailAssessmentViewController.swift */,
-				B29038F527ADD07200CC69DE /* CopyAndPasteFunctionDetailAssessment.swift */,
 			);
 			path = DetailAssessment;
 			sourceTree = "<group>";
@@ -327,6 +338,7 @@
 				B2377156275EA64D00A48640 /* Main.storyboard in Resources */,
 				B2AE981227A89A58003148ED /* FunctionSelection.storyboard in Resources */,
 				B275A30F27A8125C00623E99 /* AssessmentItem.storyboard in Resources */,
+				B234EA3227AF1A2C00D7D406 /* PastAssessmentTableViewCell.xib in Resources */,
 				B2AE982227A89B47003148ED /* InputAssessment.storyboard in Resources */,
 				B2AE981A27A89ACC003148ED /* Assessment.storyboard in Resources */,
 			);
@@ -406,11 +418,10 @@
 				B237717C275EABA300A48640 /* TargetPersonTableViewCell.swift in Sources */,
 				B237717A275EAB8F00A48640 /* AssessorTableViewCell.swift in Sources */,
 				B2892862278DBBE700965E86 /* TargetPersonViewController.swift in Sources */,
-				B2AE981827A89AAB003148ED /* PastAssessmentTableViewCell.swift in Sources */,
 				B2377183275EACE400A48640 /* TimerAssessmentRepository.swift in Sources */,
 				B2ADB23C27A0A01500BDF423 /* TimerAssessment.swift in Sources */,
 				B275A31727A812C000623E99 /* AssessmentItemTableViewCell.swift in Sources */,
-				B29038F627ADD07200CC69DE /* CopyAndPasteFunctionDetailAssessment.swift in Sources */,
+				B29038F627ADD07200CC69DE /* CopyAndPasteFunctionAssessment.swift in Sources */,
 				B2AE982027A89B33003148ED /* DetailAssessmentViewController.swift in Sources */,
 				B2AE981027A89A38003148ED /* FunctionSelectionViewController.swift in Sources */,
 				B237714F275EA64D00A48640 /* AppDelegate.swift in Sources */,
@@ -418,6 +429,7 @@
 				B2377186275EBF4000A48640 /* InputTargetPersonViewController.swift in Sources */,
 				B2377151275EA64D00A48640 /* SceneDelegate.swift in Sources */,
 				B275A31527A812A200623E99 /* InputAssessmentItemViewController.swift in Sources */,
+				B234EA3127AF1A2C00D7D406 /* PastAssessmentTableViewCell.swift in Sources */,
 				B2AE982427A89B55003148ED /* InputAssessmentViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

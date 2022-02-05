@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="7eD-K3-mHh">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
@@ -8,23 +8,87 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Past Assessment View Controller-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController storyboardIdentifier="pastAssessment" id="Y6W-OH-hqX" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="pastAssessment" id="Y6W-OH-hqX" customClass="PastAssessmentViewController" customModule="TimerAssessment" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="u6a-tT-YRV">
+                                <rect key="frame" x="0.0" y="138" width="414" height="675"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WkI-se-7ua">
+                                <rect key="frame" x="0.0" y="88" width="414" height="50"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="94u-un-GK1">
+                                        <rect key="frame" x="174" y="9.5" width="66.5" height="31.5"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="94u-un-GK1" firstAttribute="centerX" secondItem="WkI-se-7ua" secondAttribute="centerX" id="4i2-i6-BDT"/>
+                                    <constraint firstAttribute="height" constant="50" id="Mgi-b1-rPR"/>
+                                    <constraint firstItem="94u-un-GK1" firstAttribute="centerY" secondItem="WkI-se-7ua" secondAttribute="centerY" id="QnP-7X-8Lf"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="u6a-tT-YRV" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="1R4-pa-Sbb"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="u6a-tT-YRV" secondAttribute="bottom" id="Gwl-0M-21U"/>
+                            <constraint firstItem="WkI-se-7ua" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="WLS-Ut-AoI"/>
+                            <constraint firstItem="WkI-se-7ua" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="fiW-Dc-X8h"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="u6a-tT-YRV" secondAttribute="trailing" id="hiI-VW-cxX"/>
+                            <constraint firstItem="u6a-tT-YRV" firstAttribute="top" secondItem="WkI-se-7ua" secondAttribute="bottom" id="xNE-JE-TY6"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="WkI-se-7ua" secondAttribute="trailing" id="xO0-7c-rKA"/>
+                        </constraints>
                     </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="uFB-mi-A9P">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="arrow.up.arrow.down" catalog="system" id="iJy-Me-i0t">
+                            <connections>
+                                <action selector="sortTableView:" destination="Y6W-OH-hqX" id="zK3-TC-CJ8"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="assessmentItemNameLabel" destination="94u-un-GK1" id="nHl-In-P0y"/>
+                        <outlet property="tableView" destination="u6a-tT-YRV" id="dfc-wz-4T7"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-16" y="91"/>
+            <point key="canvasLocation" x="892.75362318840587" y="90.401785714285708"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Ugo-Dj-LKT">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7eD-K3-mHh" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="bVH-wU-6ld">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Y6W-OH-hqX" kind="relationship" relationship="rootViewController" id="Z50-A5-DVL"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VT0-y6-mLy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-17.39130434782609" y="90.401785714285708"/>
         </scene>
     </scenes>
     <resources>
+        <image name="arrow.up.arrow.down" catalog="system" width="128" height="98"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
