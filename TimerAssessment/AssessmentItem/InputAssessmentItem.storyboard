@@ -16,52 +16,113 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yf4-p0-g8u">
-                                <rect key="frame" x="93" y="468" width="80" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="10m歩行"/>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fnC-zp-Xgm">
-                                <rect key="frame" x="231" y="468" width="90" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="6分間歩行"/>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="coJ-cz-8Fu">
-                                <rect key="frame" x="71" y="536" width="124" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="片脚立位（右）"/>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6eC-xJ-QBM">
-                                <rect key="frame" x="214" y="536" width="124" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="片脚立位（左）"/>
-                            </button>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pUP-pI-W2w">
-                                <rect key="frame" x="81" y="387" width="253" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="評価項目の名前" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zBQ-14-Htb">
-                                <rect key="frame" x="146" y="269" width="122" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tg7-S8-vCB">
-                                <rect key="frame" x="81" y="587" width="103" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="TUG"/>
-                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gol-Zx-hjs">
+                                <rect key="frame" x="47" y="138" width="320" height="180"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pUP-pI-W2w">
+                                        <rect key="frame" x="35" y="70.5" width="250" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="9LG-Vl-GHI"/>
+                                            <constraint firstAttribute="width" constant="250" id="rUh-n2-gei"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="評価項目の名前" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zBQ-14-Htb">
+                                        <rect key="frame" x="99.5" y="20" width="121.5" height="20.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="121.5" id="4jO-ND-pcV"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20.5" id="qm1-up-IVY"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="pUP-pI-W2w" firstAttribute="centerX" secondItem="gol-Zx-hjs" secondAttribute="centerX" id="Ijp-Fr-32f"/>
+                                    <constraint firstItem="zBQ-14-Htb" firstAttribute="top" secondItem="gol-Zx-hjs" secondAttribute="top" constant="20" id="JXn-Al-h2r"/>
+                                    <constraint firstItem="zBQ-14-Htb" firstAttribute="centerX" secondItem="gol-Zx-hjs" secondAttribute="centerX" id="NaL-sH-AAE"/>
+                                    <constraint firstAttribute="width" constant="320" id="Qwm-6Z-7d4"/>
+                                    <constraint firstAttribute="height" constant="180" id="Zxi-Mp-nKt"/>
+                                    <constraint firstItem="pUP-pI-W2w" firstAttribute="top" secondItem="zBQ-14-Htb" secondAttribute="bottom" constant="30" id="dnb-ur-jlS"/>
+                                </constraints>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="-159" translatesAutoresizingMaskIntoConstraints="NO" id="III-14-lPn">
+                                <rect key="frame" x="20" y="338" width="374" height="504"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="100" translatesAutoresizingMaskIntoConstraints="NO" id="enK-VW-MNH">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="274"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yf4-p0-g8u">
+                                                <rect key="frame" x="0.0" y="0.0" width="137" height="274"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="10m歩行"/>
+                                                <connections>
+                                                    <action selector="selectedButtonListWithSender:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="XzD-jJ-IUJ"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fnC-zp-Xgm">
+                                                <rect key="frame" x="237" y="0.0" width="137" height="274"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="6分間歩行"/>
+                                                <connections>
+                                                    <action selector="selectedButtonListWithSender:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="8Yj-jR-1RY"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.91753658189999998" green="1" blue="0.90453354370000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="49" translatesAutoresizingMaskIntoConstraints="NO" id="gU2-ik-h7O">
+                                        <rect key="frame" x="0.0" y="115" width="374" height="274"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="coJ-cz-8Fu">
+                                                <rect key="frame" x="0.0" y="0.0" width="162.5" height="274"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="片脚立位（右）"/>
+                                                <connections>
+                                                    <action selector="selectedButtonListWithSender:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="kVZ-VZ-eTN"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6eC-xJ-QBM">
+                                                <rect key="frame" x="211.5" y="0.0" width="162.5" height="274"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="片脚立位（左）"/>
+                                                <connections>
+                                                    <action selector="selectedButtonListWithSender:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Kbe-kY-aQq"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" red="1" green="0.80879488450000003" blue="0.59253003059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PoL-uP-JgX">
+                                        <rect key="frame" x="0.0" y="230" width="374" height="274"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tg7-S8-vCB">
+                                                <rect key="frame" x="0.0" y="0.0" width="374" height="274"/>
+                                                <color key="backgroundColor" red="1" green="0.84500488470000001" blue="0.98540216130000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="TUG"/>
+                                                <connections>
+                                                    <action selector="selectedButtonListWithSender:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="MPh-w2-YHa"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="gol-Zx-hjs" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="25A-bI-w2v"/>
+                            <constraint firstItem="III-14-lPn" firstAttribute="top" secondItem="gol-Zx-hjs" secondAttribute="bottom" constant="20" id="2xy-o6-vok"/>
+                            <constraint firstAttribute="trailing" secondItem="III-14-lPn" secondAttribute="trailing" constant="20" id="A69-Co-IQS"/>
+                            <constraint firstItem="gol-Zx-hjs" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="50" id="DRe-Fu-Pkj"/>
+                            <constraint firstItem="III-14-lPn" firstAttribute="leading" secondItem="5EZ-qb-Rvc" secondAttribute="leading" constant="20" id="aOQ-zx-IIZ"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="III-14-lPn" secondAttribute="bottom" constant="20" id="vE2-9O-Exg"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="NgH-TJ-jdM">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="OCP-tA-d2v">
@@ -77,6 +138,11 @@
                     </navigationItem>
                     <connections>
                         <outlet property="assessmentItemNameTextField" destination="pUP-pI-W2w" id="uUk-fy-XJh"/>
+                        <outlet property="leftOneLegStandingButton" destination="6eC-xJ-QBM" id="gRt-PZ-OpN"/>
+                        <outlet property="rightOneLegStandingButton" destination="coJ-cz-8Fu" id="cKi-xO-Qkp"/>
+                        <outlet property="sixMinutesWalkingButton" destination="fnC-zp-Xgm" id="hlD-Fb-ynp"/>
+                        <outlet property="tenMeterWalkTestButton" destination="Yf4-p0-g8u" id="iQ1-Hs-CjV"/>
+                        <outlet property="tugTestButton" destination="tg7-S8-vCB" id="e1F-Q1-NWd"/>
                         <segue destination="c1R-2I-5Qe" kind="unwind" identifier="save" unwindAction="saveWithSegue:" id="hPy-aZ-3P8"/>
                     </connections>
                 </viewController>

@@ -20,6 +20,35 @@ final class InputAssessmentItemViewController: UIViewController {
     var editingAssessmentItem: AssessmentItem?
     var assessmentItem: AssessmentItem?
     @IBOutlet weak private var assessmentItemNameTextField: UITextField!
+    @IBOutlet private weak var tenMeterWalkTestButton: UIButton!
+    @IBOutlet private weak var sixMinutesWalkingButton: UIButton!
+    @IBOutlet private weak var rightOneLegStandingButton: UIButton!
+    @IBOutlet private weak var leftOneLegStandingButton: UIButton!
+    @IBOutlet private weak var tugTestButton: UIButton!
+
+    private var buttons: [UIButton] {
+        [
+            tenMeterWalkTestButton,
+            sixMinutesWalkingButton,
+            rightOneLegStandingButton,
+            leftOneLegStandingButton,
+            tugTestButton
+        ]
+    }
+
+    private var buttonString: [String] {
+        [
+            "１０ｍ歩行",
+            "６分間歩行",
+            "片脚立位（右）",
+            "片脚立位（左）",
+            "TUG"
+        ]
+    }
+
+    private var dictionaryButtonAndButtonString: [UIButton: String] {
+        [UIButton: String](uniqueKeysWithValues: zip(buttons, buttonString))
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         guard let mode = mode else {
@@ -28,6 +57,10 @@ final class InputAssessmentItemViewController: UIViewController {
         // MARK: - テキストフィールドに名前を設定
         assessmentItemNameTextField.text = getName(mode: mode)
         configueColor()
+    }
+
+    override func viewDidLayoutSubviews() {
+        buttons.forEach { configueViewAssessmentItemButton(button: $0) }
     }
     // MARK: - Method
     private func getName(mode: Mode) -> String? {
@@ -48,7 +81,7 @@ final class InputAssessmentItemViewController: UIViewController {
         navigationItem.scrollEdgeAppearance = appearance
         navigationItem.compactAppearance = appearance
     }
-    // MARK: - ここまで完了。
+
     // MARK: - 対象者データを保存するUIButtonのIBAction
     @IBAction private func saveAction(_ sender: Any) {
         guard let mode = mode else { return }
@@ -73,5 +106,47 @@ final class InputAssessmentItemViewController: UIViewController {
             withIdentifier: "save",
             sender: sender
         )
+    }
+
+    @IBAction private func selectedButtonList(sender: UIButton) {
+        guard let mode = mode else { return }
+        guard let newAssementItemName = dictionaryButtonAndButtonString[sender] else {
+            return
+        }
+        switch mode {
+        case .input:
+            let newAssessmentItem = AssessmentItem(
+                name: newAssementItemName
+            )
+            timerAssessmentRepository.appendAssessmentItem(
+                targetPerson: targetPerson!,
+                assessmentItem: newAssessmentItem
+            )
+
+        case .edit:
+            let assessmentItem: AssessmentItem = AssessmentItem(
+                uuidString: editingAssessmentItem!.uuidString,
+                name: newAssementItemName
+            )
+            timerAssessmentRepository.updateAssessmentItem(assessmentItem: assessmentItem)
+        }
+
+        performSegue(
+            withIdentifier: "save",
+            sender: sender
+        )
+    }
+
+    private func configueViewAssessmentItemButton(button: UIButton) {
+        button.backgroundColor = Colors.baseColor
+        button.setTitleColor(Colors.mainColor, for: .normal)
+        button.layer.cornerRadius = 10
+        button.layer.borderWidth = 2
+        button.layer.borderColor = Colors.mainColor.cgColor
+        button.layer.shadowOpacity = 0.7
+        button.layer.shadowRadius = 3
+        button.layer.shadowColor = Colors.mainColor.cgColor
+        button.layer.shadowOffset = CGSize(width: 1, height: 1)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
     }
 }
