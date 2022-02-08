@@ -11,31 +11,50 @@
         <!--Input Assessor View Controller-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController id="Y6W-OH-hqX" customClass="InputAssessorViewController" customModule="FunctionalIndependenceMeasure" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Y6W-OH-hqX" customClass="InputAssessorViewController" customModule="TimerAssessment" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iVt-gB-6E3">
-                                <rect key="frame" x="62" y="431" width="290" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="評価者の名前入力" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dG5-Kd-3Qo">
-                                <rect key="frame" x="137.5" y="358" width="139" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PnE-hA-vla">
+                                <rect key="frame" x="35" y="323" width="344" height="250"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="評価者名を入力してください" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iVt-gB-6E3">
+                                        <rect key="frame" x="47" y="121" width="250" height="34"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="250" id="Uoy-t4-asr"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="34" id="X7w-i8-BSO"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="評価者の名前" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dG5-Kd-3Qo">
+                                        <rect key="frame" x="102.5" y="50" width="139" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="139" id="aES-mP-90Y"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="iVt-gB-6E3" firstAttribute="top" secondItem="dG5-Kd-3Qo" secondAttribute="bottom" constant="50" id="c0V-z2-RnU"/>
+                                    <constraint firstItem="dG5-Kd-3Qo" firstAttribute="top" secondItem="PnE-hA-vla" secondAttribute="top" constant="50" id="f5J-ja-Sei"/>
+                                    <constraint firstItem="dG5-Kd-3Qo" firstAttribute="centerX" secondItem="PnE-hA-vla" secondAttribute="centerX" id="hwO-Kl-dsv"/>
+                                    <constraint firstAttribute="height" constant="250" id="rzd-Iq-7gR"/>
+                                    <constraint firstItem="iVt-gB-6E3" firstAttribute="centerX" secondItem="PnE-hA-vla" secondAttribute="centerX" id="y9L-Uc-eRy"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="iVt-gB-6E3" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" id="5RF-2U-aah"/>
-                            <constraint firstItem="iVt-gB-6E3" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="5WO-Pq-gIg"/>
-                            <constraint firstItem="dG5-Kd-3Qo" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="QC7-wy-mUI"/>
-                            <constraint firstItem="iVt-gB-6E3" firstAttribute="width" secondItem="5EZ-qb-Rvc" secondAttribute="width" multiplier="0.7" id="dQT-br-6qA"/>
-                            <constraint firstItem="dG5-Kd-3Qo" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" constant="-80" id="tkf-nN-htt"/>
+                            <constraint firstItem="PnE-hA-vla" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="35" id="6Mq-JL-Dst"/>
+                            <constraint firstItem="PnE-hA-vla" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="S0I-Jw-sQw"/>
+                            <constraint firstItem="PnE-hA-vla" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" id="Tfe-U9-ulT"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="PnE-hA-vla" secondAttribute="trailing" constant="35" id="ggh-E4-CbB"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="a1K-dN-NNX">
@@ -52,6 +71,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="assessorNameTextField" destination="iVt-gB-6E3" id="UEg-V0-ta7"/>
+                        <outlet property="assessorView" destination="PnE-hA-vla" id="Ngd-Yk-hu5"/>
                         <segue destination="prU-gm-LJ6" kind="unwind" identifier="save" unwindAction="saveWithSegue:" id="rYI-Zc-gjX"/>
                     </connections>
                 </viewController>

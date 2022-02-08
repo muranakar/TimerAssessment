@@ -60,6 +60,7 @@ final class InputAssessmentItemViewController: UIViewController {
     }
 
     override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         buttons.forEach { configueViewAssessmentItemButton(button: $0) }
     }
     // MARK: - Method
