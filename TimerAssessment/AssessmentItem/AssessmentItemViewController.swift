@@ -66,7 +66,7 @@ final class AssessmentItemViewController: UIViewController, UITableViewDelegate,
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        44
+        50
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

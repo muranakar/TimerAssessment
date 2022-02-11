@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AssessmentItemTableViewCell: UITableViewCell {
+final class AssessmentItemTableViewCell: UITableViewCell {
     @IBOutlet private weak var assessmentItemName: UILabel!
 
     func configue(name: String) {

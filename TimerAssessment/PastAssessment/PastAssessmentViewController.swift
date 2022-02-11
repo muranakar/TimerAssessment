@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PastAssessmentViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+final class PastAssessmentViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     //　画面遷移で値を受け取る変数
     var assessmentItem: AssessmentItem?
 
@@ -48,28 +48,12 @@ class PastAssessmentViewController: UIViewController, UITableViewDelegate, UITab
         configueViewNavigationbarColor()
     }
 
-    // MARK: - Segue- FIMTableViewController →　InputTargetPersonViewController
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //        guard let nav = segue.destination as? UINavigationController else { return }
-        //        if let detailFIMVC = nav.topViewController as? DetailFIMViewController {
-        //            switch segue.identifier ?? "" {
-        //            case "detailFIM":
-        //                detailFIMVC.fimUUID = selectedFIMUUID
-        //                // このmodeによって、画面遷移先の次の画面遷移先を決めている。
-        //                detailFIMVC.mode = .fim
-        //            default:
-        //                break
-        //            }
-        //        }
-    }
-
     // MARK: - Segue- PastAssessmentTableViewController ←　InputAssessmentViewController
     @IBAction private func backToPastAssessmentTableViewController(segue: UIStoryboardSegue) {
         tableView.reloadData()
     }
 
     // MARK: - Segue- SortTableView
-    // MARK: - ーーーーーーーーーーーーー ここまで完成　ーーーーーーーーーーーーーーーーーーーーーーー
     @IBAction private func sortTableView(_ sender: Any) {
         isSortedAscending.toggle()
         tableView.reloadData()
@@ -115,47 +99,19 @@ class PastAssessmentViewController: UIViewController, UITableViewDelegate, UITab
         )
         return cell
     }
-
-    //    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    //        selectedFIMUUID = fimRepository.loadFIM(
-    //            targetPersonUUID: targetPersonUUID!,
-    //            sortedAscending: isSortedAscending
-    //        )[indexPath.row].uuid
-    //        toDetailFIMViewController()
-    //    }
-    //
-    //    //　navのボタンへの変更必要か。
-    //    override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-    //        editingFIMUUID = fimRepository.loadFIM(
-    //            targetPersonUUID: targetPersonUUID!,
-    //            sortedAscending: false
-    //        )[indexPath.row].uuid
-    //
-    //        performSegue(withIdentifier: "edit", sender: nil)
-    //    }
-    //
-    //    override func tableView(_ tableView: UITableView,
-    //                            commit editingStyle: UITableViewCell.EditingStyle,
-    //                            forRowAt indexPath: IndexPath) {
-    //        guard editingStyle == .delete else { return }
-    //        guard let uuid = fimRepository.loadFIM(
-    //            targetPersonUUID: targetPersonUUID!,
-    //            sortedAscending: isSortedAscending
-    //        )[indexPath.row].uuid else { return }
-    //        fimRepository.removeFIM(fimUUID: uuid)
-    //        tableView.reloadData()
-    //    }
-    // MARK: - Method
-    private func toDetailAssessmentViewController() {
-        //        let storyboard = UIStoryboard(name: "DetailFIM", bundle: nil)
-        //        let nextVC =
-        //        storyboard.instantiateViewController(withIdentifier: "detailFIM") as! DetailFIMViewController
-        //        nextVC.fimUUID = selectedFIMUUID
-        //        nextVC.mode = .fim
-        //        navigationController?.pushViewController(nextVC, animated: true)
+    func tableView(_ tableView: UITableView,
+                   commit editingStyle: UITableViewCell.EditingStyle,
+                   forRowAt indexPath: IndexPath) {
+        guard editingStyle == .delete else { return }
+        let timerAssessment = timerAssessmentRepository.loadTimerAssessment(
+            assessmentItem: assessmentItem!,
+            sortedAscending: isSortedAscending
+        )[indexPath.row]
+        timerAssessmentRepository.removeTimerAssessment(timerAssessment: timerAssessment)
+        tableView.reloadData()
     }
     // MARK: - UIAlertController
-    func copyButtonPushAlert(title: String, message: String) {
+    private func copyButtonPushAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
@@ -170,34 +126,33 @@ class PastAssessmentViewController: UIViewController, UITableViewDelegate, UITab
         navigationItem.compactAppearance = appearance
     }
     // MARK: - Formatter　Double・Date型→String型へ変更
-    func resultTimerStringFormatter(resultTimer: Double) -> String {
+    private func resultTimerStringFormatter(resultTimer: Double) -> String {
         // 整数部分
         let integer = Int(resultTimer)
         // 小数部分
         let fraction = resultTimer.truncatingRemainder(dividingBy: 1)
 
         var string = ""
-        var isHour = false
-
         let hour = integer / 3600
-        if hour > 0 {
-            string += "\(hour):"
-            isHour = true
-        }
-
         let min = integer / 60
-        if isHour || min > 0 {
-            string += "\(min):"
-        }
-
         let sec = integer % 60
-        string += "\(sec):"
-
         let fracitonConversion = Int(fraction * 100)
-        string += "\(fracitonConversion)"
+        // １時間以上経過していた場合
+        if hour > 0 {
+            string = String(format: "%02d時%02d分%02d秒%02d", hour, min, sec, fracitonConversion)
+            return string
+        }
+        // １分以上経過していた場合
+        if min > 0 {
+            string = String(format: "%02d分%02d秒%02d", min, sec, fracitonConversion)
+            return string
+        }
+        // １分未満の場合
+        string = String(format: "%02d秒%02d", sec, fracitonConversion)
         return string
     }
-    func createdAtdateFormatter(date: Date) -> String {
+
+    private func createdAtdateFormatter(date: Date) -> String {
         let dateFormatter = Foundation.DateFormatter()
         dateFormatter.locale = Locale(identifier: "ja_JP")
         dateFormatter.dateStyle = .medium

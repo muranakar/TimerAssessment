@@ -7,7 +7,7 @@
 
 import UIKit
 
-class InputAssessmentViewController: UIViewController {
+final class InputAssessmentViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
