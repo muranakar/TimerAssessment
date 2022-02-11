@@ -30,12 +30,17 @@ final class AssessmentViewController: UIViewController {
     // MARK: - IBOutlet
     @IBOutlet private weak var saveBarButton: UIBarButtonItem!
     @IBOutlet private weak var assessmentItemLabel: UILabel!
-    @IBOutlet private weak var sec: UILabel!
+    @IBOutlet private weak var timerLabel: UILabel!
     @IBOutlet private weak var startButton: UIButton!
     @IBOutlet private weak var stopButton: UIButton!
     @IBOutlet private weak var resetButton: UIButton!
 
     // MARK: - Variable constant
+    private var buttons: [UIButton] {
+        [
+            startButton, stopButton, resetButton
+        ]
+    }
     private var startTime = CFAbsoluteTimeGetCurrent()
     private var stopTime = CFAbsoluteTimeGetCurrent()
 
@@ -45,6 +50,8 @@ final class AssessmentViewController: UIViewController {
         assessmentItemLabel.text = assessmentItem?.name
         stopButton.isEnabled = false
         saveBarButton.isEnabled = false
+        configueViewButtonsStyle()
+        configueViewTimerLabel()
     }
 
     @IBAction private func save(_ sender: Any) {
@@ -53,12 +60,12 @@ final class AssessmentViewController: UIViewController {
             timerMode = .reset
             disPlayLink.invalidate()
             assessmentResultNum = nil
-            sec.text = "0"
+            timerLabel.text = "0"
             stopButton.isEnabled = false
             return
         }
         guard let stopTimerNum = assessmentResultNum else {
-        print("メソッド名：[\(#function)] stopTimerNumに値が入っていない。")
+            print("メソッド名：[\(#function)] stopTimerNumに値が入っていない。")
             return
         }
         let newTruncationStopTimerNum = floor(stopTimerNum * 100) / 100
@@ -82,9 +89,11 @@ final class AssessmentViewController: UIViewController {
     @IBAction private func stop(_ sender: Any) {
         timerMode = .stop
         disPlayLink.invalidate()
+
         stopTime = CFAbsoluteTimeGetCurrent() - startTime
-        assessmentResultNum = Double(stopTime)
-        sec.text = "\(floor(stopTime*100)/100)"
+        assessmentResultNum = stopTime
+        let stopTimerString = timerFormatter(stopTime: stopTime)
+        timerLabel.text = stopTimerString
         stopButton.isEnabled = false
         saveBarButton.isEnabled = true
     }
@@ -92,14 +101,15 @@ final class AssessmentViewController: UIViewController {
         timerMode = .reset
         disPlayLink.invalidate()
         assessmentResultNum = nil
-        sec.text = "0"
+        timerLabel.text = "00:00:00"
         stopButton.isEnabled = false
         saveBarButton.isEnabled = false
     }
 
     @objc func step(displaylink: CADisplayLink) {
         stopTime = CFAbsoluteTimeGetCurrent() - startTime
-        sec.text = "\(floor(stopTime*100)/100)"
+        let stopTimerString = timerFormatter(stopTime: stopTime)
+        timerLabel.text = stopTimerString
     }
     // MARK: - Method
     private func toDetailAssessmentViewController(timerAssessment: TimerAssessment?) {
@@ -122,10 +132,40 @@ final class AssessmentViewController: UIViewController {
         let okAction = UIAlertAction(
             title: "OK",
             style: .default
-            )
+        )
         alertController.addAction(okAction)
         // アラートを表示する
         present(alertController, animated: true, completion: nil)
+    }
+    // MARK: - DateFormatter　Date型→String型へ変更
+    func timerFormatter(stopTime: CFAbsoluteTime) -> String {
+        let min = Int(stopTime / 60)
+        let sec = Int(stopTime) % 60
+        let stopTimeDouble = Double(stopTime)
+        let fracitonstopTimer = stopTimeDouble.truncatingRemainder(dividingBy: 1)
+        let msec = Int(fracitonstopTimer * 100.0)
+        let stopTimerString = String(format: "%02d:%02d:%02d", min, sec, msec)
+        return stopTimerString
+    }
+
+    // MARK: - ViewConfigue
+    private func configueViewButtonsStyle() {
+        // 選択ボタンのView
+        buttons.forEach {
+            $0.backgroundColor = Colors.baseColor
+            $0.setTitleColor(Colors.mainColor, for: .normal)
+            $0.layer.cornerRadius = 40
+            $0.layer.borderWidth = 2
+            $0.layer.borderColor = Colors.mainColor.cgColor
+            $0.layer.shadowOpacity = 0.5
+            $0.layer.shadowRadius = 2
+            $0.layer.shadowColor = UIColor.black.cgColor
+            $0.layer.shadowOffset = CGSize(width: 1, height: 1)
+        }
+    }
+
+    private func configueViewTimerLabel() {
+        timerLabel.font = UIFont.monospacedSystemFont(ofSize: 60, weight: .medium)
     }
 }
 

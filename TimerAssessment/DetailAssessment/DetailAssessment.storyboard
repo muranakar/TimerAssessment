@@ -81,7 +81,13 @@
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="dHA-1F-AeA"/>
+                    <navigationItem key="navigationItem" id="dHA-1F-AeA">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="chevron.backward" catalog="system" id="5l2-4g-Qbh">
+                            <connections>
+                                <segue destination="rmf-yi-00X" kind="unwind" unwindAction="backToFunctionSelectionTableViewControllerWithSegue:" id="Uzq-56-NlH"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="assessmentItemLabel" destination="rJ2-kt-kwz" id="iJQ-id-74G"/>
                         <outlet property="assessmentResultLabel" destination="IMV-6z-426" id="d2v-6L-erQ"/>
@@ -89,6 +95,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="rmf-yi-00X" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="900.00000000000011" y="78.348214285714278"/>
         </scene>
@@ -112,6 +119,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="chevron.backward" catalog="system" width="96" height="128"/>
         <image name="doc.on.doc" catalog="system" width="116" height="128"/>
         <namedColor name="AccentColor">
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

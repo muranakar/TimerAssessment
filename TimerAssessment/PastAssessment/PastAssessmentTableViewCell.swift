@@ -10,18 +10,7 @@ import UIKit
 class PastAssessmentTableViewCell: UITableViewCell {
     @IBOutlet weak private var timerResultNumLabel: UILabel! {
         didSet {
-            let attributedText = NSMutableAttributedString(
-                string: timerResultNumLabel.text!
-            )
-            let customLetterSpacing = 3
-            attributedText
-                .addAttribute(
-                    NSAttributedString.Key.kern,
-                    value: customLetterSpacing,
-                    range: NSMakeRange(0, attributedText.length)
-                )
-            timerResultNumLabel.attributedText = attributedText
-            timerResultNumLabel.sizeToFit()
+            timerResultNumLabel.font = UIFont.monospacedSystemFont(ofSize: 25, weight: .medium)
         }
     }
     @IBOutlet weak private var createdAtLabel: UILabel!
@@ -38,12 +27,12 @@ class PastAssessmentTableViewCell: UITableViewCell {
     }
 
     func configure(
-        timerAssessment: TimerAssessment,
-        createdAt: String,
+        timerResultNumLabelString: String,
+        createdAtLabelString: String,
         copyAssessmentTextHandler: @escaping() -> Void
     ) {
-        timerResultNumLabel.text = String(timerAssessment.resultTimer) + " 秒"
-        createdAtLabel.text = createdAt
+        timerResultNumLabel.text = timerResultNumLabelString
+        createdAtLabel.text = createdAtLabelString
         self.copyAssessmentTextHandler = copyAssessmentTextHandler
     }
 }

@@ -11,33 +11,50 @@
         <!--Input Target Person View Controller-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController id="Y6W-OH-hqX" customClass="InputTargetPersonViewController" customModule="FunctionalIndependenceMeasure" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Y6W-OH-hqX" customClass="InputTargetPersonViewController" customModule="TimerAssessment" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="対象者の名前" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OlN-PV-I0L">
-                                <rect key="frame" x="10" y="358" width="394" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0nu-BK-B5B">
-                                <rect key="frame" x="62" y="431" width="290" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fc9-EY-mjk">
+                                <rect key="frame" x="35" y="323" width="344" height="250"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="対象者名を入力してください" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="S7c-Ut-GQf">
+                                        <rect key="frame" x="47" y="121" width="250" height="34"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="250" id="37j-yp-bG7"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="34" id="Df6-tY-kwE"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="対象者の名前" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vba-hT-h31">
+                                        <rect key="frame" x="102.5" y="50" width="139" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="139" id="a7P-Ht-diS"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="S7c-Ut-GQf" firstAttribute="top" secondItem="Vba-hT-h31" secondAttribute="bottom" constant="50" id="6Gg-Q1-BDe"/>
+                                    <constraint firstItem="Vba-hT-h31" firstAttribute="centerX" secondItem="fc9-EY-mjk" secondAttribute="centerX" id="BaS-i1-mkE"/>
+                                    <constraint firstItem="Vba-hT-h31" firstAttribute="top" secondItem="fc9-EY-mjk" secondAttribute="top" constant="50" id="W3K-zo-ubR"/>
+                                    <constraint firstAttribute="height" constant="250" id="rgX-EA-Joy"/>
+                                    <constraint firstItem="S7c-Ut-GQf" firstAttribute="centerX" secondItem="fc9-EY-mjk" secondAttribute="centerX" id="v1C-U1-t2C"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="0nu-BK-B5B" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" id="BV0-m4-s4g"/>
-                            <constraint firstItem="OlN-PV-I0L" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" constant="-80" id="Lfb-gF-3rD"/>
-                            <constraint firstItem="0nu-BK-B5B" firstAttribute="width" secondItem="5EZ-qb-Rvc" secondAttribute="width" multiplier="0.7" id="Mve-O4-v7M"/>
-                            <constraint firstItem="OlN-PV-I0L" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="OKF-YV-Yc6"/>
-                            <constraint firstItem="0nu-BK-B5B" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="xUl-lV-QdP"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="OlN-PV-I0L" secondAttribute="trailing" constant="10" id="xZe-2x-lqa"/>
-                            <constraint firstItem="OlN-PV-I0L" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="10" id="ydJ-eS-As4"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="fc9-EY-mjk" secondAttribute="trailing" constant="35" id="gwo-lC-vnA"/>
+                            <constraint firstItem="fc9-EY-mjk" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="le0-ml-ula"/>
+                            <constraint firstItem="fc9-EY-mjk" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" id="r8O-cN-Q3m"/>
+                            <constraint firstItem="fc9-EY-mjk" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="35" id="tQF-S5-LbO"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="1Fh-0y-DqW">
@@ -53,7 +70,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="targetPersonNameTextField" destination="0nu-BK-B5B" id="G16-O4-vF9"/>
+                        <outlet property="inputTargetPersonView" destination="fc9-EY-mjk" id="Nh2-vP-Oby"/>
+                        <outlet property="targetPersonNameTextField" destination="S7c-Ut-GQf" id="txu-dz-cOb"/>
                         <segue destination="EbA-nm-pu9" kind="unwind" identifier="save" unwindAction="saveWithSegue:" id="ljZ-tk-F8I"/>
                     </connections>
                 </viewController>

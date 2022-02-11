@@ -19,6 +19,7 @@ final class InputTargetPersonViewController: UIViewController {
     private let timerAssessmentRepository = TimerAssessmentRepository()
     var editingTargetPerson: TargetPerson?
     var targetPerson: TargetPerson?
+    @IBOutlet weak private var inputTargetPersonView: UIView!
     @IBOutlet weak private var targetPersonNameTextField: UITextField!
 
     override func viewDidLoad() {
@@ -29,6 +30,7 @@ final class InputTargetPersonViewController: UIViewController {
         // MARK: - テキストフィールドに名前を設定
         targetPersonNameTextField.text = getName(mode: mode)
         configueColor()
+        configueViewTargetPersonView()
     }
     // MARK: - Method
     private func getName(mode: Mode) -> String? {
@@ -80,5 +82,14 @@ final class InputTargetPersonViewController: UIViewController {
             withIdentifier: "save",
             sender: sender
         )
+    }
+
+    private func configueViewTargetPersonView() {
+        inputTargetPersonView.backgroundColor = .white
+        inputTargetPersonView.layer.cornerRadius = 20
+        inputTargetPersonView.layer.shadowOpacity = 0.7
+        inputTargetPersonView.layer.shadowRadius = 5
+        inputTargetPersonView.layer.shadowColor = Colors.mainColor.cgColor
+        inputTargetPersonView.layer.shadowOffset = CGSize(width: 1, height: 1)
     }
 }

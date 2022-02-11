@@ -27,10 +27,6 @@ final class InputAssessorViewController: UIViewController {
         guard let mode = mode else { fatalError("mode の中身が入っていない") }
         assessorNameTextField.text = getName(mode: mode)
         configueColor()
-    }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
         configueViewAssessorView()
     }
     // MARK: - Method

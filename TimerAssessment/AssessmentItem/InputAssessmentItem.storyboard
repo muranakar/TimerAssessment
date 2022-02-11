@@ -72,7 +72,7 @@
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" red="0.91753658189999998" green="1" blue="0.90453354370000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="49" translatesAutoresizingMaskIntoConstraints="NO" id="gU2-ik-h7O">
                                         <rect key="frame" x="0.0" y="115" width="374" height="274"/>
@@ -94,14 +94,14 @@
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" red="1" green="0.80879488450000003" blue="0.59253003059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PoL-uP-JgX">
                                         <rect key="frame" x="0.0" y="230" width="374" height="274"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tg7-S8-vCB">
                                                 <rect key="frame" x="0.0" y="0.0" width="374" height="274"/>
-                                                <color key="backgroundColor" red="1" green="0.84500488470000001" blue="0.98540216130000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="TUG"/>
                                                 <connections>
@@ -109,6 +109,7 @@
                                                 </connections>
                                             </button>
                                         </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </stackView>
                                 </subviews>
                             </stackView>

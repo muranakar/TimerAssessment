@@ -100,11 +100,12 @@ class PastAssessmentViewController: UIViewController, UITableViewDelegate, UITab
 
         var createdAtString = "--"
         if let createdAt = timerAssessment.createdAt {
-            createdAtString  = dateFormatter(date: createdAt)
+            createdAtString  = createdAtdateFormatter(date: createdAt)
         }
+
         cell.configure(
-            timerAssessment: timerAssessment,
-            createdAt: createdAtString,
+            timerResultNumLabelString: resultTimerStringFormatter(resultTimer: timerAssessment.resultTimer),
+            createdAtLabelString: createdAtString,
             copyAssessmentTextHandler: {
                 UIPasteboard.general.string =
                 CopyAndPasteFunctionAssessment(timerAssessment: timerAssessment).copyAndPasteString
@@ -168,12 +169,39 @@ class PastAssessmentViewController: UIViewController, UITableViewDelegate, UITab
         navigationItem.scrollEdgeAppearance = appearance
         navigationItem.compactAppearance = appearance
     }
-    // MARK: - DateFormatter　Date型→String型へ変更
-    func dateFormatter(date: Date) -> String {
+    // MARK: - Formatter　Double・Date型→String型へ変更
+    func resultTimerStringFormatter(resultTimer: Double) -> String {
+        // 整数部分
+        let integer = Int(resultTimer)
+        // 小数部分
+        let fraction = resultTimer.truncatingRemainder(dividingBy: 1)
+
+        var string = ""
+        var isHour = false
+
+        let hour = integer / 3600
+        if hour > 0 {
+            string += "\(hour):"
+            isHour = true
+        }
+
+        let min = integer / 60
+        if isHour || min > 0 {
+            string += "\(min):"
+        }
+
+        let sec = integer % 60
+        string += "\(sec):"
+
+        let fracitonConversion = Int(fraction * 100)
+        string += "\(fracitonConversion)"
+        return string
+    }
+    func createdAtdateFormatter(date: Date) -> String {
         let dateFormatter = Foundation.DateFormatter()
         dateFormatter.locale = Locale(identifier: "ja_JP")
         dateFormatter.dateStyle = .medium
-        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.dateFormat = "yyyy'年'MM'月'dd'日'　HH'時'mm'分'"
         let dateString = dateFormatter.string(from: date)
         return dateString
     }
