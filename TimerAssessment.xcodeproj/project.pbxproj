@@ -40,8 +40,6 @@
 		B2AE981C27A89AE8003148ED /* AssessmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2AE981B27A89AE8003148ED /* AssessmentViewController.swift */; };
 		B2AE981E27A89B1A003148ED /* DetailAssessment.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2AE981D27A89B1A003148ED /* DetailAssessment.storyboard */; };
 		B2AE982027A89B33003148ED /* DetailAssessmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2AE981F27A89B33003148ED /* DetailAssessmentViewController.swift */; };
-		B2AE982227A89B47003148ED /* InputAssessment.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2AE982127A89B47003148ED /* InputAssessment.storyboard */; };
-		B2AE982427A89B55003148ED /* InputAssessmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2AE982327A89B55003148ED /* InputAssessmentViewController.swift */; };
 		B2AEFF152784E9CA0010F539 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2AEFF142784E9CA0010F539 /* Colors.swift */; };
 /* End PBXBuildFile section */
 
@@ -83,8 +81,6 @@
 		B2AE981B27A89AE8003148ED /* AssessmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssessmentViewController.swift; sourceTree = "<group>"; };
 		B2AE981D27A89B1A003148ED /* DetailAssessment.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DetailAssessment.storyboard; sourceTree = "<group>"; };
 		B2AE981F27A89B33003148ED /* DetailAssessmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailAssessmentViewController.swift; sourceTree = "<group>"; };
-		B2AE982127A89B47003148ED /* InputAssessment.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = InputAssessment.storyboard; sourceTree = "<group>"; };
-		B2AE982327A89B55003148ED /* InputAssessmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputAssessmentViewController.swift; sourceTree = "<group>"; };
 		B2AEFF142784E9CA0010F539 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -152,7 +148,6 @@
 				B2AE980C27A89934003148ED /* Assessment */,
 				B2AE980B27A8991D003148ED /* PastAssessment */,
 				B2AE980D27A89942003148ED /* DetailAssessment */,
-				B2AE980E27A8996B003148ED /* InputAssessment */,
 			);
 			path = TimerAssessment;
 			sourceTree = "<group>";
@@ -238,15 +233,6 @@
 				B2AE981F27A89B33003148ED /* DetailAssessmentViewController.swift */,
 			);
 			path = DetailAssessment;
-			sourceTree = "<group>";
-		};
-		B2AE980E27A8996B003148ED /* InputAssessment */ = {
-			isa = PBXGroup;
-			children = (
-				B2AE982127A89B47003148ED /* InputAssessment.storyboard */,
-				B2AE982327A89B55003148ED /* InputAssessmentViewController.swift */,
-			);
-			path = InputAssessment;
 			sourceTree = "<group>";
 		};
 		B2AEFF132784E9B30010F539 /* Color */ = {
@@ -339,7 +325,6 @@
 				B2AE981227A89A58003148ED /* FunctionSelection.storyboard in Resources */,
 				B275A30F27A8125C00623E99 /* AssessmentItem.storyboard in Resources */,
 				B234EA3227AF1A2C00D7D406 /* PastAssessmentTableViewCell.xib in Resources */,
-				B2AE982227A89B47003148ED /* InputAssessment.storyboard in Resources */,
 				B2AE981A27A89ACC003148ED /* Assessment.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -430,7 +415,6 @@
 				B2377151275EA64D00A48640 /* SceneDelegate.swift in Sources */,
 				B275A31527A812A200623E99 /* InputAssessmentItemViewController.swift in Sources */,
 				B234EA3127AF1A2C00D7D406 /* PastAssessmentTableViewCell.swift in Sources */,
-				B2AE982427A89B55003148ED /* InputAssessmentViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

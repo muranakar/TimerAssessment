@@ -19,10 +19,10 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gol-Zx-hjs">
                                 <rect key="frame" x="47" y="138" width="320" height="180"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pUP-pI-W2w">
-                                        <rect key="frame" x="35" y="70.5" width="250" height="50"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="評価項目を入力してください" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pUP-pI-W2w">
+                                        <rect key="frame" x="35" y="70.5" width="250" height="40"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="9LG-Vl-GHI"/>
+                                            <constraint firstAttribute="height" constant="40" id="9LG-Vl-GHI"/>
                                             <constraint firstAttribute="width" constant="250" id="rUh-n2-gei"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -49,80 +49,91 @@
                                     <constraint firstItem="pUP-pI-W2w" firstAttribute="top" secondItem="zBQ-14-Htb" secondAttribute="bottom" constant="30" id="dnb-ur-jlS"/>
                                 </constraints>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="-159" translatesAutoresizingMaskIntoConstraints="NO" id="III-14-lPn">
-                                <rect key="frame" x="20" y="338" width="374" height="504"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="enK-VW-MNH">
+                                <rect key="frame" x="42" y="378" width="330" height="50"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="100" translatesAutoresizingMaskIntoConstraints="NO" id="enK-VW-MNH">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="274"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yf4-p0-g8u">
-                                                <rect key="frame" x="0.0" y="0.0" width="137" height="274"/>
-                                                <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="10m歩行"/>
-                                                <connections>
-                                                    <action selector="selectedButtonListWithSender:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="XzD-jJ-IUJ"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fnC-zp-Xgm">
-                                                <rect key="frame" x="237" y="0.0" width="137" height="274"/>
-                                                <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="6分間歩行"/>
-                                                <connections>
-                                                    <action selector="selectedButtonListWithSender:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="8Yj-jR-1RY"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="49" translatesAutoresizingMaskIntoConstraints="NO" id="gU2-ik-h7O">
-                                        <rect key="frame" x="0.0" y="115" width="374" height="274"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="coJ-cz-8Fu">
-                                                <rect key="frame" x="0.0" y="0.0" width="162.5" height="274"/>
-                                                <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="片脚立位（右）"/>
-                                                <connections>
-                                                    <action selector="selectedButtonListWithSender:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="kVZ-VZ-eTN"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6eC-xJ-QBM">
-                                                <rect key="frame" x="211.5" y="0.0" width="162.5" height="274"/>
-                                                <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="片脚立位（左）"/>
-                                                <connections>
-                                                    <action selector="selectedButtonListWithSender:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Kbe-kY-aQq"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PoL-uP-JgX">
-                                        <rect key="frame" x="0.0" y="230" width="374" height="274"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tg7-S8-vCB">
-                                                <rect key="frame" x="0.0" y="0.0" width="374" height="274"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="TUG"/>
-                                                <connections>
-                                                    <action selector="selectedButtonListWithSender:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="MPh-w2-YHa"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yf4-p0-g8u">
+                                        <rect key="frame" x="0.0" y="0.0" width="150" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="5KF-r5-HM5"/>
+                                            <constraint firstAttribute="width" constant="150" id="SI7-Hb-GhA"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="10m歩行"/>
+                                        <connections>
+                                            <action selector="selectedButtonListWithSender:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="XzD-jJ-IUJ"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fnC-zp-Xgm">
+                                        <rect key="frame" x="180" y="0.0" width="150" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="ZUc-3j-ltH"/>
+                                            <constraint firstAttribute="width" constant="150" id="lID-k3-UKI"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="6分間歩行"/>
+                                        <connections>
+                                            <action selector="selectedButtonListWithSender:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="8Yj-jR-1RY"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="gU2-ik-h7O">
+                                <rect key="frame" x="42" y="488" width="330" height="50"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="coJ-cz-8Fu">
+                                        <rect key="frame" x="0.0" y="0.0" width="150" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="LQa-Yi-P4D"/>
+                                            <constraint firstAttribute="width" constant="150" id="uIx-xX-Y6c"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="片脚立位(右)"/>
+                                        <connections>
+                                            <action selector="selectedButtonListWithSender:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="kVZ-VZ-eTN"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6eC-xJ-QBM">
+                                        <rect key="frame" x="180" y="0.0" width="150" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="TD6-7y-Uqj"/>
+                                            <constraint firstAttribute="width" constant="150" id="nNT-xJ-Nfb"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="片脚立位(左)"/>
+                                        <connections>
+                                            <action selector="selectedButtonListWithSender:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Kbe-kY-aQq"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tg7-S8-vCB">
+                                <rect key="frame" x="132" y="598" width="150" height="50"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="0zP-Qu-Laj"/>
+                                    <constraint firstAttribute="width" constant="150" id="YEF-bY-WOW"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="TUG"/>
+                                <connections>
+                                    <action selector="selectedButtonListWithSender:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="MPh-w2-YHa"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="gol-Zx-hjs" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="25A-bI-w2v"/>
-                            <constraint firstItem="III-14-lPn" firstAttribute="top" secondItem="gol-Zx-hjs" secondAttribute="bottom" constant="20" id="2xy-o6-vok"/>
-                            <constraint firstAttribute="trailing" secondItem="III-14-lPn" secondAttribute="trailing" constant="20" id="A69-Co-IQS"/>
+                            <constraint firstItem="gU2-ik-h7O" firstAttribute="top" secondItem="enK-VW-MNH" secondAttribute="bottom" constant="60" id="Adx-Vh-0oH"/>
+                            <constraint firstItem="enK-VW-MNH" firstAttribute="top" secondItem="gol-Zx-hjs" secondAttribute="bottom" constant="60" id="CmD-T9-TUZ"/>
                             <constraint firstItem="gol-Zx-hjs" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="50" id="DRe-Fu-Pkj"/>
-                            <constraint firstItem="III-14-lPn" firstAttribute="leading" secondItem="5EZ-qb-Rvc" secondAttribute="leading" constant="20" id="aOQ-zx-IIZ"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="III-14-lPn" secondAttribute="bottom" constant="20" id="vE2-9O-Exg"/>
+                            <constraint firstItem="enK-VW-MNH" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="HUS-Ns-8FQ"/>
+                            <constraint firstItem="gU2-ik-h7O" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="KDU-83-Uib"/>
+                            <constraint firstItem="tg7-S8-vCB" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="RFp-tC-hbX"/>
+                            <constraint firstItem="tg7-S8-vCB" firstAttribute="top" secondItem="gU2-ik-h7O" secondAttribute="bottom" constant="60" id="f5z-5b-nrU"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="NgH-TJ-jdM">
@@ -139,6 +150,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="assessmentItemNameTextField" destination="pUP-pI-W2w" id="uUk-fy-XJh"/>
+                        <outlet property="assessmentItemNameView" destination="gol-Zx-hjs" id="JPD-vS-kkz"/>
                         <outlet property="leftOneLegStandingButton" destination="6eC-xJ-QBM" id="gRt-PZ-OpN"/>
                         <outlet property="rightOneLegStandingButton" destination="coJ-cz-8Fu" id="cKi-xO-Qkp"/>
                         <outlet property="sixMinutesWalkingButton" destination="fnC-zp-Xgm" id="hlD-Fb-ynp"/>

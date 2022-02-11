@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -60,6 +61,20 @@
                                     <action selector="input:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="rR8-yQ-ol2"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6IV-dW-rfR">
+                                <rect key="frame" x="20" y="782" width="130" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="130" id="1QM-cx-Q8v"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="60" id="p4y-cM-Fvs"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="修正依頼" subtitle="(Twitter)">
+                                    <imageReference key="image" image="envelope" catalog="system" symbolScale="large"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="moveTwitterURL:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="6wa-n9-eV2"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -69,7 +84,9 @@
                             <constraint firstItem="kxZ-QT-tin" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="gXC-bZ-3Xo"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="dVl-tQ-g7M" secondAttribute="trailing" constant="50" id="h70-KC-i30"/>
                             <constraint firstItem="kxZ-QT-tin" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="laM-sF-mG9"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="6IV-dW-rfR" secondAttribute="bottom" constant="20" id="ost-Cn-40E"/>
                             <constraint firstItem="kxZ-QT-tin" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="pcv-KI-tZY"/>
+                            <constraint firstItem="6IV-dW-rfR" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="uLZ-UB-8rF"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="2w8-Nn-JyL">
@@ -82,6 +99,7 @@
                     <connections>
                         <outlet property="inputButton" destination="dVl-tQ-g7M" id="uaZ-3b-SdY"/>
                         <outlet property="tableView" destination="kxZ-QT-tin" id="KV7-kb-jQt"/>
+                        <outlet property="twitterButton" destination="6IV-dW-rfR" id="iYT-vD-Nli"/>
                         <segue destination="jvt-jb-pRL" kind="presentation" identifier="edit" modalPresentationStyle="fullScreen" id="G8D-5z-4c1"/>
                         <segue destination="jvt-jb-pRL" kind="presentation" identifier="input" modalPresentationStyle="fullScreen" id="EGi-87-bi4"/>
                     </connections>
@@ -123,6 +141,7 @@
     </inferredMetricsTieBreakers>
     <resources>
         <image name="chevron.backward" catalog="system" width="96" height="128"/>
+        <image name="envelope" catalog="system" width="128" height="93"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -19,6 +19,7 @@ final class InputAssessmentItemViewController: UIViewController {
     private let timerAssessmentRepository = TimerAssessmentRepository()
     var editingAssessmentItem: AssessmentItem?
     var assessmentItem: AssessmentItem?
+    @IBOutlet weak private var assessmentItemNameView: UIView!
     @IBOutlet weak private var assessmentItemNameTextField: UITextField!
     @IBOutlet private weak var tenMeterWalkTestButton: UIButton!
     @IBOutlet private weak var sixMinutesWalkingButton: UIButton!
@@ -38,10 +39,10 @@ final class InputAssessmentItemViewController: UIViewController {
 
     private var buttonString: [String] {
         [
-            "１０ｍ歩行",
-            "６分間歩行",
-            "片脚立位（右）",
-            "片脚立位（左）",
+            "10m歩行",
+            "6分間歩行",
+            "片脚立位(右)",
+            "片脚立位(左)",
             "TUG"
         ]
     }
@@ -57,12 +58,10 @@ final class InputAssessmentItemViewController: UIViewController {
         // MARK: - テキストフィールドに名前を設定
         assessmentItemNameTextField.text = getName(mode: mode)
         configueColor()
-    }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
+        configueViewAssessmentItemView()
         buttons.forEach { configueViewAssessmentItemButton(button: $0) }
     }
+
     // MARK: - Method
     private func getName(mode: Mode) -> String? {
         switch mode {
@@ -72,17 +71,6 @@ final class InputAssessmentItemViewController: UIViewController {
             return editingAssessmentItem?.name
         }
     }
-
-    // MARK: - View Configue
-    private func configueColor() {
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = Colors.baseColor
-        navigationItem.standardAppearance = appearance
-        navigationItem.scrollEdgeAppearance = appearance
-        navigationItem.compactAppearance = appearance
-    }
-
     // MARK: - 対象者データを保存するUIButtonのIBAction
     @IBAction private func saveAction(_ sender: Any) {
         guard let mode = mode else { return }
@@ -137,7 +125,15 @@ final class InputAssessmentItemViewController: UIViewController {
             sender: sender
         )
     }
-
+    // MARK: - View Configue
+    private func configueColor() {
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = Colors.baseColor
+        navigationItem.standardAppearance = appearance
+        navigationItem.scrollEdgeAppearance = appearance
+        navigationItem.compactAppearance = appearance
+    }
     private func configueViewAssessmentItemButton(button: UIButton) {
         button.backgroundColor = Colors.baseColor
         button.setTitleColor(Colors.mainColor, for: .normal)
@@ -149,5 +145,13 @@ final class InputAssessmentItemViewController: UIViewController {
         button.layer.shadowColor = Colors.mainColor.cgColor
         button.layer.shadowOffset = CGSize(width: 1, height: 1)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+    }
+    private func configueViewAssessmentItemView() {
+        assessmentItemNameView.backgroundColor = .white
+        assessmentItemNameView.layer.cornerRadius = 20
+        assessmentItemNameView.layer.shadowOpacity = 0.7
+        assessmentItemNameView.layer.shadowRadius = 5
+        assessmentItemNameView.layer.shadowColor = Colors.mainColor.cgColor
+        assessmentItemNameView.layer.shadowOffset = CGSize(width: 1, height: 1)
     }
 }

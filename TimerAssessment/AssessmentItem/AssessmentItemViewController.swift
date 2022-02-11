@@ -17,6 +17,7 @@ final class AssessmentItemViewController: UIViewController, UITableViewDelegate,
     private let timerAssessmentRepository = TimerAssessmentRepository()
     @IBOutlet weak private var tableView: UITableView!
     @IBOutlet weak private var inputButton: UIButton!
+    @IBOutlet weak private var twitterButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +29,14 @@ final class AssessmentItemViewController: UIViewController, UITableViewDelegate,
         navigationItem.title = "\(targetPersonName)　様の評価項目リスト"
         configueViewColor()
         configueViewButton()
+        configueViewButtonTwitterURL()
+    }
+    // MARK: - Twitterへの遷移ボタン
+    @IBAction private func moveTwitterURL(_ sender: Any) {
+        let url = NSURL(string: "https://twitter.com/iOS76923384")
+        if UIApplication.shared.canOpenURL(url! as URL) {
+            UIApplication.shared.open(url! as URL, options: [:], completionHandler: nil)
+        }
     }
     // MARK: - Segue- TargetPersonViewController →　InputTargetPersonViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -136,5 +145,16 @@ final class AssessmentItemViewController: UIViewController, UITableViewDelegate,
         inputButton.layer.shadowRadius = 3
         inputButton.layer.shadowColor = Colors.mainColor.cgColor
         inputButton.layer.shadowOffset = CGSize(width: 1, height: 1)
+    }
+    private func configueViewButtonTwitterURL() {
+        twitterButton.backgroundColor = .white
+        twitterButton.layer.cornerRadius = 20
+        twitterButton.imageView?.contentMode = .scaleAspectFill
+        twitterButton.contentVerticalAlignment = .fill
+        twitterButton.contentHorizontalAlignment = .fill
+        twitterButton.layer.shadowOpacity = 0.7
+        twitterButton.layer.shadowRadius = 5
+        twitterButton.layer.shadowColor = Colors.mainColor.cgColor
+        twitterButton.layer.shadowOffset = CGSize(width: 1, height: 1)
     }
 }

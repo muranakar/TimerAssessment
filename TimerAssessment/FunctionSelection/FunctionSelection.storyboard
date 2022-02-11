@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -52,14 +53,30 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DVW-9v-bJn">
+                                <rect key="frame" x="20" y="782" width="130" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="60" id="WAc-zv-Lw9"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="130" id="Xxx-Ei-nRm"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="修正依頼" subtitle="(Twitter)">
+                                    <imageReference key="image" image="envelope" catalog="system" symbolScale="large"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="moveTwitterURL:" destination="Ga9-a2-xr2" eventType="touchUpInside" id="x1r-cr-R4E"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="cpP-KG-AGu"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="vU0-n9-Mrr" firstAttribute="centerY" secondItem="r7D-1r-vOT" secondAttribute="centerY" constant="-150" id="CBy-RJ-hiw"/>
+                            <constraint firstItem="cpP-KG-AGu" firstAttribute="bottom" secondItem="DVW-9v-bJn" secondAttribute="bottom" constant="20" id="FoX-Ls-JL7"/>
                             <constraint firstItem="tRJ-qI-zk3" firstAttribute="centerX" secondItem="r7D-1r-vOT" secondAttribute="centerX" id="Izo-JH-Sz6"/>
                             <constraint firstItem="eoC-gw-awt" firstAttribute="centerY" secondItem="r7D-1r-vOT" secondAttribute="centerY" constant="-50" id="LGd-Ai-WjH"/>
                             <constraint firstItem="eoC-gw-awt" firstAttribute="centerX" secondItem="r7D-1r-vOT" secondAttribute="centerX" id="LhX-lf-gcO"/>
+                            <constraint firstItem="DVW-9v-bJn" firstAttribute="leading" secondItem="cpP-KG-AGu" secondAttribute="leading" constant="20" id="aJA-0N-x44"/>
                             <constraint firstItem="bKZ-3w-6GD" firstAttribute="centerX" secondItem="r7D-1r-vOT" secondAttribute="centerX" id="iOt-1a-7a1"/>
                             <constraint firstItem="vU0-n9-Mrr" firstAttribute="centerX" secondItem="r7D-1r-vOT" secondAttribute="centerX" id="jFB-Gf-nHW"/>
                             <constraint firstItem="tRJ-qI-zk3" firstAttribute="centerY" secondItem="r7D-1r-vOT" secondAttribute="centerY" constant="-200" id="qpR-4X-bFK"/>
@@ -77,6 +94,7 @@
                         <outlet property="assessmentItemLabel" destination="vU0-n9-Mrr" id="KsI-rn-vbV"/>
                         <outlet property="assessmentListButton" destination="bKZ-3w-6GD" id="GI3-xc-kTy"/>
                         <outlet property="asssessmentButton" destination="eoC-gw-awt" id="UqV-fO-7ap"/>
+                        <outlet property="twitterButton" destination="DVW-9v-bJn" id="SHy-s5-LlN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s3g-Rx-O1n" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -106,6 +124,7 @@
     <resources>
         <image name="applepencil" catalog="system" width="128" height="113"/>
         <image name="chevron.backward" catalog="system" width="96" height="128"/>
+        <image name="envelope" catalog="system" width="128" height="93"/>
         <image name="list.dash" catalog="system" width="128" height="85"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
