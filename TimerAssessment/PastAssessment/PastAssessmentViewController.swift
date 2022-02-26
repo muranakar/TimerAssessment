@@ -90,11 +90,11 @@ final class PastAssessmentViewController: UIViewController, UITableViewDelegate,
         cell.configure(
             timerResultNumLabelString: resultTimerStringFormatter(resultTimer: timerAssessment.resultTimer),
             createdAtLabelString: createdAtString,
-            copyAssessmentTextHandler: {
+            copyAssessmentTextHandler: {[weak self] in
                 UIPasteboard.general.string =
                 CopyAndPasteFunctionAssessment(timerAssessment: timerAssessment).copyAndPasteString
                 // MARK: - weak selfを行うべきなのか、そうではないのか。
-                self.copyButtonPushAlert(title: "コピー完了", message: "データ内容のコピーが\n完了しました。")
+                self?.copyButtonPushAlert(title: "コピー完了", message: "データ内容のコピーが\n完了しました。")
             }
         )
         return cell

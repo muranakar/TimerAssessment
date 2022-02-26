@@ -29,16 +29,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sft-rc-Ycd">
-                                                    <rect key="frame" x="40" y="8.5" width="200" height="26.5"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="U5s-ys-M6e"/>
-                                                    </constraints>
+                                                    <rect key="frame" x="40" y="8.5" width="313.5" height="26.5"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="sft-rc-Ycd" secondAttribute="trailing" constant="20" id="Wic-s3-fog"/>
                                                 <constraint firstItem="sft-rc-Ycd" firstAttribute="centerY" secondItem="EiN-XX-Ov8" secondAttribute="centerY" id="deV-tu-blT"/>
                                                 <constraint firstItem="sft-rc-Ycd" firstAttribute="leading" secondItem="EiN-XX-Ov8" secondAttribute="leadingMargin" constant="20" id="f4v-Vt-Rbm"/>
                                             </constraints>
