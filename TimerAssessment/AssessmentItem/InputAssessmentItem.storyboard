@@ -20,10 +20,9 @@
                                 <rect key="frame" x="47" y="138" width="320" height="180"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="評価項目を入力してください" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pUP-pI-W2w">
-                                        <rect key="frame" x="35" y="70.5" width="250" height="40"/>
+                                        <rect key="frame" x="40" y="70.5" width="240" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="9LG-Vl-GHI"/>
-                                            <constraint firstAttribute="width" constant="250" id="rUh-n2-gei"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -45,6 +44,7 @@
                                     <constraint firstItem="zBQ-14-Htb" firstAttribute="top" secondItem="gol-Zx-hjs" secondAttribute="top" constant="20" id="JXn-Al-h2r"/>
                                     <constraint firstItem="zBQ-14-Htb" firstAttribute="centerX" secondItem="gol-Zx-hjs" secondAttribute="centerX" id="NaL-sH-AAE"/>
                                     <constraint firstAttribute="width" constant="320" id="Qwm-6Z-7d4"/>
+                                    <constraint firstAttribute="trailing" secondItem="pUP-pI-W2w" secondAttribute="trailing" constant="40" id="XiT-aa-4bb"/>
                                     <constraint firstAttribute="height" constant="180" id="Zxi-Mp-nKt"/>
                                     <constraint firstItem="pUP-pI-W2w" firstAttribute="top" secondItem="zBQ-14-Htb" secondAttribute="bottom" constant="30" id="dnb-ur-jlS"/>
                                 </constraints>

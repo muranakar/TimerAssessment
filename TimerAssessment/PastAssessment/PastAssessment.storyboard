@@ -23,8 +23,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WkI-se-7ua">
                                 <rect key="frame" x="0.0" y="88" width="414" height="50"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="94u-un-GK1">
-                                        <rect key="frame" x="174" y="9.5" width="66.5" height="31.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="94u-un-GK1">
+                                        <rect key="frame" x="20" y="9.5" width="374" height="31.5"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -35,6 +35,7 @@
                                     <constraint firstItem="94u-un-GK1" firstAttribute="centerX" secondItem="WkI-se-7ua" secondAttribute="centerX" id="4i2-i6-BDT"/>
                                     <constraint firstAttribute="height" constant="50" id="Mgi-b1-rPR"/>
                                     <constraint firstItem="94u-un-GK1" firstAttribute="centerY" secondItem="WkI-se-7ua" secondAttribute="centerY" id="QnP-7X-8Lf"/>
+                                    <constraint firstAttribute="trailing" secondItem="94u-un-GK1" secondAttribute="trailing" constant="20" id="i2Q-iq-xOl"/>
                                 </constraints>
                             </view>
                         </subviews>

@@ -20,9 +20,8 @@
                                 <rect key="frame" x="35" y="323" width="344" height="250"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="評価者名を入力してください" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iVt-gB-6E3">
-                                        <rect key="frame" x="47" y="121" width="250" height="34"/>
+                                        <rect key="frame" x="40" y="121" width="264" height="34"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="250" id="Uoy-t4-asr"/>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="34" id="X7w-i8-BSO"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -43,6 +42,7 @@
                                     <constraint firstItem="iVt-gB-6E3" firstAttribute="top" secondItem="dG5-Kd-3Qo" secondAttribute="bottom" constant="50" id="c0V-z2-RnU"/>
                                     <constraint firstItem="dG5-Kd-3Qo" firstAttribute="top" secondItem="PnE-hA-vla" secondAttribute="top" constant="50" id="f5J-ja-Sei"/>
                                     <constraint firstItem="dG5-Kd-3Qo" firstAttribute="centerX" secondItem="PnE-hA-vla" secondAttribute="centerX" id="hwO-Kl-dsv"/>
+                                    <constraint firstAttribute="trailing" secondItem="iVt-gB-6E3" secondAttribute="trailing" constant="40" id="lXn-ts-7BP"/>
                                     <constraint firstAttribute="height" constant="250" id="rzd-Iq-7gR"/>
                                     <constraint firstItem="iVt-gB-6E3" firstAttribute="centerX" secondItem="PnE-hA-vla" secondAttribute="centerX" id="y9L-Uc-eRy"/>
                                 </constraints>

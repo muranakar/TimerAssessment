@@ -58,7 +58,7 @@
 		B2377155275EA64D00A48640 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B2377157275EA64E00A48640 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B237715A275EA64E00A48640 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		B237715C275EA64E00A48640 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B237715C275EA64E00A48640 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = TimerAssessment/Info.plist; sourceTree = "<group>"; };
 		B2377166275EA6E200A48640 /* InputAssessorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputAssessorViewController.swift; sourceTree = "<group>"; };
 		B2377179275EAB8F00A48640 /* AssessorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssessorTableViewCell.swift; sourceTree = "<group>"; };
 		B237717B275EABA300A48640 /* TargetPersonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetPersonTableViewCell.swift; sourceTree = "<group>"; };

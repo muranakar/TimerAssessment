@@ -42,7 +42,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vU0-n9-Mrr">
-                                <rect key="frame" x="169" y="280" width="76.5" height="36"/>
+                                <rect key="frame" x="20" y="280" width="374" height="36"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -80,6 +80,7 @@
                             <constraint firstItem="bKZ-3w-6GD" firstAttribute="centerX" secondItem="r7D-1r-vOT" secondAttribute="centerX" id="iOt-1a-7a1"/>
                             <constraint firstItem="vU0-n9-Mrr" firstAttribute="centerX" secondItem="r7D-1r-vOT" secondAttribute="centerX" id="jFB-Gf-nHW"/>
                             <constraint firstItem="tRJ-qI-zk3" firstAttribute="centerY" secondItem="r7D-1r-vOT" secondAttribute="centerY" constant="-200" id="qpR-4X-bFK"/>
+                            <constraint firstItem="cpP-KG-AGu" firstAttribute="trailing" secondItem="vU0-n9-Mrr" secondAttribute="trailing" constant="20" id="uwP-U0-3ZR"/>
                             <constraint firstItem="bKZ-3w-6GD" firstAttribute="centerY" secondItem="r7D-1r-vOT" secondAttribute="centerY" constant="90" id="xbp-pR-LXu"/>
                         </constraints>
                     </view>
