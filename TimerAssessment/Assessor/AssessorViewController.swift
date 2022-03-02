@@ -23,7 +23,6 @@ final class AssessorViewController: UIViewController, UITableViewDelegate, UITab
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableview.selectRow(at: nil, animated: animated, scrollPosition: .none)
-        print(animated)
     }
 
     var selectedAssessor: Assessor?

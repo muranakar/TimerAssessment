@@ -59,7 +59,7 @@
                                             <constraint firstAttribute="width" constant="150" id="SI7-Hb-GhA"/>
                                         </constraints>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="10m歩行"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="5m歩行"/>
                                         <connections>
                                             <action selector="selectedButtonListWithSender:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="XzD-jJ-IUJ"/>
                                         </connections>
@@ -71,7 +71,7 @@
                                             <constraint firstAttribute="width" constant="150" id="lID-k3-UKI"/>
                                         </constraints>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="6分間歩行"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="10m歩行"/>
                                         <connections>
                                             <action selector="selectedButtonListWithSender:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="8Yj-jR-1RY"/>
                                         </connections>

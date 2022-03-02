@@ -16,8 +16,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="u6a-tT-YRV">
-                                <rect key="frame" x="0.0" y="138" width="414" height="675"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="u6a-tT-YRV">
+                                <rect key="frame" x="0.0" y="138" width="414" height="758"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WkI-se-7ua">
@@ -43,7 +43,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="u6a-tT-YRV" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="1R4-pa-Sbb"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="u6a-tT-YRV" secondAttribute="bottom" id="Gwl-0M-21U"/>
+                            <constraint firstAttribute="bottom" secondItem="u6a-tT-YRV" secondAttribute="bottom" id="Gwl-0M-21U"/>
                             <constraint firstItem="WkI-se-7ua" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="WLS-Ut-AoI"/>
                             <constraint firstItem="WkI-se-7ua" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="fiW-Dc-X8h"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="u6a-tT-YRV" secondAttribute="trailing" id="hiI-VW-cxX"/>

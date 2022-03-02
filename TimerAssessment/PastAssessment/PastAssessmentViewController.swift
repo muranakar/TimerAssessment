@@ -44,6 +44,7 @@ final class PastAssessmentViewController: UIViewController, UITableViewDelegate,
             UINib(nibName: "PastAssessmentTableViewCell", bundle: nil),
             forCellReuseIdentifier: "pastAssessmentTableViewCell"
         )
+        
         tableView.reloadData()
         configueViewNavigationbarColor()
     }
