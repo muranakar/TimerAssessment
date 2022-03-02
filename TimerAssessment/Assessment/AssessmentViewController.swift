@@ -165,7 +165,7 @@ final class AssessmentViewController: UIViewController {
     }
 
     private func configueViewTimerLabel() {
-        timerLabel.font = UIFont.monospacedSystemFont(ofSize: 60, weight: .medium)
+        timerLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 60, weight: .medium)
     }
 }
 

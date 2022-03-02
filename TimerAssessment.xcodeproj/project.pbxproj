@@ -137,7 +137,6 @@
 			isa = PBXGroup;
 			children = (
 				B237714E275EA64D00A48640 /* AppDelegate.swift */,
-				B2377150275EA64D00A48640 /* SceneDelegate.swift */,
 				B234EA3427AF2B5800D7D406 /* CopyAndPaste */,
 				B2AEFF132784E9B30010F539 /* Color */,
 				B2377184275EACF100A48640 /* TimerAssessmentRepository */,
@@ -180,6 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				B2377182275EACE400A48640 /* TimerAssessmentRepository.swift */,
+				B2377150275EA64D00A48640 /* SceneDelegate.swift */,
 				B2ADB23B27A0A01500BDF423 /* TimerAssessment.swift */,
 			);
 			path = TimerAssessmentRepository;

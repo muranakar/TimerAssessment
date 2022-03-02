@@ -63,7 +63,9 @@ final class PastAssessmentViewController: UIViewController, UITableViewDelegate,
     func numberOfSections(in tableView: UITableView) -> Int {
         1
     }
-
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        120
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         timerAssessmentRepository
             .loadTimerAssessment(
@@ -75,7 +77,8 @@ final class PastAssessmentViewController: UIViewController, UITableViewDelegate,
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // swiftlint:disable:next force_cast
         let cell = tableView.dequeueReusableCell(
-            withIdentifier: "pastAssessmentTableViewCell"
+            withIdentifier: "pastAssessmentTableViewCell",
+            for: indexPath
         ) as! PastAssessmentTableViewCell
         let timerAssessment = timerAssessmentRepository.loadTimerAssessment(
             assessmentItem: assessmentItem!,

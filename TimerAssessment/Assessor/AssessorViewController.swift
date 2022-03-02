@@ -19,6 +19,13 @@ final class AssessorViewController: UIViewController, UITableViewDelegate, UITab
         configueViewButton()
         configueViewButtonTwitterURL()
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableview.selectRow(at: nil, animated: animated, scrollPosition: .none)
+        print(animated)
+    }
+
     var selectedAssessor: Assessor?
     var editingAssessor: Assessor?
     let timerAssessmentRepository = TimerAssessmentRepository()
@@ -70,7 +77,7 @@ final class AssessorViewController: UIViewController, UITableViewDelegate, UITab
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // swiftlint:disable:next force_cast
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! AssessorTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! AssessorTableViewCell
         let assessor = timerAssessmentRepository.loadAssessor()[indexPath.row]
         cell.configue(assessor: assessor)
         return cell
@@ -95,6 +102,7 @@ final class AssessorViewController: UIViewController, UITableViewDelegate, UITab
         timerAssessmentRepository.removeAssessor(assessor: assessor)
         tableView.reloadData()
     }
+
     // MARK: - Method
     private func toTargetPersonViewController(selectedAssessor: Assessor?) {
         let storyboard = UIStoryboard(name: "TargetPerson", bundle: nil)

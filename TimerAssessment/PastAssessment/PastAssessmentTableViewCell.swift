@@ -10,7 +10,7 @@ import UIKit
 final class PastAssessmentTableViewCell: UITableViewCell {
     @IBOutlet weak private var timerResultNumLabel: UILabel! {
         didSet {
-            timerResultNumLabel.font = UIFont.monospacedSystemFont(ofSize: 25, weight: .medium)
+            timerResultNumLabel.font = UIFont.monospacedDigitSystemFont (ofSize: 25, weight: .medium)
         }
     }
     @IBOutlet weak private var createdAtLabel: UILabel!

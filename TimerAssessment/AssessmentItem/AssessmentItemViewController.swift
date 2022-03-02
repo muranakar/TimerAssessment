@@ -31,6 +31,11 @@ final class AssessmentItemViewController: UIViewController, UITableViewDelegate,
         configueViewButton()
         configueViewButtonTwitterURL()
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.selectRow(at: nil, animated: animated, scrollPosition: .none)
+    }
     // MARK: - Twitterへの遷移ボタン
     @IBAction private func moveTwitterURL(_ sender: Any) {
         let url = NSURL(string: "https://twitter.com/iOS76923384")
@@ -80,7 +85,7 @@ final class AssessmentItemViewController: UIViewController, UITableViewDelegate,
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // swiftlint:disable:next force_cast
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! AssessmentItemTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! AssessmentItemTableViewCell
         let assessmentItem = timerAssessmentRepository.loadAssessmentItem(targetPerson: targetPerson!)[indexPath.row]
         cell.configue(name: assessmentItem.name)
         return cell
