@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import StoreKit
 
 final class AssessorViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak private var tableview: UITableView!
@@ -83,6 +84,12 @@ final class AssessorViewController: UIViewController, UITableViewDelegate, UITab
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let reviewNum = ReviewRepository.processAfterAddReviewNumPulsOneAndSaveReviewNum()
+        if reviewNum == 5 || reviewNum == 20 {
+            if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                SKStoreReviewController.requestReview(in: scene)
+            }
+        }
         selectedAssessor = timerAssessmentRepository.loadAssessor()[indexPath.row]
         toTargetPersonViewController(selectedAssessor: selectedAssessor)
     }
