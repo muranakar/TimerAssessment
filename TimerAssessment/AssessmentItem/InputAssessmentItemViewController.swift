@@ -39,7 +39,7 @@ final class InputAssessmentItemViewController: UIViewController {
 
     private var buttonString: [String] {
         [
-            "5m歩行",
+            "起立動作",
             "10m歩行",
             "片脚立位(右)",
             "片脚立位(左)",
