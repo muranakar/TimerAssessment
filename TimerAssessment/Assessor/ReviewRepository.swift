@@ -15,6 +15,4 @@ struct ReviewRepository {
         UserDefaults.standard.set(loadAd, forKey: key)
         return loadAd
     }
-
-    
 }
