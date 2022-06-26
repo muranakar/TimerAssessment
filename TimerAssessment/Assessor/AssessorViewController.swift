@@ -85,8 +85,8 @@ final class AssessorViewController: UIViewController, UITableViewDelegate, UITab
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let reviewNum = ReviewRepository.processAfterAddReviewNumPulsOneAndSaveReviewNum()
-        if reviewNum == 5 || reviewNum == 20 {
-            if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+        if reviewNum == 5 || reviewNum == 20 || reviewNum == 50 {
+            if let scene = view.window?.windowScene {
                 SKStoreReviewController.requestReview(in: scene)
             }
         }
@@ -121,7 +121,7 @@ final class AssessorViewController: UIViewController, UITableViewDelegate, UITab
     private func configueViewColor() {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = Colors.baseColor
+        appearance.backgroundColor = UIColor(named: "navigation")!
         navigationItem.standardAppearance = appearance
         navigationItem.scrollEdgeAppearance = appearance
         navigationItem.compactAppearance = appearance

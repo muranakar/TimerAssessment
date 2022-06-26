@@ -52,7 +52,7 @@ final class InputTargetPersonViewController: UIViewController {
     private func configueColor() {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = Colors.baseColor
+        appearance.backgroundColor = UIColor(named: "navigation")!
         navigationItem.standardAppearance = appearance
         navigationItem.scrollEdgeAppearance = appearance
         navigationItem.compactAppearance = appearance

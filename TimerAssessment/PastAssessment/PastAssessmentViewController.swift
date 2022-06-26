@@ -30,6 +30,7 @@ final class PastAssessmentViewController: UIViewController, UITableViewDelegate,
     // MARK: - IBOutlet
     @IBOutlet weak private var assessmentItemNameLabel: UILabel!
     @IBOutlet weak private var tableView: UITableView!
+    @IBOutlet weak private var assessmentItemTitleView: UIView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +48,7 @@ final class PastAssessmentViewController: UIViewController, UITableViewDelegate,
         
         tableView.reloadData()
         configueViewNavigationbarColor()
+        configureViewAssessmentItemTitleView()
     }
 
     // MARK: - Segue- PastAssessmentTableViewController ←　InputAssessmentViewController
@@ -124,10 +126,13 @@ final class PastAssessmentViewController: UIViewController, UITableViewDelegate,
     private func configueViewNavigationbarColor() {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = Colors.baseColor
+        appearance.backgroundColor = UIColor(named: "navigation")!
         navigationItem.standardAppearance = appearance
         navigationItem.scrollEdgeAppearance = appearance
         navigationItem.compactAppearance = appearance
+    }
+    private func configureViewAssessmentItemTitleView() {
+        assessmentItemTitleView.backgroundColor = UIColor(named: "navigation")!
     }
     // MARK: - Formatter　Double・Date型→String型へ変更
     private func resultTimerStringFormatter(resultTimer: Double) -> String {
