@@ -63,9 +63,9 @@ final class FunctionSelectionViewController: UIViewController {
     }
     private func shareOnTwitter() {
         // シェアするテキストを作成
-        let text = "認知機能検査のHDS-Rを評価することが可能！"
+        let text = "タイマー機能を用いて評価項目ごとに記録することが可能！"
         // swiftlint:disable:next line_length
-        let hashTag = " #ADL #長谷川式 #認知機能 #病院 #クリニック #在宅 #医師 #理学療法士 #作業療法士 #言語聴覚士 #介護 #評価 #認知　#認知評価   \nhttps://apps.apple.com/jp/app/hds-r/id1616574755"
+        let hashTag = " #ADL #身体機能 #病院 #クリニック #在宅 #医師 #理学療法士 #作業療法士 #言語聴覚士 #介護 #評価　#認知評価   \nhttps://apps.apple.com/jp/app/id1612725154"
         let completedText = text + "\n" + hashTag
 
         // 作成したテキストをエンコード
@@ -81,7 +81,7 @@ final class FunctionSelectionViewController: UIViewController {
     private  func shareOnLine() {
         let urlscheme: String = "https://line.me/R/share?text="
         // swiftlint:disable:next line_length
-        let message = "認知機能検査のHDS-Rを評価することが可能！ #ADL #長谷川式 #認知機能 #病院 #クリニック #在宅 #医師 #理学療法士 #作業療法士 #言語聴覚士 #介護 #評価 #認知　#認知評価   \nhttps://apps.apple.com/jp/app/hds-r/id1616574755"
+        let message = "タイマー機能を用いて評価項目ごとに記録することが可能！\n #ADL #身体機能 #病院 #クリニック #在宅 #医師 #理学療法士 #作業療法士 #言語聴覚士 #介護 #評価　#認知評価   \nhttps://apps.apple.com/jp/app/id1612725154"
 
         // line:/msg/text/(メッセージ)
         let urlstring = urlscheme + "/" + message
