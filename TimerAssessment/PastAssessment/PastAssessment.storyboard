@@ -53,6 +53,11 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="uFB-mi-A9P">
+                        <barButtonItem key="leftBarButtonItem" title="戻る" id="jCJ-LH-JQT">
+                            <connections>
+                                <segue destination="NwR-DM-wS8" kind="unwind" unwindAction="backToFunctionSelectionTableViewControllerWithSegue:" id="4bs-pJ-HEU"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Item" image="arrow.up.arrow.down" catalog="system" id="iJy-Me-i0t">
                             <connections>
                                 <action selector="sortTableView:" destination="Y6W-OH-hqX" id="zK3-TC-CJ8"/>
@@ -67,6 +72,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="NwR-DM-wS8" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="892.75362318840587" y="90.401785714285708"/>
         </scene>

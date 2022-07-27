@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import StoreKit
 
 final class FunctionSelectionViewController: UIViewController {
     // 変数の受け皿
@@ -34,6 +35,13 @@ final class FunctionSelectionViewController: UIViewController {
     @IBAction private func shareOtherApp(_ sender: Any) {
         shareOnOtherApp()
     }
+    @IBAction private func review(_ sender: Any) {
+        let urlString = URL(string: "https://apps.apple.com/app/id1612725154?action=write-review")
+        guard let writeReviewURL = urlString else {
+            fatalError("Expected a valid URL")
+        }
+        UIApplication.shared.open(writeReviewURL, options: [:], completionHandler: nil)
+    }
 
     @IBAction private func toAssessmentVC(_ sender: Any) {
         toAssessmentViewController(assessmentItem: assessmentItem!)
@@ -45,6 +53,13 @@ final class FunctionSelectionViewController: UIViewController {
 
     // MARK: - Segue- FunctionSelectionViewController ← AssessmentViewController
     @IBAction private func backToFunctionSelectionTableViewController(segue: UIStoryboardSegue) {
+        let reviewNum = ReviewRepository.processAfterAddReviewNumPulsOneAndSaveReviewNum()
+        print(reviewNum)
+        if reviewNum == 10 || reviewNum == 31 || reviewNum == 50 {
+            if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                SKStoreReviewController.requestReview(in: scene)
+            }
+        }
     }
     // MARK: - Method
     private func toAssessmentViewController(assessmentItem: AssessmentItem) {
