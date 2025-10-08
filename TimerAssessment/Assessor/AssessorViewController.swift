@@ -27,7 +27,6 @@ final class AssessorViewController: UIViewController, UITableViewDelegate, UITab
     }
 
     var selectedAssessor: Assessor?
-    var editingAssessor: Assessor?
     let timerAssessmentRepository = TimerAssessmentRepository()
 
     // MARK: - Twitterへの遷移ボタン
@@ -37,31 +36,51 @@ final class AssessorViewController: UIViewController, UITableViewDelegate, UITab
             UIApplication.shared.open(url! as URL, options: [:], completionHandler: nil)
         }
     }
-    // MARK: - Segue-　AssessorTableViewController →　inputAccessoryViewController
+    // MARK: - 評価者追加アラート
     @IBAction private func input(_ sender: Any) {
-        performSegue(withIdentifier: "input", sender: nil)
+        showInputAlert(mode: .input, editingAssessor: nil)
     }
 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let nav = segue.destination as? UINavigationController else { return }
-        if let inputVC = nav.topViewController as? InputAssessorViewController {
-            switch segue.identifier ?? "" {
-            case "input":
-                inputVC.mode = .input
-            case "edit":
-                inputVC.editingAssessor = editingAssessor
-                inputVC.mode = .edit
-            default:
-                break
-            }
+    private func showInputAlert(mode: InputMode, editingAssessor: Assessor?) {
+        let title = mode == .input ? "評価者を追加" : "評価者を編集"
+        let message = "評価者の名前を入力してください"
+
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+
+        alert.addTextField { textField in
+            textField.placeholder = "評価者名"
+            textField.text = mode == .edit ? editingAssessor?.name : ""
         }
+
+        let saveAction = UIAlertAction(title: "保存", style: .default) { [weak self, weak alert] _ in
+            guard let self = self,
+                  let textField = alert?.textFields?.first,
+                  let name = textField.text, !name.isEmpty else { return }
+
+            switch mode {
+            case .input:
+                let newAssessor = Assessor(name: name)
+                self.timerAssessmentRepository.apppendAssessor(assesor: newAssessor)
+            case .edit:
+                guard let editingAssessor = editingAssessor else { return }
+                let updatedAssessor = Assessor(uuidString: editingAssessor.uuidString, name: name)
+                self.timerAssessmentRepository.updateAssessor(assessor: updatedAssessor)
+            }
+
+            self.tableview.reloadData()
+        }
+
+        let cancelAction = UIAlertAction(title: "キャンセル", style: .cancel)
+
+        alert.addAction(saveAction)
+        alert.addAction(cancelAction)
+
+        present(alert, animated: true)
     }
 
-    // MARK: - Segue- AssessorTableViewController ←　inputAccessoryViewController
-    @IBAction private func backToAssessorTableViewController(segue: UIStoryboardSegue) { }
-
-    @IBAction private func save(segue: UIStoryboardSegue) {
-        tableview.reloadData()
+    enum InputMode {
+        case input
+        case edit
     }
 
     // MARK: - Table view data source
@@ -89,8 +108,8 @@ final class AssessorViewController: UIViewController, UITableViewDelegate, UITab
     }
 
     func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-        editingAssessor = timerAssessmentRepository.loadAssessor()[indexPath.row]
-        performSegue(withIdentifier: "edit", sender: nil)
+        let assessor = timerAssessmentRepository.loadAssessor()[indexPath.row]
+        showInputAlert(mode: .edit, editingAssessor: assessor)
     }
 
     func tableView(_ tableView: UITableView,
