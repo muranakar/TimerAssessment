@@ -98,22 +98,12 @@
                         <outlet property="inputButton" destination="dVl-tQ-g7M" id="uaZ-3b-SdY"/>
                         <outlet property="tableView" destination="kxZ-QT-tin" id="KV7-kb-jQt"/>
                         <outlet property="twitterButton" destination="6IV-dW-rfR" id="iYT-vD-Nli"/>
-                        <segue destination="jvt-jb-pRL" kind="presentation" identifier="edit" modalPresentationStyle="fullScreen" id="G8D-5z-4c1"/>
-                        <segue destination="jvt-jb-pRL" kind="presentation" identifier="input" modalPresentationStyle="fullScreen" id="EGi-87-bi4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="gqo-pL-pfg" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1042.0289855072465" y="90.401785714285708"/>
-        </scene>
-        <!--InputAssessmentItem-->
-        <scene sceneID="y3g-A0-X2K">
-            <objects>
-                <viewControllerPlaceholder storyboardName="InputAssessmentItem" id="jvt-jb-pRL" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="7vY-bs-Cja" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1769" y="205"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="UAk-Tv-7di">
@@ -134,9 +124,6 @@
             <point key="canvasLocation" x="131.8840579710145" y="90.401785714285708"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="G8D-5z-4c1"/>
-    </inferredMetricsTieBreakers>
     <resources>
         <image name="chevron.backward" catalog="system" width="96" height="128"/>
         <image name="envelope" catalog="system" width="128" height="93"/>

@@ -13,8 +13,10 @@ final class AssessmentItemViewController: UIViewController, UITableViewDelegate,
 
     // 画面遷移した際に使用したり、一時的に保存する変数
     private var selectedAssessmentItem: AssessmentItem?
-    private var editingAssessmentItem: AssessmentItem?
     private let timerAssessmentRepository = TimerAssessmentRepository()
+
+    // プリセット項目
+    private let presetItems = ["起立動作", "10m歩行", "片脚立位(右)", "片脚立位(左)", "TUG"]
     @IBOutlet weak private var tableView: UITableView!
     @IBOutlet weak private var inputButton: UIButton!
     @IBOutlet weak private var twitterButton: UIButton!
@@ -43,32 +45,101 @@ final class AssessmentItemViewController: UIViewController, UITableViewDelegate,
             UIApplication.shared.open(url! as URL, options: [:], completionHandler: nil)
         }
     }
-    // MARK: - Segue- TargetPersonViewController →　InputTargetPersonViewController
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let nav = segue.destination as? UINavigationController else { return }
-        if let inputVC = nav.topViewController as? InputAssessmentItemViewController {
-            switch segue.identifier ?? "" {
-            case "input":
-                inputVC.mode = .input
-                inputVC.targetPerson = targetPerson
-            case "edit":
-                inputVC.mode = .edit
-                inputVC.editingAssessmentItem = editingAssessmentItem
-            default:
-                break
-            }
-        }
-    }
-
+    // MARK: - 評価項目追加アクションシート
     @IBAction private func input(_ sender: Any) {
-        performSegue(withIdentifier: "input", sender: nil)
+        showInputActionSheet(mode: .input, editingAssessmentItem: nil)
     }
 
-    // MARK: - Segue- TargetPersonViewController ←　InputTargetPersonViewController
-    @IBAction private func backToAssessmentItemTableViewController(segue: UIStoryboardSegue) { }
+    private func showInputActionSheet(mode: InputMode, editingAssessmentItem: AssessmentItem?) {
+        if mode == .edit {
+            // 編集モードはアラートで表示
+            showEditAlert(editingAssessmentItem: editingAssessmentItem)
+            return
+        }
 
-    @IBAction private func save(segue: UIStoryboardSegue) {
-        tableView.reloadData()
+        // 追加モードはアクションシートで表示
+        let actionSheet = UIAlertController(title: "評価項目を追加", message: "選択してください", preferredStyle: .actionSheet)
+
+        // プリセット項目を追加
+        for item in presetItems {
+            let action = UIAlertAction(title: item, style: .default) { [weak self] _ in
+                guard let self = self, let targetPerson = self.targetPerson else { return }
+                let newAssessmentItem = AssessmentItem(name: item)
+                self.timerAssessmentRepository.appendAssessmentItem(targetPerson: targetPerson, assessmentItem: newAssessmentItem)
+                self.tableView.reloadData()
+            }
+            actionSheet.addAction(action)
+        }
+
+        // カスタム入力
+        let customAction = UIAlertAction(title: "カスタム入力", style: .default) { [weak self] _ in
+            self?.showCustomInputAlert()
+        }
+        actionSheet.addAction(customAction)
+
+        // キャンセル
+        let cancelAction = UIAlertAction(title: "キャンセル", style: .cancel)
+        actionSheet.addAction(cancelAction)
+
+        present(actionSheet, animated: true)
+    }
+
+    private func showCustomInputAlert() {
+        let alert = UIAlertController(title: "カスタム項目を追加", message: "評価項目名を入力してください", preferredStyle: .alert)
+
+        alert.addTextField { textField in
+            textField.placeholder = "評価項目名"
+        }
+
+        let saveAction = UIAlertAction(title: "保存", style: .default) { [weak self, weak alert] _ in
+            guard let self = self,
+                  let textField = alert?.textFields?.first,
+                  let name = textField.text, !name.isEmpty,
+                  let targetPerson = self.targetPerson else { return }
+
+            let newAssessmentItem = AssessmentItem(name: name)
+            self.timerAssessmentRepository.appendAssessmentItem(targetPerson: targetPerson, assessmentItem: newAssessmentItem)
+            self.tableView.reloadData()
+        }
+
+        let cancelAction = UIAlertAction(title: "キャンセル", style: .cancel)
+
+        alert.addAction(saveAction)
+        alert.addAction(cancelAction)
+
+        present(alert, animated: true)
+    }
+
+    private func showEditAlert(editingAssessmentItem: AssessmentItem?) {
+        let alert = UIAlertController(title: "評価項目を編集", message: "評価項目名を入力してください", preferredStyle: .alert)
+
+        alert.addTextField { textField in
+            textField.placeholder = "評価項目名"
+            textField.text = editingAssessmentItem?.name
+        }
+
+        let saveAction = UIAlertAction(title: "保存", style: .default) { [weak self, weak alert] _ in
+            guard let self = self,
+                  let textField = alert?.textFields?.first,
+                  let name = textField.text, !name.isEmpty,
+                  let editingAssessmentItem = editingAssessmentItem else { return }
+
+            let updatedAssessmentItem = AssessmentItem(uuidString: editingAssessmentItem.uuidString, name: name)
+            self.timerAssessmentRepository.updateAssessmentItem(assessmentItem: updatedAssessmentItem)
+            self.tableView.reloadData()
+        }
+
+        let cancelAction = UIAlertAction(title: "キャンセル", style: .cancel)
+
+        alert.addAction(saveAction)
+        alert.addAction(cancelAction)
+
+        present(alert, animated: true)
+    }
+
+    enum InputMode {
+        case input
+        case edit
     }
 
     // MARK: - Table view data source
@@ -105,8 +176,8 @@ final class AssessmentItemViewController: UIViewController, UITableViewDelegate,
     }
 
     func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-        editingAssessmentItem = timerAssessmentRepository.loadAssessmentItem(targetPerson: targetPerson!)[indexPath.row]
-        performSegue(withIdentifier: "edit", sender: nil)
+        let assessmentItem = timerAssessmentRepository.loadAssessmentItem(targetPerson: targetPerson!)[indexPath.row]
+        showInputActionSheet(mode: .edit, editingAssessmentItem: assessmentItem)
     }
 
     func tableView(
