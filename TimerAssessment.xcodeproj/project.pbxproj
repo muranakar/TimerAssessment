@@ -8,9 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2FBC7FFAC4F941B08582C4C8 /* Pods_TimerAssessment.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F6226C84A5CA5D5B456F833 /* Pods_TimerAssessment.framework */; };
-		B22FBEFE275FFA8600DA71C8 /* InputAssessor.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B22FBEFD275FFA8600DA71C8 /* InputAssessor.storyboard */; };
 		B22FBF00275FFCB200DA71C8 /* TargetPerson.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B22FBEFF275FFCB200DA71C8 /* TargetPerson.storyboard */; };
-		B22FBF02275FFCC900DA71C8 /* InputTargetPerson.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B22FBF01275FFCC900DA71C8 /* InputTargetPerson.storyboard */; };
 		B234EA3127AF1A2C00D7D406 /* PastAssessmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B234EA2F27AF1A2C00D7D406 /* PastAssessmentTableViewCell.swift */; };
 		B234EA3227AF1A2C00D7D406 /* PastAssessmentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B234EA3027AF1A2C00D7D406 /* PastAssessmentTableViewCell.xib */; };
 		B237714F275EA64D00A48640 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B237714E275EA64D00A48640 /* AppDelegate.swift */; };
@@ -18,11 +16,9 @@
 		B2377156275EA64D00A48640 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2377154275EA64D00A48640 /* Main.storyboard */; };
 		B2377158275EA64E00A48640 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2377157275EA64E00A48640 /* Assets.xcassets */; };
 		B237715B275EA64E00A48640 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2377159275EA64E00A48640 /* LaunchScreen.storyboard */; };
-		B2377167275EA6E300A48640 /* InputAssessorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2377166275EA6E200A48640 /* InputAssessorViewController.swift */; };
 		B237717A275EAB8F00A48640 /* AssessorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2377179275EAB8F00A48640 /* AssessorTableViewCell.swift */; };
 		B237717C275EABA300A48640 /* TargetPersonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B237717B275EABA300A48640 /* TargetPersonTableViewCell.swift */; };
 		B2377183275EACE400A48640 /* TimerAssessmentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2377182275EACE400A48640 /* TimerAssessmentRepository.swift */; };
-		B2377186275EBF4000A48640 /* InputTargetPersonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2377185275EBF4000A48640 /* InputTargetPersonViewController.swift */; };
 		B24D14772865FEC900127B72 /* ReviewRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24D14762865FEC900127B72 /* ReviewRepository.swift */; };
 		B275A30F27A8125C00623E99 /* AssessmentItem.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B275A30E27A8125C00623E99 /* AssessmentItem.storyboard */; };
 		B275A31127A8127200623E99 /* InputAssessmentItem.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B275A31027A8127200623E99 /* InputAssessmentItem.storyboard */; };
@@ -48,9 +44,7 @@
 		1390E737DB06F589457664BE /* Pods-TimerAssessment.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimerAssessment.debug.xcconfig"; path = "Target Support Files/Pods-TimerAssessment/Pods-TimerAssessment.debug.xcconfig"; sourceTree = "<group>"; };
 		2F6226C84A5CA5D5B456F833 /* Pods_TimerAssessment.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TimerAssessment.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BF500A3B0DFAE63EA38E5CB /* Pods-TimerAssessment.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimerAssessment.release.xcconfig"; path = "Target Support Files/Pods-TimerAssessment/Pods-TimerAssessment.release.xcconfig"; sourceTree = "<group>"; };
-		B22FBEFD275FFA8600DA71C8 /* InputAssessor.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = InputAssessor.storyboard; sourceTree = "<group>"; };
 		B22FBEFF275FFCB200DA71C8 /* TargetPerson.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TargetPerson.storyboard; sourceTree = "<group>"; };
-		B22FBF01275FFCC900DA71C8 /* InputTargetPerson.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = InputTargetPerson.storyboard; sourceTree = "<group>"; };
 		B234EA2F27AF1A2C00D7D406 /* PastAssessmentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastAssessmentTableViewCell.swift; sourceTree = "<group>"; };
 		B234EA3027AF1A2C00D7D406 /* PastAssessmentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PastAssessmentTableViewCell.xib; sourceTree = "<group>"; };
 		B237714B275EA64D00A48640 /* TimerAssessment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimerAssessment.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -60,11 +54,9 @@
 		B2377157275EA64E00A48640 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B237715A275EA64E00A48640 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B237715C275EA64E00A48640 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = TimerAssessment/Info.plist; sourceTree = "<group>"; };
-		B2377166275EA6E200A48640 /* InputAssessorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputAssessorViewController.swift; sourceTree = "<group>"; };
 		B2377179275EAB8F00A48640 /* AssessorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssessorTableViewCell.swift; sourceTree = "<group>"; };
 		B237717B275EABA300A48640 /* TargetPersonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetPersonTableViewCell.swift; sourceTree = "<group>"; };
 		B2377182275EACE400A48640 /* TimerAssessmentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerAssessmentRepository.swift; sourceTree = "<group>"; };
-		B2377185275EBF4000A48640 /* InputTargetPersonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTargetPersonViewController.swift; sourceTree = "<group>"; };
 		B24D14762865FEC900127B72 /* ReviewRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewRepository.swift; sourceTree = "<group>"; };
 		B275A30E27A8125C00623E99 /* AssessmentItem.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AssessmentItem.storyboard; sourceTree = "<group>"; };
 		B275A31027A8127200623E99 /* InputAssessmentItem.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = InputAssessmentItem.storyboard; sourceTree = "<group>"; };
@@ -158,9 +150,7 @@
 			children = (
 				B277D4F3278D021800E6CADB /* AssessorViewController.swift */,
 				B2377179275EAB8F00A48640 /* AssessorTableViewCell.swift */,
-				B2377166275EA6E200A48640 /* InputAssessorViewController.swift */,
 				B2377154275EA64D00A48640 /* Main.storyboard */,
-				B22FBEFD275FFA8600DA71C8 /* InputAssessor.storyboard */,
 				B24D14762865FEC900127B72 /* ReviewRepository.swift */,
 			);
 			path = Assessor;
@@ -171,9 +161,7 @@
 			children = (
 				B2892861278DBBE700965E86 /* TargetPersonViewController.swift */,
 				B237717B275EABA300A48640 /* TargetPersonTableViewCell.swift */,
-				B2377185275EBF4000A48640 /* InputTargetPersonViewController.swift */,
 				B22FBEFF275FFCB200DA71C8 /* TargetPerson.storyboard */,
-				B22FBF01275FFCC900DA71C8 /* InputTargetPerson.storyboard */,
 			);
 			path = TargetPerson;
 			sourceTree = "<group>";
@@ -318,12 +306,10 @@
 			files = (
 				B2AE981627A89A8E003148ED /* PastAssessment.storyboard in Resources */,
 				B237715B275EA64E00A48640 /* LaunchScreen.storyboard in Resources */,
-				B22FBF02275FFCC900DA71C8 /* InputTargetPerson.storyboard in Resources */,
 				B2AE981E27A89B1A003148ED /* DetailAssessment.storyboard in Resources */,
 				B275A31127A8127200623E99 /* InputAssessmentItem.storyboard in Resources */,
 				B2377158275EA64E00A48640 /* Assets.xcassets in Resources */,
 				B22FBF00275FFCB200DA71C8 /* TargetPerson.storyboard in Resources */,
-				B22FBEFE275FFA8600DA71C8 /* InputAssessor.storyboard in Resources */,
 				B2377156275EA64D00A48640 /* Main.storyboard in Resources */,
 				B2AE981227A89A58003148ED /* FunctionSelection.storyboard in Resources */,
 				B275A30F27A8125C00623E99 /* AssessmentItem.storyboard in Resources */,
@@ -398,7 +384,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B2377167275EA6E300A48640 /* InputAssessorViewController.swift in Sources */,
 				B2AEFF152784E9CA0010F539 /* Colors.swift in Sources */,
 				B2AE981C27A89AE8003148ED /* AssessmentViewController.swift in Sources */,
 				B2AE981427A89A7D003148ED /* PastAssessmentViewController.swift in Sources */,
@@ -415,7 +400,6 @@
 				B2AE981027A89A38003148ED /* FunctionSelectionViewController.swift in Sources */,
 				B237714F275EA64D00A48640 /* AppDelegate.swift in Sources */,
 				B275A31327A8128900623E99 /* AssessmentItemViewController.swift in Sources */,
-				B2377186275EBF4000A48640 /* InputTargetPersonViewController.swift in Sources */,
 				B2377151275EA64D00A48640 /* SceneDelegate.swift in Sources */,
 				B275A31527A812A200623E99 /* InputAssessmentItemViewController.swift in Sources */,
 				B234EA3127AF1A2C00D7D406 /* PastAssessmentTableViewCell.swift in Sources */,

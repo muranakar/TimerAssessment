@@ -98,22 +98,12 @@
                         <outlet property="inputButton" destination="8jg-VL-R1r" id="PID-bA-5O9"/>
                         <outlet property="tableView" destination="ECf-b5-uvp" id="f6i-PV-ZnG"/>
                         <outlet property="twitterButton" destination="HDd-Bj-Zi4" id="ox0-a7-CS9"/>
-                        <segue destination="8XL-25-veN" kind="presentation" identifier="input" modalPresentationStyle="fullScreen" id="sah-RH-ZnE"/>
-                        <segue destination="8XL-25-veN" kind="presentation" identifier="edit" id="07U-jD-VJo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Zr-md-KuU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="NDv-hm-KuX" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1797.1014492753625" y="795.53571428571422"/>
-        </scene>
-        <!--InputTargetPerson-->
-        <scene sceneID="N2j-3c-ylZ">
-            <objects>
-                <viewControllerPlaceholder storyboardName="InputTargetPerson" id="8XL-25-veN" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="BXc-Wr-T9n" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2618" y="923"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="eL9-10-Md0">
@@ -134,9 +124,6 @@
             <point key="canvasLocation" x="886.95652173913049" y="795.53571428571422"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="07U-jD-VJo"/>
-    </inferredMetricsTieBreakers>
     <resources>
         <image name="chevron.backward" catalog="system" width="96" height="128"/>
         <image name="envelope" catalog="system" width="128" height="93"/>

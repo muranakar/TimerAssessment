@@ -10,7 +10,6 @@ import UIKit
 final class TargetPersonViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var assessor: Assessor?
     private var selectedTargetPerson: TargetPerson?
-    private var editingTargetPerson: TargetPerson?
     private let timerAssessmentRepository = TimerAssessmentRepository()
     @IBOutlet weak private var tableView: UITableView!
     @IBOutlet weak private var inputButton: UIButton!
@@ -40,35 +39,52 @@ final class TargetPersonViewController: UIViewController, UITableViewDelegate, U
             UIApplication.shared.open(url! as URL, options: [:], completionHandler: nil)
         }
     }
-    // MARK: - Segue- TargetPersonViewController →　InputTargetPersonViewController
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let nav = segue.destination as? UINavigationController else { return }
-        if let inputVC = nav.topViewController as? InputTargetPersonViewController {
-            switch segue.identifier ?? "" {
-            case "input":
-                inputVC.mode = .input
-                inputVC.assessor = assessor
-            case "edit":
-                guard let editingTargetPerson = editingTargetPerson else {
-                    return
-                }
-                inputVC.mode = .edit
-                inputVC.editingTargetPerson = editingTargetPerson
-            default:
-                break
-            }
-        }
-    }
-
+    // MARK: - 対象者追加アラート
     @IBAction private func input(_ sender: Any) {
-        performSegue(withIdentifier: "input", sender: nil)
+        showInputAlert(mode: .input, editingTargetPerson: nil)
     }
 
-    // MARK: - Segue- TargetPersonViewController ←　InputTargetPersonViewController
-    @IBAction private func backToTargetPersonTableViewController(segue: UIStoryboardSegue) { }
+    private func showInputAlert(mode: InputMode, editingTargetPerson: TargetPerson?) {
+        let title = mode == .input ? "対象者を追加" : "対象者を編集"
+        let message = "対象者の名前を入力してください"
 
-    @IBAction private func save(segue: UIStoryboardSegue) {
-        tableView.reloadData()
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+
+        alert.addTextField { textField in
+            textField.placeholder = "対象者名"
+            textField.text = mode == .edit ? editingTargetPerson?.name : ""
+        }
+
+        let saveAction = UIAlertAction(title: "保存", style: .default) { [weak self, weak alert] _ in
+            guard let self = self,
+                  let textField = alert?.textFields?.first,
+                  let name = textField.text, !name.isEmpty,
+                  let assessor = self.assessor else { return }
+
+            switch mode {
+            case .input:
+                let newTargetPerson = TargetPerson(name: name)
+                self.timerAssessmentRepository.appendTargetPerson(assessor: assessor, targetPerson: newTargetPerson)
+            case .edit:
+                guard let editingTargetPerson = editingTargetPerson else { return }
+                let updatedTargetPerson = TargetPerson(uuidString: editingTargetPerson.uuidString, name: name)
+                self.timerAssessmentRepository.updateTargetPerson(targetPerson: updatedTargetPerson)
+            }
+
+            self.tableView.reloadData()
+        }
+
+        let cancelAction = UIAlertAction(title: "キャンセル", style: .cancel)
+
+        alert.addAction(saveAction)
+        alert.addAction(cancelAction)
+
+        present(alert, animated: true)
+    }
+
+    enum InputMode {
+        case input
+        case edit
     }
 
     // MARK: - Table view data source
@@ -99,10 +115,8 @@ final class TargetPersonViewController: UIViewController, UITableViewDelegate, U
     }
 
     func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-        editingTargetPerson = timerAssessmentRepository.loadTargetPerson(
-            assessor: assessor!
-        )[indexPath.row]
-        performSegue(withIdentifier: "edit", sender: nil)
+        let targetPerson = timerAssessmentRepository.loadTargetPerson(assessor: assessor!)[indexPath.row]
+        showInputAlert(mode: .edit, editingTargetPerson: targetPerson)
     }
 
     func tableView(

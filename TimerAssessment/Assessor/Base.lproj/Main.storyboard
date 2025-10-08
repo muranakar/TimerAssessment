@@ -9,14 +9,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--InputAssessor-->
-        <scene sceneID="Hpu-DN-JPs">
-            <objects>
-                <viewControllerPlaceholder storyboardName="InputAssessor" id="7QI-UF-DLp" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="AFi-Ht-HQv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2370" y="286"/>
-        </scene>
         <!--評価者-->
         <scene sceneID="3SW-Im-dcM">
             <objects>
@@ -103,8 +95,6 @@
                         <outlet property="inputButton" destination="ehU-hx-Pbz" id="GBv-fn-ab6"/>
                         <outlet property="tableview" destination="whf-4D-oIB" id="m17-sc-isZ"/>
                         <outlet property="twitterButton" destination="6h9-xF-xsp" id="Hcd-cc-KDA"/>
-                        <segue destination="7QI-UF-DLp" kind="presentation" identifier="input" modalPresentationStyle="fullScreen" id="WhE-5u-2zz"/>
-                        <segue destination="7QI-UF-DLp" kind="presentation" identifier="edit" modalPresentationStyle="fullScreen" id="abR-sm-fqo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ds5-0a-Ib5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -130,9 +120,6 @@
             <point key="canvasLocation" x="743" y="151"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="abR-sm-fqo"/>
-    </inferredMetricsTieBreakers>
     <resources>
         <image name="envelope" catalog="system" width="128" height="93"/>
         <image name="plus" catalog="system" width="128" height="113"/>
