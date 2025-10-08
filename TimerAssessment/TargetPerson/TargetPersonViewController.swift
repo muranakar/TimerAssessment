@@ -32,6 +32,11 @@ final class TargetPersonViewController: UIViewController, UITableViewDelegate, U
         super.viewWillAppear(animated)
         tableView.selectRow(at: nil, animated: animated, scrollPosition: .none)
     }
+    // MARK: - Unwind Segue
+    @IBAction func backToTargetPersonTableViewController(segue: UIStoryboardSegue) {
+        tableView.reloadData()
+    }
+
     // MARK: - Twitterへの遷移ボタン
     @IBAction private func moveTwitterURL(_ sender: Any) {
         let url = NSURL(string: "https://twitter.com/KaradaHelp")

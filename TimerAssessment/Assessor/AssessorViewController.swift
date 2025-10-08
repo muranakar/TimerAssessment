@@ -29,6 +29,11 @@ final class AssessorViewController: UIViewController, UITableViewDelegate, UITab
     var selectedAssessor: Assessor?
     let timerAssessmentRepository = TimerAssessmentRepository()
 
+    // MARK: - Unwind Segue
+    @IBAction func backToAssessorTableViewController(segue: UIStoryboardSegue) {
+        tableview.reloadData()
+    }
+
     // MARK: - Twitterへの遷移ボタン
     @IBAction private func moveTwitterURL(_ sender: Any) {
         let url = NSURL(string: "https://twitter.com/KaradaHelp")
