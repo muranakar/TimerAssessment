@@ -62,20 +62,6 @@
                                     <action selector="input:" destination="P8V-ZH-EMG" eventType="touchUpInside" id="oLh-yR-Ktt"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6h9-xF-xsp">
-                                <rect key="frame" x="20" y="782" width="130" height="60"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="130" id="g8H-y9-Snb"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="60" id="qKX-CC-vrm"/>
-                                </constraints>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="修正依頼" subtitle="(Twitter)">
-                                    <imageReference key="image" image="envelope" catalog="system" symbolScale="large"/>
-                                </buttonConfiguration>
-                                <connections>
-                                    <action selector="moveTwitterURL:" destination="P8V-ZH-EMG" eventType="touchUpInside" id="Yy1-DR-Owj"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="0S7-ao-P6t"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -85,8 +71,6 @@
                             <constraint firstItem="whf-4D-oIB" firstAttribute="leading" secondItem="0S7-ao-P6t" secondAttribute="leading" id="Hdh-0a-kfC"/>
                             <constraint firstItem="whf-4D-oIB" firstAttribute="trailing" secondItem="0S7-ao-P6t" secondAttribute="trailing" id="g2a-hi-5fK"/>
                             <constraint firstItem="0S7-ao-P6t" firstAttribute="trailing" secondItem="ehU-hx-Pbz" secondAttribute="trailing" constant="50" id="k5Y-7v-QoN"/>
-                            <constraint firstItem="6h9-xF-xsp" firstAttribute="leading" secondItem="0S7-ao-P6t" secondAttribute="leading" constant="20" id="rb0-Uf-utu"/>
-                            <constraint firstItem="0S7-ao-P6t" firstAttribute="bottom" secondItem="6h9-xF-xsp" secondAttribute="bottom" constant="20" id="s1G-Dr-OTO"/>
                             <constraint firstItem="whf-4D-oIB" firstAttribute="bottom" secondItem="19P-LV-qBK" secondAttribute="bottom" id="sjc-A2-jtV"/>
                         </constraints>
                     </view>
@@ -94,7 +78,6 @@
                     <connections>
                         <outlet property="inputButton" destination="ehU-hx-Pbz" id="GBv-fn-ab6"/>
                         <outlet property="tableview" destination="whf-4D-oIB" id="m17-sc-isZ"/>
-                        <outlet property="twitterButton" destination="6h9-xF-xsp" id="Hcd-cc-KDA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ds5-0a-Ib5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -121,7 +104,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="envelope" catalog="system" width="128" height="93"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

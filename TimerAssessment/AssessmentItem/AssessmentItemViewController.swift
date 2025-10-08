@@ -19,7 +19,6 @@ final class AssessmentItemViewController: UIViewController, UITableViewDelegate,
     private let presetItems = ["起立動作", "10m歩行", "片脚立位(右)", "片脚立位(左)", "TUG"]
     @IBOutlet weak private var tableView: UITableView!
     @IBOutlet weak private var inputButton: UIButton!
-    @IBOutlet weak private var twitterButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,19 +30,24 @@ final class AssessmentItemViewController: UIViewController, UITableViewDelegate,
         navigationItem.title = "\(targetPersonName)　様の評価項目リスト"
         configueViewColor()
         configueViewButton()
-        configueViewButtonTwitterURL()
+        addSettingsButton()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.selectRow(at: nil, animated: animated, scrollPosition: .none)
     }
-    // MARK: - Twitterへの遷移ボタン
-    @IBAction private func moveTwitterURL(_ sender: Any) {
-        let url = NSURL(string: "https://twitter.com/KaradaHelp")
-        if UIApplication.shared.canOpenURL(url! as URL) {
-            UIApplication.shared.open(url! as URL, options: [:], completionHandler: nil)
-        }
+    // MARK: - Settings
+    private func addSettingsButton() {
+        let settingsButton = UIBarButtonItem(image: UIImage(systemName: "gearshape"), style: .plain, target: self, action: #selector(openSettings))
+        navigationItem.rightBarButtonItem = settingsButton
+    }
+
+    @objc private func openSettings() {
+        let storyboard = UIStoryboard(name: "Settings", bundle: nil)
+        let settingsVC = storyboard.instantiateInitialViewController()!
+        settingsVC.modalPresentationStyle = .fullScreen
+        present(settingsVC, animated: true)
     }
     // MARK: - 評価項目追加アクションシート
     @IBAction private func input(_ sender: Any) {
@@ -221,16 +225,5 @@ final class AssessmentItemViewController: UIViewController, UITableViewDelegate,
         inputButton.layer.shadowRadius = 3
         inputButton.layer.shadowColor = Colors.mainColor.cgColor
         inputButton.layer.shadowOffset = CGSize(width: 1, height: 1)
-    }
-    private func configueViewButtonTwitterURL() {
-        twitterButton.backgroundColor = .white
-        twitterButton.layer.cornerRadius = 20
-        twitterButton.imageView?.contentMode = .scaleAspectFill
-        twitterButton.contentVerticalAlignment = .fill
-        twitterButton.contentHorizontalAlignment = .fill
-        twitterButton.layer.shadowOpacity = 0.7
-        twitterButton.layer.shadowRadius = 5
-        twitterButton.layer.shadowColor = Colors.mainColor.cgColor
-        twitterButton.layer.shadowOffset = CGSize(width: 1, height: 1)
     }
 }

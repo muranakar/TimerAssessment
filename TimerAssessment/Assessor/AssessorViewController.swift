@@ -11,14 +11,13 @@ import StoreKit
 final class AssessorViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak private var tableview: UITableView!
     @IBOutlet weak private var inputButton: UIButton!
-    @IBOutlet weak private var twitterButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         tableview.delegate = self
         tableview.dataSource = self
         configueViewColor()
         configueViewButton()
-        configueViewButtonTwitterURL()
+        addSettingsButton()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -34,12 +33,17 @@ final class AssessorViewController: UIViewController, UITableViewDelegate, UITab
         tableview.reloadData()
     }
 
-    // MARK: - Twitterへの遷移ボタン
-    @IBAction private func moveTwitterURL(_ sender: Any) {
-        let url = NSURL(string: "https://twitter.com/KaradaHelp")
-        if UIApplication.shared.canOpenURL(url! as URL) {
-            UIApplication.shared.open(url! as URL, options: [:], completionHandler: nil)
-        }
+    // MARK: - Settings
+    private func addSettingsButton() {
+        let settingsButton = UIBarButtonItem(image: UIImage(systemName: "gearshape"), style: .plain, target: self, action: #selector(openSettings))
+        navigationItem.rightBarButtonItem = settingsButton
+    }
+
+    @objc private func openSettings() {
+        let storyboard = UIStoryboard(name: "Settings", bundle: nil)
+        let settingsVC = storyboard.instantiateInitialViewController()!
+        settingsVC.modalPresentationStyle = .fullScreen
+        present(settingsVC, animated: true)
     }
     // MARK: - 評価者追加アラート
     @IBAction private func input(_ sender: Any) {
@@ -156,16 +160,5 @@ final class AssessorViewController: UIViewController, UITableViewDelegate, UITab
         inputButton.layer.shadowRadius = 3
         inputButton.layer.shadowColor = Colors.mainColor.cgColor
         inputButton.layer.shadowOffset = CGSize(width: 1, height: 1)
-    }
-    private func configueViewButtonTwitterURL() {
-        twitterButton.backgroundColor = .white
-        twitterButton.layer.cornerRadius = 20
-        twitterButton.imageView?.contentMode = .scaleAspectFill
-        twitterButton.contentVerticalAlignment = .fill
-        twitterButton.contentHorizontalAlignment = .fill
-        twitterButton.layer.shadowOpacity = 0.7
-        twitterButton.layer.shadowRadius = 5
-        twitterButton.layer.shadowColor = Colors.mainColor.cgColor
-        twitterButton.layer.shadowOffset = CGSize(width: 1, height: 1)
     }
 }

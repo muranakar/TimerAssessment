@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2FBC7FFAC4F941B08582C4C8 /* Pods_TimerAssessment.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F6226C84A5CA5D5B456F833 /* Pods_TimerAssessment.framework */; };
+		66250DFF2E96B0260085E13A /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66250DFE2E96B0260085E13A /* SettingsViewController.swift */; };
+		66250E002E96B0260085E13A /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 66250DFD2E96B0260085E13A /* Settings.storyboard */; };
 		B22FBF00275FFCB200DA71C8 /* TargetPerson.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B22FBEFF275FFCB200DA71C8 /* TargetPerson.storyboard */; };
 		B234EA3127AF1A2C00D7D406 /* PastAssessmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B234EA2F27AF1A2C00D7D406 /* PastAssessmentTableViewCell.swift */; };
 		B234EA3227AF1A2C00D7D406 /* PastAssessmentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B234EA3027AF1A2C00D7D406 /* PastAssessmentTableViewCell.xib */; };
@@ -42,6 +44,8 @@
 		1390E737DB06F589457664BE /* Pods-TimerAssessment.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimerAssessment.debug.xcconfig"; path = "Target Support Files/Pods-TimerAssessment/Pods-TimerAssessment.debug.xcconfig"; sourceTree = "<group>"; };
 		2F6226C84A5CA5D5B456F833 /* Pods_TimerAssessment.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TimerAssessment.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BF500A3B0DFAE63EA38E5CB /* Pods-TimerAssessment.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimerAssessment.release.xcconfig"; path = "Target Support Files/Pods-TimerAssessment/Pods-TimerAssessment.release.xcconfig"; sourceTree = "<group>"; };
+		66250DFD2E96B0260085E13A /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
+		66250DFE2E96B0260085E13A /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		B22FBEFF275FFCB200DA71C8 /* TargetPerson.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TargetPerson.storyboard; sourceTree = "<group>"; };
 		B234EA2F27AF1A2C00D7D406 /* PastAssessmentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastAssessmentTableViewCell.swift; sourceTree = "<group>"; };
 		B234EA3027AF1A2C00D7D406 /* PastAssessmentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PastAssessmentTableViewCell.xib; sourceTree = "<group>"; };
@@ -94,6 +98,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		66250DFC2E96B0120085E13A /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				66250DFD2E96B0260085E13A /* Settings.storyboard */,
+				66250DFE2E96B0260085E13A /* SettingsViewController.swift */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
 		B234EA3427AF2B5800D7D406 /* CopyAndPaste */ = {
 			isa = PBXGroup;
 			children = (
@@ -127,6 +140,7 @@
 			isa = PBXGroup;
 			children = (
 				B237714E275EA64D00A48640 /* AppDelegate.swift */,
+				66250DFC2E96B0120085E13A /* Setting */,
 				B234EA3427AF2B5800D7D406 /* CopyAndPaste */,
 				B2AEFF132784E9B30010F539 /* Color */,
 				B2377184275EACF100A48640 /* TimerAssessmentRepository */,
@@ -300,6 +314,7 @@
 			files = (
 				B2AE981627A89A8E003148ED /* PastAssessment.storyboard in Resources */,
 				B237715B275EA64E00A48640 /* LaunchScreen.storyboard in Resources */,
+				66250E002E96B0260085E13A /* Settings.storyboard in Resources */,
 				B2AE981E27A89B1A003148ED /* DetailAssessment.storyboard in Resources */,
 				B2377158275EA64E00A48640 /* Assets.xcassets in Resources */,
 				B22FBF00275FFCB200DA71C8 /* TargetPerson.storyboard in Resources */,
@@ -344,9 +359,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-TimerAssessment/Pods-TimerAssessment-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-TimerAssessment/Pods-TimerAssessment-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -382,6 +401,7 @@
 				B2AE981427A89A7D003148ED /* PastAssessmentViewController.swift in Sources */,
 				B277D4F4278D021800E6CADB /* AssessorViewController.swift in Sources */,
 				B237717C275EABA300A48640 /* TargetPersonTableViewCell.swift in Sources */,
+				66250DFF2E96B0260085E13A /* SettingsViewController.swift in Sources */,
 				B237717A275EAB8F00A48640 /* AssessorTableViewCell.swift in Sources */,
 				B2892862278DBBE700965E86 /* TargetPersonViewController.swift in Sources */,
 				B2377183275EACE400A48640 /* TimerAssessmentRepository.swift in Sources */,
