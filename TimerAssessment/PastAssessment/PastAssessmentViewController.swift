@@ -341,7 +341,7 @@ final class PastAssessmentViewController: UIViewController, UITableViewDelegate,
         1
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        120
+        80
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         loadSortedTimerAssessments().count

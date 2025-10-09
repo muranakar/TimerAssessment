@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		05BE9688FFA2489EA9177918 /* AccordionAssessorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BE9688FFA2489EA9177917 /* AccordionAssessorViewController.swift */; };
 		2FBC7FFAC4F941B08582C4C8 /* Pods_TimerAssessment.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F6226C84A5CA5D5B456F833 /* Pods_TimerAssessment.framework */; };
 		66250DFF2E96B0260085E13A /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66250DFE2E96B0260085E13A /* SettingsViewController.swift */; };
 		66250E002E96B0260085E13A /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 66250DFD2E96B0260085E13A /* Settings.storyboard */; };
@@ -25,7 +26,6 @@
 		B275A30F27A8125C00623E99 /* AssessmentItem.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B275A30E27A8125C00623E99 /* AssessmentItem.storyboard */; };
 		B275A31327A8128900623E99 /* AssessmentItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B275A31227A8128900623E99 /* AssessmentItemViewController.swift */; };
 		B275A31727A812C000623E99 /* AssessmentItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B275A31627A812C000623E99 /* AssessmentItemTableViewCell.swift */; };
-		05BE9688FFA2489EA9177918 /* AccordionAssessorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BE9688FFA2489EA9177917 /* AccordionAssessorViewController.swift */; };
 		B277D4F4278D021800E6CADB /* AssessorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B277D4F3278D021800E6CADB /* AssessorViewController.swift */; };
 		B2892862278DBBE700965E86 /* TargetPersonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2892861278DBBE700965E86 /* TargetPersonViewController.swift */; };
 		B29038F627ADD07200CC69DE /* CopyAndPasteFunctionAssessment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29038F527ADD07200CC69DE /* CopyAndPasteFunctionAssessment.swift */; };
@@ -42,6 +42,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		05BE9688FFA2489EA9177917 /* AccordionAssessorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccordionAssessorViewController.swift; sourceTree = "<group>"; };
 		1390E737DB06F589457664BE /* Pods-TimerAssessment.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimerAssessment.debug.xcconfig"; path = "Target Support Files/Pods-TimerAssessment/Pods-TimerAssessment.debug.xcconfig"; sourceTree = "<group>"; };
 		2F6226C84A5CA5D5B456F833 /* Pods_TimerAssessment.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TimerAssessment.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BF500A3B0DFAE63EA38E5CB /* Pods-TimerAssessment.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimerAssessment.release.xcconfig"; path = "Target Support Files/Pods-TimerAssessment/Pods-TimerAssessment.release.xcconfig"; sourceTree = "<group>"; };
@@ -65,7 +66,6 @@
 		B275A31227A8128900623E99 /* AssessmentItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssessmentItemViewController.swift; sourceTree = "<group>"; };
 		B275A31627A812C000623E99 /* AssessmentItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssessmentItemTableViewCell.swift; sourceTree = "<group>"; };
 		B277D4F3278D021800E6CADB /* AssessorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssessorViewController.swift; sourceTree = "<group>"; };
-		05BE9688FFA2489EA9177917 /* AccordionAssessorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccordionAssessorViewController.swift; sourceTree = "<group>"; };
 		B2892861278DBBE700965E86 /* TargetPersonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetPersonViewController.swift; sourceTree = "<group>"; };
 		B29038F527ADD07200CC69DE /* CopyAndPasteFunctionAssessment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyAndPasteFunctionAssessment.swift; sourceTree = "<group>"; };
 		B2ADB23B27A0A01500BDF423 /* TimerAssessment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerAssessment.swift; sourceTree = "<group>"; };
@@ -582,7 +582,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.7;
+				MARKETING_VERSION = 1.1.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.muranaka.TimerAssessment;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -613,7 +613,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.7;
+				MARKETING_VERSION = 1.1.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.muranaka.TimerAssessment;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
