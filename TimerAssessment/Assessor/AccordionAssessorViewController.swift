@@ -27,26 +27,12 @@ final class AccordionAssessorViewController: UIViewController {
         return table
     }()
 
-    private let addButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(UIImage(systemName: "plus"), for: .normal)
-        button.backgroundColor = Colors.mainColor
-        button.tintColor = .white
-        button.layer.cornerRadius = 40
-        button.layer.shadowOpacity = 0.7
-        button.layer.shadowRadius = 3
-        button.layer.shadowColor = Colors.mainColor.cgColor
-        button.layer.shadowOffset = CGSize(width: 1, height: 1)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "評価者"
         setupUI()
         configueViewColor()
-        addSettingsButton()
+        setupNavigationButtons()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -58,27 +44,34 @@ final class AccordionAssessorViewController: UIViewController {
         view.backgroundColor = .systemBackground
 
         view.addSubview(tableView)
-        view.addSubview(addButton)
 
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-
-            addButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -50),
-            addButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50),
-            addButton.widthAnchor.constraint(equalToConstant: 80),
-            addButton.heightAnchor.constraint(equalToConstant: 80)
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-
-        addButton.addTarget(self, action: #selector(addAssessor), for: .touchUpInside)
     }
 
-    // MARK: - Settings
-    private func addSettingsButton() {
-        let settingsButton = UIBarButtonItem(image: UIImage(systemName: "gearshape"), style: .plain, target: self, action: #selector(openSettings))
-        navigationItem.rightBarButtonItem = settingsButton
+    // MARK: - Navigation Buttons
+    private func setupNavigationButtons() {
+        // 左上: 設定ボタン
+        let settingsButton = UIBarButtonItem(
+            image: UIImage(systemName: "gearshape"),
+            style: .plain,
+            target: self,
+            action: #selector(openSettings)
+        )
+        navigationItem.leftBarButtonItem = settingsButton
+
+        // 右上: 評価者追加ボタン
+        let addAssessorButton = UIBarButtonItem(
+            title: "評価者を追加",
+            style: .plain,
+            target: self,
+            action: #selector(addAssessor)
+        )
+        navigationItem.rightBarButtonItem = addAssessorButton
     }
 
     @objc private func openSettings() {
@@ -112,6 +105,8 @@ final class AccordionAssessorViewController: UIViewController {
             // 重複チェック
             let existingAssessors = self.timerAssessmentRepository.loadAssessor()
 
+            var assessorUUID: UUID?
+
             switch mode {
             case .input:
                 // 新規追加時: 同じ名前が既に存在するかチェック
@@ -121,6 +116,7 @@ final class AccordionAssessorViewController: UIViewController {
                 }
                 let newAssessor = Assessor(name: name)
                 self.timerAssessmentRepository.apppendAssessor(assesor: newAssessor)
+                assessorUUID = newAssessor.uuid
             case .edit:
                 guard let editingAssessor = editingAssessor else { return }
                 // 編集時: 自分以外に同じ名前が存在するかチェック
@@ -130,6 +126,12 @@ final class AccordionAssessorViewController: UIViewController {
                 }
                 let updatedAssessor = Assessor(uuidString: editingAssessor.uuidString, name: name)
                 self.timerAssessmentRepository.updateAssessor(assessor: updatedAssessor)
+                assessorUUID = updatedAssessor.uuid
+            }
+
+            // 追加・編集した評価者を自動展開
+            if let uuid = assessorUUID {
+                self.expandedAssessors.insert(uuid)
             }
 
             self.tableView.reloadData()
@@ -218,15 +220,27 @@ extension AccordionAssessorViewController: UITableViewDelegate, UITableViewDataS
         arrowLabel.translatesAutoresizingMaskIntoConstraints = false
 
         let addButton = UIButton(type: .system)
-        addButton.setImage(UIImage(systemName: "plus.circle.fill"), for: .normal)
+        addButton.setTitle("対象者追加", for: .normal)
+        addButton.titleLabel?.font = .systemFont(ofSize: 13)
+        addButton.titleLabel?.numberOfLines = 1
+        addButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        addButton.titleLabel?.minimumScaleFactor = 0.8
         addButton.tintColor = .systemBlue
+        addButton.layer.borderWidth = 1
+        addButton.layer.borderColor = UIColor.systemBlue.cgColor
+        addButton.layer.cornerRadius = 6
+        addButton.contentEdgeInsets = UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 8)
         addButton.tag = section
         addButton.addTarget(self, action: #selector(addTargetPerson(_:)), for: .touchUpInside)
         addButton.translatesAutoresizingMaskIntoConstraints = false
 
         let editButton = UIButton(type: .system)
-        editButton.setImage(UIImage(systemName: "info.circle"), for: .normal)
+        editButton.setImage(UIImage(systemName: "pencil"), for: .normal)
         editButton.tintColor = .systemBlue
+        editButton.layer.borderWidth = 1
+        editButton.layer.borderColor = UIColor.systemBlue.cgColor
+        editButton.layer.cornerRadius = 6
+        editButton.contentEdgeInsets = UIEdgeInsets(top: 6, left: 6, bottom: 6, right: 6)
         editButton.tag = section
         editButton.addTarget(self, action: #selector(editAssessor(_:)), for: .touchUpInside)
         editButton.translatesAutoresizingMaskIntoConstraints = false
@@ -304,15 +318,35 @@ extension AccordionAssessorViewController: UITableViewDelegate, UITableViewDataS
                 nameLabel.translatesAutoresizingMaskIntoConstraints = false
 
                 let addButton = UIButton(type: .system)
-                addButton.setImage(UIImage(systemName: "plus.circle"), for: .normal)
+                addButton.setTitle("評価項目追加", for: .normal)
+                addButton.titleLabel?.font = .systemFont(ofSize: 13)
+                addButton.titleLabel?.numberOfLines = 1
+                addButton.titleLabel?.adjustsFontSizeToFitWidth = true
+                addButton.titleLabel?.minimumScaleFactor = 0.8
                 addButton.tintColor = .systemBlue
+                addButton.layer.borderWidth = 1
+                addButton.layer.borderColor = UIColor.systemBlue.cgColor
+                addButton.layer.cornerRadius = 6
+                addButton.contentEdgeInsets = UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 8)
                 addButton.tag = tpIndex
                 addButton.addTarget(self, action: #selector(addAssessmentItem(_:)), for: .touchUpInside)
                 addButton.translatesAutoresizingMaskIntoConstraints = false
 
+                let editButton = UIButton(type: .system)
+                editButton.setImage(UIImage(systemName: "pencil"), for: .normal)
+                editButton.tintColor = .systemBlue
+                editButton.layer.borderWidth = 1
+                editButton.layer.borderColor = UIColor.systemBlue.cgColor
+                editButton.layer.cornerRadius = 6
+                editButton.contentEdgeInsets = UIEdgeInsets(top: 6, left: 6, bottom: 6, right: 6)
+                editButton.tag = tpIndex
+                editButton.addTarget(self, action: #selector(editTargetPersonButton(_:)), for: .touchUpInside)
+                editButton.translatesAutoresizingMaskIntoConstraints = false
+
                 containerView.addSubview(arrowLabel)
                 containerView.addSubview(nameLabel)
                 containerView.addSubview(addButton)
+                containerView.addSubview(editButton)
 
                 NSLayoutConstraint.activate([
                     arrowLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
@@ -321,10 +355,11 @@ extension AccordionAssessorViewController: UITableViewDelegate, UITableViewDataS
                     nameLabel.leadingAnchor.constraint(equalTo: arrowLabel.trailingAnchor),
                     nameLabel.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
 
-                    addButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -50),
-                    addButton.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
-                    addButton.widthAnchor.constraint(equalToConstant: 30),
-                    addButton.heightAnchor.constraint(equalToConstant: 30)
+                    editButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16),
+                    editButton.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+
+                    addButton.trailingAnchor.constraint(equalTo: editButton.leadingAnchor, constant: -8),
+                    addButton.centerYAnchor.constraint(equalTo: containerView.centerYAnchor)
                 ])
 
                 cell.contentView.addSubview(containerView)
@@ -337,7 +372,7 @@ extension AccordionAssessorViewController: UITableViewDelegate, UITableViewDataS
                 ])
 
                 cell.backgroundColor = .secondarySystemBackground
-                cell.accessoryType = .detailButton
+                cell.accessoryType = .none
                 cell.tag = tpIndex
                 return cell
             }
@@ -349,13 +384,67 @@ extension AccordionAssessorViewController: UITableViewDelegate, UITableViewDataS
                 let assessmentItems = timerAssessmentRepository.loadAssessmentItem(targetPerson: targetPerson)
                 for (aiIndex, assessmentItem) in assessmentItems.enumerated() {
                     if currentRow == indexPath.row {
-                        // テキストラベルで表示
-                        cell.textLabel?.text = "⏱ \(assessmentItem.name)"
-                        cell.textLabel?.font = .systemFont(ofSize: 15)
+                        // カスタムビューでボタンを追加
+                        let containerView = UIView()
+
+                        let nameLabel = UILabel()
+                        nameLabel.text = "⏱ \(assessmentItem.name)"
+                        nameLabel.font = .systemFont(ofSize: 15)
+                        nameLabel.translatesAutoresizingMaskIntoConstraints = false
+
+                        let startButton = UIButton(type: .system)
+                        startButton.setTitle("評価開始", for: .normal)
+                        startButton.titleLabel?.font = .systemFont(ofSize: 13)
+                        startButton.tintColor = .systemBlue
+                        startButton.layer.borderWidth = 1
+                        startButton.layer.borderColor = UIColor.systemBlue.cgColor
+                        startButton.layer.cornerRadius = 6
+                        startButton.contentEdgeInsets = UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 8)
+                        startButton.tag = aiIndex
+                        startButton.addTarget(self, action: #selector(startAssessment(_:)), for: .touchUpInside)
+                        startButton.translatesAutoresizingMaskIntoConstraints = false
+
+                        let historyButton = UIButton(type: .system)
+                        historyButton.setTitle("過去評価", for: .normal)
+                        historyButton.titleLabel?.font = .systemFont(ofSize: 13)
+                        historyButton.tintColor = .systemBlue
+                        historyButton.layer.borderWidth = 1
+                        historyButton.layer.borderColor = UIColor.systemBlue.cgColor
+                        historyButton.layer.cornerRadius = 6
+                        historyButton.contentEdgeInsets = UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 8)
+                        historyButton.tag = aiIndex
+                        historyButton.addTarget(self, action: #selector(showPastAssessment(_:)), for: .touchUpInside)
+                        historyButton.translatesAutoresizingMaskIntoConstraints = false
+
+                        containerView.addSubview(nameLabel)
+                        containerView.addSubview(startButton)
+                        containerView.addSubview(historyButton)
+
+                        NSLayoutConstraint.activate([
+                            nameLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 60),
+                            nameLabel.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+
+                            historyButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16),
+                            historyButton.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+
+                            startButton.trailingAnchor.constraint(equalTo: historyButton.leadingAnchor, constant: -8),
+                            startButton.centerYAnchor.constraint(equalTo: containerView.centerYAnchor)
+                        ])
+
+                        cell.contentView.addSubview(containerView)
+                        containerView.translatesAutoresizingMaskIntoConstraints = false
+                        NSLayoutConstraint.activate([
+                            containerView.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor),
+                            containerView.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor),
+                            containerView.topAnchor.constraint(equalTo: cell.contentView.topAnchor),
+                            containerView.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor)
+                        ])
+
                         cell.backgroundColor = .systemBackground
-                        cell.indentationLevel = 2
-                        cell.accessoryType = .disclosureIndicator
+                        cell.accessoryType = .none
                         cell.tag = aiIndex
+                        // targetPersonとassessmentItemをcellに保存
+                        cell.contentView.tag = tpIndex // 対象者のインデックス
                         return cell
                     }
                     currentRow += 1
@@ -391,35 +480,32 @@ extension AccordionAssessorViewController: UITableViewDelegate, UITableViewDataS
             }
             currentRow += 1
 
-            // 評価項目タップ
+            // 評価項目はボタンからのみ操作するため、タップは無視
             if let targetPersonUUID = targetPerson.uuid, expandedTargetPersons.contains(targetPersonUUID) {
                 let assessmentItems = timerAssessmentRepository.loadAssessmentItem(targetPerson: targetPerson)
-                for assessmentItem in assessmentItems {
-                    if currentRow == indexPath.row {
-                        // 機能選択画面へ遷移
-                        let nextVC = FunctionSelectionViewController()
-                        nextVC.assessmentItem = assessmentItem
-                        navigationController?.pushViewController(nextVC, animated: true)
-                        return
-                    }
-                    currentRow += 1
-                }
+                currentRow += assessmentItems.count
             }
         }
     }
 
-    func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-        // 対象者の編集ボタンがタップされた
+    @objc private func editTargetPersonButton(_ sender: UIButton) {
+        guard let cell = sender.superview?.superview?.superview as? UITableViewCell,
+              let indexPath = tableView.indexPath(for: cell) else { return }
+
         let assessors = timerAssessmentRepository.loadAssessor()
         guard indexPath.section < assessors.count else { return }
 
         let assessor = assessors[indexPath.section]
         let targetPersons = timerAssessmentRepository.loadTargetPerson(assessor: assessor)
 
-        if indexPath.row < targetPersons.count {
-            let targetPerson = targetPersons[indexPath.row]
+        if sender.tag < targetPersons.count {
+            let targetPerson = targetPersons[sender.tag]
             showTargetPersonAlert(mode: .edit, assessor: assessor, editingTargetPerson: targetPerson)
         }
+    }
+
+    func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
+        // 使用しない（カスタムボタンに置き換え）
     }
 
     @objc private func headerTapped(_ gesture: UITapGestureRecognizer) {
@@ -504,6 +590,12 @@ extension AccordionAssessorViewController: UITableViewDelegate, UITableViewDataS
 
                 let newAssessmentItem = AssessmentItem(name: item)
                 self.timerAssessmentRepository.appendAssessmentItem(targetPerson: targetPerson, assessmentItem: newAssessmentItem)
+
+                // 親の対象者を自動展開
+                if let targetPersonUUID = targetPerson.uuid {
+                    self.expandedTargetPersons.insert(targetPersonUUID)
+                }
+
                 self.tableView.reloadData()
             }
             actionSheet.addAction(action)
@@ -543,6 +635,12 @@ extension AccordionAssessorViewController: UITableViewDelegate, UITableViewDataS
 
             let newAssessmentItem = AssessmentItem(name: name)
             self.timerAssessmentRepository.appendAssessmentItem(targetPerson: targetPerson, assessmentItem: newAssessmentItem)
+
+            // 親の対象者を自動展開
+            if let targetPersonUUID = targetPerson.uuid {
+                self.expandedTargetPersons.insert(targetPersonUUID)
+            }
+
             self.tableView.reloadData()
         }
 
@@ -573,6 +671,8 @@ extension AccordionAssessorViewController: UITableViewDelegate, UITableViewDataS
             // 重複チェック
             let existingTargetPersons = self.timerAssessmentRepository.loadTargetPerson(assessor: assessor)
 
+            var targetPersonUUID: UUID?
+
             switch mode {
             case .input:
                 // 新規追加時: 同じ評価者の中に同じ名前が既に存在するかチェック
@@ -582,6 +682,7 @@ extension AccordionAssessorViewController: UITableViewDelegate, UITableViewDataS
                 }
                 let newTargetPerson = TargetPerson(name: name)
                 self.timerAssessmentRepository.appendTargetPerson(assessor: assessor, targetPerson: newTargetPerson)
+                targetPersonUUID = newTargetPerson.uuid
             case .edit:
                 guard let editingTargetPerson = editingTargetPerson else { return }
                 // 編集時: 自分以外に同じ名前が存在するかチェック
@@ -591,6 +692,15 @@ extension AccordionAssessorViewController: UITableViewDelegate, UITableViewDataS
                 }
                 let updatedTargetPerson = TargetPerson(uuidString: editingTargetPerson.uuidString, name: name)
                 self.timerAssessmentRepository.updateTargetPerson(targetPerson: updatedTargetPerson)
+                targetPersonUUID = updatedTargetPerson.uuid
+            }
+
+            // 追加・編集した対象者とその親評価者を自動展開
+            if let assessorUUID = assessor.uuid {
+                self.expandedAssessors.insert(assessorUUID)
+            }
+            if let uuid = targetPersonUUID {
+                self.expandedTargetPersons.insert(uuid)
             }
 
             self.tableView.reloadData()
@@ -618,6 +728,75 @@ extension AccordionAssessorViewController: UITableViewDelegate, UITableViewDataS
         )
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         present(alert, animated: true)
+    }
+
+    @objc private func startAssessment(_ sender: UIButton) {
+        guard let cell = sender.superview?.superview?.superview as? UITableViewCell,
+              let indexPath = tableView.indexPath(for: cell) else { return }
+
+        let assessors = timerAssessmentRepository.loadAssessor()
+        guard indexPath.section < assessors.count else { return }
+
+        let assessor = assessors[indexPath.section]
+        let targetPersons = timerAssessmentRepository.loadTargetPerson(assessor: assessor)
+
+        var currentRow = 0
+        for targetPerson in targetPersons {
+            currentRow += 1
+            if let targetPersonUUID = targetPerson.uuid, expandedTargetPersons.contains(targetPersonUUID) {
+                let assessmentItems = timerAssessmentRepository.loadAssessmentItem(targetPerson: targetPerson)
+                if sender.tag < assessmentItems.count {
+                    let assessmentItem = assessmentItems[sender.tag]
+                    // 評価開始画面へ遷移
+                    let nextVC = AssessmentViewController()
+                    nextVC.assessmentItem = assessmentItem
+                    navigationController?.pushViewController(nextVC, animated: true)
+                    return
+                }
+                currentRow += assessmentItems.count
+            }
+        }
+    }
+
+    @objc private func showPastAssessment(_ sender: UIButton) {
+        guard let cell = sender.superview?.superview?.superview as? UITableViewCell,
+              let indexPath = tableView.indexPath(for: cell) else {
+            print("❌ セルまたはindexPathが取得できません")
+            return
+        }
+
+        let assessors = timerAssessmentRepository.loadAssessor()
+        guard indexPath.section < assessors.count else {
+            print("❌ セクションが範囲外")
+            return
+        }
+
+        let assessor = assessors[indexPath.section]
+        let targetPersons = timerAssessmentRepository.loadTargetPerson(assessor: assessor)
+
+        var currentRow = 0
+        for targetPerson in targetPersons {
+            currentRow += 1
+            if let targetPersonUUID = targetPerson.uuid, expandedTargetPersons.contains(targetPersonUUID) {
+                let assessmentItems = timerAssessmentRepository.loadAssessmentItem(targetPerson: targetPerson)
+                for (index, assessmentItem) in assessmentItems.enumerated() {
+                    if currentRow == indexPath.row {
+                        // 過去評価一覧画面へ遷移
+                        print("✅ 過去評価画面へ遷移: \(assessmentItem.name)")
+                        let storyboard = UIStoryboard(name: "PastAssessment", bundle: nil)
+                        guard let nextVC = storyboard.instantiateInitialViewController() as? PastAssessmentViewController else {
+                            print("❌ PastAssessmentViewController取得失敗")
+                            return
+                        }
+                        nextVC.assessmentItem = assessmentItem
+                        navigationController?.pushViewController(nextVC, animated: true)
+                        return
+                    }
+                    currentRow += 1
+                }
+            }
+        }
+        print("❌ 評価項目が見つかりません")
     }
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
