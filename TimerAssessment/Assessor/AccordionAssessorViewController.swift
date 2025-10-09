@@ -220,27 +220,25 @@ extension AccordionAssessorViewController: UITableViewDelegate, UITableViewDataS
         arrowLabel.translatesAutoresizingMaskIntoConstraints = false
 
         let addButton = UIButton(type: .system)
-        addButton.setTitle("対象者追加", for: .normal)
-        addButton.titleLabel?.font = .systemFont(ofSize: 13)
-        addButton.titleLabel?.numberOfLines = 1
-        addButton.titleLabel?.adjustsFontSizeToFitWidth = true
-        addButton.titleLabel?.minimumScaleFactor = 0.8
-        addButton.tintColor = .systemBlue
-        addButton.layer.borderWidth = 1
-        addButton.layer.borderColor = UIColor.systemBlue.cgColor
-        addButton.layer.cornerRadius = 6
-        addButton.contentEdgeInsets = UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 8)
+        var addConfig = UIButton.Configuration.bordered()
+        addConfig.title = "対象者追加"
+        addConfig.buttonSize = .small
+        addConfig.cornerStyle = .capsule
+        addConfig.baseBackgroundColor = .systemBlue
+        addConfig.baseForegroundColor = .white
+        addButton.configuration = addConfig
         addButton.tag = section
         addButton.addTarget(self, action: #selector(addTargetPerson(_:)), for: .touchUpInside)
         addButton.translatesAutoresizingMaskIntoConstraints = false
 
         let editButton = UIButton(type: .system)
-        editButton.setImage(UIImage(systemName: "pencil"), for: .normal)
-        editButton.tintColor = .systemBlue
-        editButton.layer.borderWidth = 1
-        editButton.layer.borderColor = UIColor.systemBlue.cgColor
-        editButton.layer.cornerRadius = 6
-        editButton.contentEdgeInsets = UIEdgeInsets(top: 6, left: 6, bottom: 6, right: 6)
+        var editConfig = UIButton.Configuration.bordered()
+        editConfig.image = UIImage(systemName: "pencil")
+        editConfig.buttonSize = .small
+        editConfig.cornerStyle = .capsule
+        editConfig.baseBackgroundColor = .systemGray5
+        editConfig.baseForegroundColor = .label
+        editButton.configuration = editConfig
         editButton.tag = section
         editButton.addTarget(self, action: #selector(editAssessor(_:)), for: .touchUpInside)
         editButton.translatesAutoresizingMaskIntoConstraints = false
@@ -259,13 +257,9 @@ extension AccordionAssessorViewController: UITableViewDelegate, UITableViewDataS
 
             editButton.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -16),
             editButton.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
-            editButton.widthAnchor.constraint(equalToConstant: 44),
-            editButton.heightAnchor.constraint(equalToConstant: 44),
 
             addButton.trailingAnchor.constraint(equalTo: editButton.leadingAnchor, constant: -8),
-            addButton.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
-            addButton.widthAnchor.constraint(equalToConstant: 44),
-            addButton.heightAnchor.constraint(equalToConstant: 44)
+            addButton.centerYAnchor.constraint(equalTo: headerView.centerYAnchor)
         ])
 
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(headerTapped(_:)))
@@ -318,27 +312,25 @@ extension AccordionAssessorViewController: UITableViewDelegate, UITableViewDataS
                 nameLabel.translatesAutoresizingMaskIntoConstraints = false
 
                 let addButton = UIButton(type: .system)
-                addButton.setTitle("評価項目追加", for: .normal)
-                addButton.titleLabel?.font = .systemFont(ofSize: 13)
-                addButton.titleLabel?.numberOfLines = 1
-                addButton.titleLabel?.adjustsFontSizeToFitWidth = true
-                addButton.titleLabel?.minimumScaleFactor = 0.8
-                addButton.tintColor = .systemBlue
-                addButton.layer.borderWidth = 1
-                addButton.layer.borderColor = UIColor.systemBlue.cgColor
-                addButton.layer.cornerRadius = 6
-                addButton.contentEdgeInsets = UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 8)
+                var addConfig = UIButton.Configuration.bordered()
+                addConfig.title = "評価項目追加"
+                addConfig.buttonSize = .small
+                addConfig.cornerStyle = .capsule
+                addConfig.baseBackgroundColor = .systemBlue
+                addConfig.baseForegroundColor = .white
+                addButton.configuration = addConfig
                 addButton.tag = tpIndex
                 addButton.addTarget(self, action: #selector(addAssessmentItem(_:)), for: .touchUpInside)
                 addButton.translatesAutoresizingMaskIntoConstraints = false
 
                 let editButton = UIButton(type: .system)
-                editButton.setImage(UIImage(systemName: "pencil"), for: .normal)
-                editButton.tintColor = .systemBlue
-                editButton.layer.borderWidth = 1
-                editButton.layer.borderColor = UIColor.systemBlue.cgColor
-                editButton.layer.cornerRadius = 6
-                editButton.contentEdgeInsets = UIEdgeInsets(top: 6, left: 6, bottom: 6, right: 6)
+                var editConfig = UIButton.Configuration.bordered()
+                editConfig.image = UIImage(systemName: "pencil")
+                editConfig.buttonSize = .small
+                editConfig.cornerStyle = .capsule
+                editConfig.baseBackgroundColor = .systemGray5
+                editConfig.baseForegroundColor = .label
+                editButton.configuration = editConfig
                 editButton.tag = tpIndex
                 editButton.addTarget(self, action: #selector(editTargetPersonButton(_:)), for: .touchUpInside)
                 editButton.translatesAutoresizingMaskIntoConstraints = false
@@ -393,25 +385,25 @@ extension AccordionAssessorViewController: UITableViewDelegate, UITableViewDataS
                         nameLabel.translatesAutoresizingMaskIntoConstraints = false
 
                         let startButton = UIButton(type: .system)
-                        startButton.setTitle("評価開始", for: .normal)
-                        startButton.titleLabel?.font = .systemFont(ofSize: 13)
-                        startButton.tintColor = .systemBlue
-                        startButton.layer.borderWidth = 1
-                        startButton.layer.borderColor = UIColor.systemBlue.cgColor
-                        startButton.layer.cornerRadius = 6
-                        startButton.contentEdgeInsets = UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 8)
+                        var startConfig = UIButton.Configuration.filled()
+                        startConfig.title = "評価開始"
+                        startConfig.buttonSize = .small
+                        startConfig.cornerStyle = .capsule
+                        startConfig.baseBackgroundColor = .systemBlue
+                        startConfig.baseForegroundColor = .white
+                        startButton.configuration = startConfig
                         startButton.tag = aiIndex
                         startButton.addTarget(self, action: #selector(startAssessment(_:)), for: .touchUpInside)
                         startButton.translatesAutoresizingMaskIntoConstraints = false
 
                         let historyButton = UIButton(type: .system)
-                        historyButton.setTitle("過去評価", for: .normal)
-                        historyButton.titleLabel?.font = .systemFont(ofSize: 13)
-                        historyButton.tintColor = .systemBlue
-                        historyButton.layer.borderWidth = 1
-                        historyButton.layer.borderColor = UIColor.systemBlue.cgColor
-                        historyButton.layer.cornerRadius = 6
-                        historyButton.contentEdgeInsets = UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 8)
+                        var historyConfig = UIButton.Configuration.bordered()
+                        historyConfig.title = "過去評価"
+                        historyConfig.buttonSize = .small
+                        historyConfig.cornerStyle = .capsule
+                        historyConfig.baseBackgroundColor = .clear
+                        historyConfig.baseForegroundColor = .systemBlue
+                        historyButton.configuration = historyConfig
                         historyButton.tag = aiIndex
                         historyButton.addTarget(self, action: #selector(showPastAssessment(_:)), for: .touchUpInside)
                         historyButton.translatesAutoresizingMaskIntoConstraints = false
@@ -761,13 +753,11 @@ extension AccordionAssessorViewController: UITableViewDelegate, UITableViewDataS
     @objc private func showPastAssessment(_ sender: UIButton) {
         guard let cell = sender.superview?.superview?.superview as? UITableViewCell,
               let indexPath = tableView.indexPath(for: cell) else {
-            print("❌ セルまたはindexPathが取得できません")
             return
         }
 
         let assessors = timerAssessmentRepository.loadAssessor()
         guard indexPath.section < assessors.count else {
-            print("❌ セクションが範囲外")
             return
         }
 
@@ -779,24 +769,19 @@ extension AccordionAssessorViewController: UITableViewDelegate, UITableViewDataS
             currentRow += 1
             if let targetPersonUUID = targetPerson.uuid, expandedTargetPersons.contains(targetPersonUUID) {
                 let assessmentItems = timerAssessmentRepository.loadAssessmentItem(targetPerson: targetPerson)
-                for (index, assessmentItem) in assessmentItems.enumerated() {
-                    if currentRow == indexPath.row {
-                        // 過去評価一覧画面へ遷移
-                        print("✅ 過去評価画面へ遷移: \(assessmentItem.name)")
-                        let storyboard = UIStoryboard(name: "PastAssessment", bundle: nil)
-                        guard let nextVC = storyboard.instantiateInitialViewController() as? PastAssessmentViewController else {
-                            print("❌ PastAssessmentViewController取得失敗")
-                            return
-                        }
-                        nextVC.assessmentItem = assessmentItem
-                        navigationController?.pushViewController(nextVC, animated: true)
+                if sender.tag < assessmentItems.count {
+                    let assessmentItem = assessmentItems[sender.tag]
+                    let storyboard = UIStoryboard(name: "PastAssessment", bundle: nil)
+                    guard let nextVC = storyboard.instantiateViewController(withIdentifier: "pastAssessment") as? PastAssessmentViewController else {
                         return
                     }
-                    currentRow += 1
+                    nextVC.assessmentItem = assessmentItem
+                    navigationController?.pushViewController(nextVC, animated: true)
+                    return
                 }
+                currentRow += assessmentItems.count
             }
         }
-        print("❌ 評価項目が見つかりません")
     }
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

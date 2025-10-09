@@ -16,7 +16,32 @@ final class PastAssessmentViewController: UIViewController, UITableViewDelegate,
     var editingTimerAssessment: TimerAssessment?
 
     //　並び替えのための変数
-    private var isSortedAscending = false
+    private var sortType: SortType = .dateDescending
+
+    enum SortType {
+        case dateAscending   // 日付: 古い順
+        case dateDescending  // 日付: 新しい順
+        case timeAscending   // タイム: 速い順
+        case timeDescending  // タイム: 遅い順
+
+        var displayName: String {
+            switch self {
+            case .dateAscending: return "日付: 古い順"
+            case .dateDescending: return "日付: 新しい順"
+            case .timeAscending: return "タイム: 速い順"
+            case .timeDescending: return "タイム: 遅い順"
+            }
+        }
+
+        var iconName: String {
+            switch self {
+            case .dateAscending: return "calendar.badge.clock"
+            case .dateDescending: return "calendar.badge.clock"
+            case .timeAscending: return "timer"
+            case .timeDescending: return "timer"
+            }
+        }
+    }
 
     private let timerAssessmentRepository = TimerAssessmentRepository()
 
@@ -45,10 +70,98 @@ final class PastAssessmentViewController: UIViewController, UITableViewDelegate,
             UINib(nibName: "PastAssessmentTableViewCell", bundle: nil),
             forCellReuseIdentifier: "pastAssessmentTableViewCell"
         )
-        
+
+        // 戻るボタンをプログラムで設定
+        setupNavigationBar()
+
         tableView.reloadData()
         configueViewNavigationbarColor()
         configureViewAssessmentItemTitleView()
+    }
+
+    private func setupNavigationBar() {
+        // 左側: 戻るボタン
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            title: "戻る",
+            style: .plain,
+            target: self,
+            action: #selector(backButtonTapped)
+        )
+
+        // 右側: ソートボタン
+        let sortButton = UIBarButtonItem(
+            image: UIImage(systemName: "arrow.up.arrow.down.circle"),
+            style: .plain,
+            target: self,
+            action: #selector(showSortMenu)
+        )
+        navigationItem.rightBarButtonItem = sortButton
+    }
+
+    @objc private func backButtonTapped() {
+        navigationController?.popViewController(animated: true)
+    }
+
+    @objc private func showSortMenu() {
+        let alert = UIAlertController(
+            title: "並び替え",
+            message: "並び替え方法を選択してください",
+            preferredStyle: .actionSheet
+        )
+
+        // 日付: 新しい順
+        alert.addAction(UIAlertAction(
+            title: sortType == .dateDescending ? "✓ 日付: 新しい順" : "日付: 新しい順",
+            style: .default,
+            handler: { [weak self] _ in
+                self?.changeSortType(.dateDescending)
+            }
+        ))
+
+        // 日付: 古い順
+        alert.addAction(UIAlertAction(
+            title: sortType == .dateAscending ? "✓ 日付: 古い順" : "日付: 古い順",
+            style: .default,
+            handler: { [weak self] _ in
+                self?.changeSortType(.dateAscending)
+            }
+        ))
+
+        // タイム: 速い順
+        alert.addAction(UIAlertAction(
+            title: sortType == .timeAscending ? "✓ タイム: 速い順" : "タイム: 速い順",
+            style: .default,
+            handler: { [weak self] _ in
+                self?.changeSortType(.timeAscending)
+            }
+        ))
+
+        // タイム: 遅い順
+        alert.addAction(UIAlertAction(
+            title: sortType == .timeDescending ? "✓ タイム: 遅い順" : "タイム: 遅い順",
+            style: .default,
+            handler: { [weak self] _ in
+                self?.changeSortType(.timeDescending)
+            }
+        ))
+
+        alert.addAction(UIAlertAction(title: "キャンセル", style: .cancel))
+
+        // iPadのためのpopover設定
+        if let popoverController = alert.popoverPresentationController {
+            popoverController.barButtonItem = navigationItem.rightBarButtonItem
+        }
+
+        present(alert, animated: true)
+    }
+
+    private func changeSortType(_ newType: SortType) {
+        sortType = newType
+        tableView.reloadData()
+
+        // フィードバック
+        let generator = UIImpactFeedbackGenerator(style: .light)
+        generator.impactOccurred()
     }
 
     // MARK: - Segue- PastAssessmentTableViewController ←　InputAssessmentViewController
@@ -58,8 +171,40 @@ final class PastAssessmentViewController: UIViewController, UITableViewDelegate,
 
     // MARK: - Segue- SortTableView
     @IBAction private func sortTableView(_ sender: Any) {
-        isSortedAscending.toggle()
-        tableView.reloadData()
+        // 古い実装を残す（Storyboardから呼ばれる可能性があるため）
+        showSortMenu()
+    }
+
+    // ソートされたデータを取得
+    private func loadSortedTimerAssessments() -> [TimerAssessment] {
+        guard let assessmentItem = assessmentItem else { return [] }
+
+        switch sortType {
+        case .dateAscending:
+            return timerAssessmentRepository.loadTimerAssessment(
+                assessmentItem: assessmentItem,
+                sortBy: "createdAt",
+                ascending: true
+            )
+        case .dateDescending:
+            return timerAssessmentRepository.loadTimerAssessment(
+                assessmentItem: assessmentItem,
+                sortBy: "createdAt",
+                ascending: false
+            )
+        case .timeAscending:
+            return timerAssessmentRepository.loadTimerAssessment(
+                assessmentItem: assessmentItem,
+                sortBy: "resultTimer",
+                ascending: true
+            )
+        case .timeDescending:
+            return timerAssessmentRepository.loadTimerAssessment(
+                assessmentItem: assessmentItem,
+                sortBy: "resultTimer",
+                ascending: false
+            )
+        }
     }
 
     // MARK: - Table view data source
@@ -70,11 +215,7 @@ final class PastAssessmentViewController: UIViewController, UITableViewDelegate,
         120
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        timerAssessmentRepository
-            .loadTimerAssessment(
-                assessmentItem: assessmentItem!,
-                sortedAscending: isSortedAscending
-            ).count
+        loadSortedTimerAssessments().count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -83,10 +224,7 @@ final class PastAssessmentViewController: UIViewController, UITableViewDelegate,
             withIdentifier: "pastAssessmentTableViewCell",
             for: indexPath
         ) as! PastAssessmentTableViewCell
-        let timerAssessment = timerAssessmentRepository.loadTimerAssessment(
-            assessmentItem: assessmentItem!,
-            sortedAscending: isSortedAscending
-        )[indexPath.row]
+        let timerAssessment = loadSortedTimerAssessments()[indexPath.row]
 
         var createdAtString = "--"
         if let createdAt = timerAssessment.createdAt {
@@ -109,10 +247,7 @@ final class PastAssessmentViewController: UIViewController, UITableViewDelegate,
                    commit editingStyle: UITableViewCell.EditingStyle,
                    forRowAt indexPath: IndexPath) {
         guard editingStyle == .delete else { return }
-        let timerAssessment = timerAssessmentRepository.loadTimerAssessment(
-            assessmentItem: assessmentItem!,
-            sortedAscending: isSortedAscending
-        )[indexPath.row]
+        let timerAssessment = loadSortedTimerAssessments()[indexPath.row]
         timerAssessmentRepository.removeTimerAssessment(timerAssessment: timerAssessment)
         tableView.reloadData()
     }

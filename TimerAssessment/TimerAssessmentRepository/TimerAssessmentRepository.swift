@@ -310,6 +310,25 @@ final class TimerAssessmentRepository {
         let timerAssessments = realmTimerAssessmentsArray.map { TimerAssessment(managedObject: $0)}
         return timerAssessments
     }
+
+    // 新しいソートメソッド: ソートキーと順序を指定
+    func loadTimerAssessment(
+        assessmentItem: AssessmentItem,
+        sortBy keyPath: String,
+        ascending: Bool
+    ) -> [TimerAssessment] {
+        let timerAssessmentList = realm.object(
+            ofType: RealmAssessmentItem.self,
+            forPrimaryKey: assessmentItem.uuidString
+        )?.timerAssessments.sorted(
+            byKeyPath: keyPath,
+            ascending: ascending
+        )
+        guard let realmTimerAssessments = timerAssessmentList else { return [] }
+        let realmTimerAssessmentsArray = Array(realmTimerAssessments)
+        let timerAssessments = realmTimerAssessmentsArray.map { TimerAssessment(managedObject: $0)}
+        return timerAssessments
+    }
     //  一人のAssessmentItemのTimerAssessmentデータの追加
     func appendTimerAssessment(
         assessmentItem: AssessmentItem,
