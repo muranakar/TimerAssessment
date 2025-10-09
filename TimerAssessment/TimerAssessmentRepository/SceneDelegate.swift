@@ -13,8 +13,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene,
                willConnectTo session: UISceneSession,
                options connectionOptions: UIScene.ConnectionOptions) {
-        // swiftlint:disable unused_optional_binding
-        guard let _ = (scene as? UIWindowScene) else { return }
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+
+        // TODO: AccordionAssessorViewController.swiftをXcodeプロジェクトに追加後、
+        // 以下のコメントを解除してください
+        /*
+        let window = UIWindow(windowScene: windowScene)
+        let rootViewController = AccordionAssessorViewController()
+        let navigationController = UINavigationController(rootViewController: rootViewController)
+        window.rootViewController = navigationController
+        window.makeKeyAndVisible()
+        self.window = window
+        */
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

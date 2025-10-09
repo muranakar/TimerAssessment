@@ -259,20 +259,66 @@ extension AccordionAssessorViewController: UITableViewDelegate, UITableViewDataS
         let targetPersons = timerAssessmentRepository.loadTargetPerson(assessor: assessor)
 
         var currentRow = 0
+        var targetPersonForRow: TargetPerson?
 
         // 対象者レベル
         for (tpIndex, targetPerson) in targetPersons.enumerated() {
             if currentRow == indexPath.row {
                 let isExpanded = expandedTargetPersons.contains(targetPerson.uuid)
-                cell.textLabel?.text = (isExpanded ? "▼ " : "▶ ") + "👤 \(targetPerson.name)"
-                cell.textLabel?.font = .boldSystemFont(ofSize: 16)
+
+                // カスタムビューでプラスボタンを追加
+                let containerView = UIView()
+
+                let arrowLabel = UILabel()
+                arrowLabel.text = isExpanded ? "▼ " : "▶ "
+                arrowLabel.translatesAutoresizingMaskIntoConstraints = false
+
+                let nameLabel = UILabel()
+                nameLabel.text = "👤 \(targetPerson.name)"
+                nameLabel.font = .boldSystemFont(ofSize: 16)
+                nameLabel.translatesAutoresizingMaskIntoConstraints = false
+
+                let addButton = UIButton(type: .system)
+                addButton.setImage(UIImage(systemName: "plus.circle"), for: .normal)
+                addButton.tintColor = .systemBlue
+                addButton.tag = tpIndex
+                addButton.addTarget(self, action: #selector(addAssessmentItem(_:)), for: .touchUpInside)
+                addButton.translatesAutoresizingMaskIntoConstraints = false
+
+                containerView.addSubview(arrowLabel)
+                containerView.addSubview(nameLabel)
+                containerView.addSubview(addButton)
+
+                NSLayoutConstraint.activate([
+                    arrowLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+                    arrowLabel.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+
+                    nameLabel.leadingAnchor.constraint(equalTo: arrowLabel.trailingAnchor),
+                    nameLabel.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+
+                    addButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -50),
+                    addButton.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+                    addButton.widthAnchor.constraint(equalToConstant: 30),
+                    addButton.heightAnchor.constraint(equalToConstant: 30)
+                ])
+
+                cell.contentView.subviews.forEach { $0.removeFromSuperview() }
+                cell.contentView.addSubview(containerView)
+                containerView.translatesAutoresizingMaskIntoConstraints = false
+                NSLayoutConstraint.activate([
+                    containerView.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: 40),
+                    containerView.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor),
+                    containerView.topAnchor.constraint(equalTo: cell.contentView.topAnchor),
+                    containerView.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor)
+                ])
+
                 cell.backgroundColor = UIColor.systemGray5
-                cell.indentationLevel = 1
                 cell.accessoryType = .detailButton
                 cell.tag = tpIndex
                 return cell
             }
             currentRow += 1
+            targetPersonForRow = targetPerson
 
             // 評価項目レベル
             if expandedTargetPersons.contains(targetPerson.uuid) {
@@ -374,6 +420,96 @@ extension AccordionAssessorViewController: UITableViewDelegate, UITableViewDataS
 
         let assessor = assessors[section]
         showInputAlert(mode: .edit, editingAssessor: assessor)
+    }
+
+    @objc private func addTargetPerson(_ sender: UIButton) {
+        let section = sender.tag
+        let assessors = timerAssessmentRepository.loadAssessor()
+        guard section < assessors.count else { return }
+
+        let assessor = assessors[section]
+        showTargetPersonAlert(mode: .input, assessor: assessor, editingTargetPerson: nil)
+    }
+
+    @objc private func addAssessmentItem(_ sender: UIButton) {
+        // sectionとtargetPersonIndexを特定する必要がある
+        // tagにはtargetPersonのインデックスが入っている
+        // tableViewから現在のsectionを取得
+        guard let cell = sender.superview?.superview?.superview as? UITableViewCell,
+              let indexPath = tableView.indexPath(for: cell) else { return }
+
+        let assessors = timerAssessmentRepository.loadAssessor()
+        guard indexPath.section < assessors.count else { return }
+
+        let assessor = assessors[indexPath.section]
+        let targetPersons = timerAssessmentRepository.loadTargetPerson(assessor: assessor)
+
+        var currentRow = 0
+        for targetPerson in targetPersons {
+            if currentRow == indexPath.row {
+                showAssessmentItemActionSheet(targetPerson: targetPerson)
+                return
+            }
+            currentRow += 1
+            if expandedTargetPersons.contains(targetPerson.uuid) {
+                let assessmentItems = timerAssessmentRepository.loadAssessmentItem(targetPerson: targetPerson)
+                currentRow += assessmentItems.count
+            }
+        }
+    }
+
+    private func showAssessmentItemActionSheet(targetPerson: TargetPerson) {
+        let presetItems = ["起立動作", "10m歩行", "片脚立位(右)", "片脚立位(左)", "TUG"]
+
+        let actionSheet = UIAlertController(title: "評価項目を追加", message: "選択してください", preferredStyle: .actionSheet)
+
+        // プリセット項目を追加
+        for item in presetItems {
+            let action = UIAlertAction(title: item, style: .default) { [weak self] _ in
+                guard let self = self else { return }
+                let newAssessmentItem = AssessmentItem(name: item)
+                self.timerAssessmentRepository.appendAssessmentItem(targetPerson: targetPerson, assessmentItem: newAssessmentItem)
+                self.tableView.reloadData()
+            }
+            actionSheet.addAction(action)
+        }
+
+        // カスタム入力
+        let customAction = UIAlertAction(title: "カスタム入力", style: .default) { [weak self] _ in
+            self?.showCustomAssessmentItemAlert(targetPerson: targetPerson)
+        }
+        actionSheet.addAction(customAction)
+
+        // キャンセル
+        let cancelAction = UIAlertAction(title: "キャンセル", style: .cancel)
+        actionSheet.addAction(cancelAction)
+
+        present(actionSheet, animated: true)
+    }
+
+    private func showCustomAssessmentItemAlert(targetPerson: TargetPerson) {
+        let alert = UIAlertController(title: "カスタム項目を追加", message: "評価項目名を入力してください", preferredStyle: .alert)
+
+        alert.addTextField { textField in
+            textField.placeholder = "評価項目名"
+        }
+
+        let saveAction = UIAlertAction(title: "保存", style: .default) { [weak self, weak alert] _ in
+            guard let self = self,
+                  let textField = alert?.textFields?.first,
+                  let name = textField.text, !name.isEmpty else { return }
+
+            let newAssessmentItem = AssessmentItem(name: name)
+            self.timerAssessmentRepository.appendAssessmentItem(targetPerson: targetPerson, assessmentItem: newAssessmentItem)
+            self.tableView.reloadData()
+        }
+
+        let cancelAction = UIAlertAction(title: "キャンセル", style: .cancel)
+
+        alert.addAction(saveAction)
+        alert.addAction(cancelAction)
+
+        present(alert, animated: true)
     }
 
     private func showTargetPersonAlert(mode: TargetPersonInputMode, assessor: Assessor, editingTargetPerson: TargetPerson?) {
