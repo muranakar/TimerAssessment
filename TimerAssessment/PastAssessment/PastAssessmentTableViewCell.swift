@@ -20,19 +20,31 @@ final class PastAssessmentTableViewCell: UITableViewCell {
             copyTextButton.tintColor = Colors.mainColor
         }
     }
+    @IBOutlet weak private var shareTextButton: UIButton! {
+        didSet {
+            shareTextButton.tintColor = Colors.mainColor
+        }
+    }
     private var copyAssessmentTextHandler: () -> Void = {  }
+    private var shareAssessmentTextHandler: () -> Void = {  }
 
     @IBAction private func copyAssessmentResult(_ sender: Any) {
         copyAssessmentTextHandler()
     }
 
+    @IBAction private func shareAssessmentResult(_ sender: Any) {
+        shareAssessmentTextHandler()
+    }
+
     func configure(
         timerResultNumLabelString: String,
         createdAtLabelString: String,
-        copyAssessmentTextHandler: @escaping() -> Void
+        copyAssessmentTextHandler: @escaping() -> Void,
+        shareAssessmentTextHandler: @escaping() -> Void
     ) {
         timerResultNumLabel.text = timerResultNumLabelString
         createdAtLabel.text = createdAtLabelString
         self.copyAssessmentTextHandler = copyAssessmentTextHandler
+        self.shareAssessmentTextHandler = shareAssessmentTextHandler
     }
 }

@@ -18,6 +18,10 @@ final class PastAssessmentViewController: UIViewController, UITableViewDelegate,
     //　並び替えのための変数
     private var sortType: SortType = .dateDescending
 
+    // 複数選択モード
+    private var isEditingMode = false
+    private var selectedIndexPaths: Set<IndexPath> = []
+
     enum SortType {
         case dateAscending   // 日付: 古い順
         case dateDescending  // 日付: 新しい順
@@ -80,26 +84,151 @@ final class PastAssessmentViewController: UIViewController, UITableViewDelegate,
     }
 
     private func setupNavigationBar() {
-        // 左側: 戻るボタン
-        navigationItem.leftBarButtonItem = UIBarButtonItem(
-            title: "戻る",
-            style: .plain,
-            target: self,
-            action: #selector(backButtonTapped)
-        )
+        updateNavigationBar()
+    }
 
-        // 右側: ソートボタン
-        let sortButton = UIBarButtonItem(
-            image: UIImage(systemName: "arrow.up.arrow.down.circle"),
-            style: .plain,
-            target: self,
-            action: #selector(showSortMenu)
-        )
-        navigationItem.rightBarButtonItem = sortButton
+    private func updateNavigationBar() {
+        if isEditingMode {
+            // 編集モード時
+            navigationItem.leftBarButtonItem = UIBarButtonItem(
+                title: "キャンセル",
+                style: .plain,
+                target: self,
+                action: #selector(cancelEditMode)
+            )
+
+            // 右側: 共有とコピーボタン
+            let shareButton = UIBarButtonItem(
+                image: UIImage(systemName: "square.and.arrow.up"),
+                style: .plain,
+                target: self,
+                action: #selector(shareSelectedItems)
+            )
+            let copyButton = UIBarButtonItem(
+                image: UIImage(systemName: "doc.on.doc"),
+                style: .plain,
+                target: self,
+                action: #selector(copySelectedItems)
+            )
+            navigationItem.rightBarButtonItems = [shareButton, copyButton]
+        } else {
+            // 通常モード時
+            navigationItem.leftBarButtonItem = UIBarButtonItem(
+                title: "戻る",
+                style: .plain,
+                target: self,
+                action: #selector(backButtonTapped)
+            )
+
+            // 右側: ソートと選択ボタン
+            let sortButton = UIBarButtonItem(
+                image: UIImage(systemName: "arrow.up.arrow.down.circle"),
+                style: .plain,
+                target: self,
+                action: #selector(showSortMenu)
+            )
+            let selectButton = UIBarButtonItem(
+                title: "選択",
+                style: .plain,
+                target: self,
+                action: #selector(enterEditMode)
+            )
+            navigationItem.rightBarButtonItems = [sortButton, selectButton]
+        }
+    }
+
+    @objc private func enterEditMode() {
+        isEditingMode = true
+        selectedIndexPaths.removeAll()
+        tableView.allowsMultipleSelection = true
+        updateNavigationBar()
+        tableView.reloadData()
+    }
+
+    @objc private func cancelEditMode() {
+        isEditingMode = false
+        selectedIndexPaths.removeAll()
+        tableView.allowsMultipleSelection = false
+        updateNavigationBar()
+        tableView.reloadData()
     }
 
     @objc private func backButtonTapped() {
         navigationController?.popViewController(animated: true)
+    }
+
+    @objc private func shareSelectedItems() {
+        guard !selectedIndexPaths.isEmpty else {
+            showAlert(title: "選択してください", message: "共有するデータを選択してください。")
+            return
+        }
+
+        let selectedData = getSelectedTimerAssessments()
+        let textToShare = formatTimerAssessmentsForSharing(selectedData)
+
+        let activityVC = UIActivityViewController(
+            activityItems: [textToShare],
+            applicationActivities: nil
+        )
+
+        // iPadのためのpopover設定
+        if let popoverController = activityVC.popoverPresentationController {
+            popoverController.barButtonItem = navigationItem.rightBarButtonItems?.first
+        }
+
+        present(activityVC, animated: true)
+    }
+
+    @objc private func copySelectedItems() {
+        guard !selectedIndexPaths.isEmpty else {
+            showAlert(title: "選択してください", message: "コピーするデータを選択してください。")
+            return
+        }
+
+        let selectedData = getSelectedTimerAssessments()
+        let textToCopy = formatTimerAssessmentsForSharing(selectedData)
+
+        UIPasteboard.general.string = textToCopy
+
+        showAlert(title: "コピー完了", message: "\(selectedData.count)件のデータをコピーしました。")
+    }
+
+    private func getSelectedTimerAssessments() -> [TimerAssessment] {
+        let sortedIndexPaths = selectedIndexPaths.sorted { $0.row < $1.row }
+        let allData = loadSortedTimerAssessments()
+        return sortedIndexPaths.compactMap { indexPath in
+            guard indexPath.row < allData.count else { return nil }
+            return allData[indexPath.row]
+        }
+    }
+
+    private func formatTimerAssessmentsForSharing(_ assessments: [TimerAssessment]) -> String {
+        guard let assessmentItem = assessmentItem,
+              let targetPerson = targetPerson else {
+            return ""
+        }
+
+        var text = "【\(assessmentItem.name)】\n"
+        text += "対象者: \(targetPerson.name)\n\n"
+
+        for (index, assessment) in assessments.enumerated() {
+            let resultString = resultTimerStringFormatter(resultTimer: assessment.resultTimer)
+            let dateString: String
+            if let createdAt = assessment.createdAt {
+                dateString = createdAtdateFormatter(date: createdAt)
+            } else {
+                dateString = "--"
+            }
+            text += "\(index + 1). \(resultString) (\(dateString))\n"
+        }
+
+        return text
+    }
+
+    private func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
     }
 
     @objc private func showSortMenu() {
@@ -237,11 +366,57 @@ final class PastAssessmentViewController: UIViewController, UITableViewDelegate,
             copyAssessmentTextHandler: {[weak self] in
                 UIPasteboard.general.string =
                 CopyAndPasteFunctionAssessment(timerAssessment: timerAssessment).copyAndPasteString
-                // MARK: - weak selfを行うべきなのか、そうではないのか。
                 self?.copyButtonPushAlert(title: "コピー完了", message: "データ内容のコピーが\n完了しました。")
+            },
+            shareAssessmentTextHandler: {[weak self] in
+                self?.shareAssessment(timerAssessment)
             }
         )
+
+        // 編集モード時の選択表示
+        if isEditingMode {
+            if selectedIndexPaths.contains(indexPath) {
+                cell.accessoryType = .checkmark
+            } else {
+                cell.accessoryType = .none
+            }
+        } else {
+            cell.accessoryType = .none
+        }
+
         return cell
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+
+        if isEditingMode {
+            // 編集モード: 選択/解除をトグル
+            if selectedIndexPaths.contains(indexPath) {
+                selectedIndexPaths.remove(indexPath)
+            } else {
+                selectedIndexPaths.insert(indexPath)
+            }
+            tableView.reloadRows(at: [indexPath], with: .none)
+        }
+    }
+
+    private func shareAssessment(_ assessment: TimerAssessment) {
+        let textToShare = CopyAndPasteFunctionAssessment(timerAssessment: assessment).copyAndPasteString
+
+        let activityVC = UIActivityViewController(
+            activityItems: [textToShare],
+            applicationActivities: nil
+        )
+
+        // iPadのためのpopover設定
+        if let popoverController = activityVC.popoverPresentationController {
+            popoverController.sourceView = view
+            popoverController.sourceRect = CGRect(x: view.bounds.midX, y: view.bounds.midY, width: 0, height: 0)
+            popoverController.permittedArrowDirections = []
+        }
+
+        present(activityVC, animated: true)
     }
     func tableView(_ tableView: UITableView,
                    commit editingStyle: UITableViewCell.EditingStyle,

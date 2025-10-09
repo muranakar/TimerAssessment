@@ -150,6 +150,64 @@ final class AssessmentViewController: UIViewController {
         saveBarButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
         saveBarButton.isEnabled = false
         navigationItem.rightBarButtonItem = saveBarButton
+
+        // カスタム戻るボタン
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            title: "戻る",
+            style: .plain,
+            target: self,
+            action: #selector(backButtonTapped)
+        )
+    }
+
+    @objc private func backButtonTapped() {
+        // 未保存のデータがあるかチェック
+        if hasUnsavedData() {
+            showUnsavedDataAlert()
+        } else {
+            navigationController?.popViewController(animated: true)
+        }
+    }
+
+    // 未保存のデータがあるかチェック
+    private func hasUnsavedData() -> Bool {
+        // タイマーが停止状態で、測定結果が00:00:00以外の場合
+        if timerMode == .stop, let result = assessmentResultNum, result > 0 {
+            return true
+        }
+        return false
+    }
+
+    // 未保存データがある場合のアラート
+    private func showUnsavedDataAlert() {
+        let alert = UIAlertController(
+            title: "測定結果が保存されていません",
+            message: "測定結果を記録しますか？\nそれとも画面を戻りますか？",
+            preferredStyle: .alert
+        )
+
+        // 記録する
+        alert.addAction(UIAlertAction(
+            title: "記録する",
+            style: .default,
+            handler: { [weak self] _ in
+                self?.save()
+            }
+        ))
+
+        // 破棄して戻る
+        alert.addAction(UIAlertAction(
+            title: "破棄して戻る",
+            style: .destructive,
+            handler: { [weak self] _ in
+                self?.navigationController?.popViewController(animated: true)
+            }
+        ))
+
+        // キャンセル
+        alert.addAction(UIAlertAction(title: "キャンセル", style: .cancel))
+
+        present(alert, animated: true)
     }
 
     private func loadData() {
@@ -162,7 +220,7 @@ final class AssessmentViewController: UIViewController {
             timerMode = .reset
             disPlayLink.invalidate()
             assessmentResultNum = nil
-            timerLabel.text = "0"
+            timerLabel.text = "00:00:00"
             stopButton.isEnabled = false
             return
         }
@@ -176,7 +234,62 @@ final class AssessmentViewController: UIViewController {
             assessmentItem: assessmentItem!,
             timerAssessment: timerAssessment!
         )
-        toDetailAssessmentViewController(timerAssessment: timerAssessment!)
+
+        // 保存後のアラートを表示（測定結果画面への遷移は行わない）
+        showSaveCompletedAlert()
+    }
+
+    // 保存完了アラート
+    private func showSaveCompletedAlert() {
+        guard let timerAssessment = timerAssessment else { return }
+
+        let resultString = timerFormatter(stopTime: timerAssessment.resultTimer)
+
+        let alert = UIAlertController(
+            title: "保存されました",
+            message: "測定結果: \(resultString)",
+            preferredStyle: .alert
+        )
+
+        // 続けて記録する
+        alert.addAction(UIAlertAction(
+            title: "続けて記録",
+            style: .default,
+            handler: { [weak self] _ in
+                self?.resetAndContinue()
+            }
+        ))
+
+        // 過去評価を見る
+        alert.addAction(UIAlertAction(
+            title: "過去評価を見る",
+            style: .default,
+            handler: { [weak self] _ in
+                self?.toPastAssessmentViewController()
+            }
+        ))
+
+        // 戻る
+        alert.addAction(UIAlertAction(
+            title: "戻る",
+            style: .default,
+            handler: { [weak self] _ in
+                self?.navigationController?.popViewController(animated: true)
+            }
+        ))
+
+        present(alert, animated: true)
+    }
+
+    // リセットして続けて測定
+    private func resetAndContinue() {
+        timerMode = .reset
+        disPlayLink.invalidate()
+        assessmentResultNum = nil
+        timerLabel.text = "00:00:00"
+        stopButton.isEnabled = false
+        saveBarButton.isEnabled = false
+        timerAssessment = nil
     }
 
     @objc private func start() {
@@ -217,6 +330,15 @@ final class AssessmentViewController: UIViewController {
     private func toDetailAssessmentViewController(timerAssessment: TimerAssessment?) {
         let nextVC = DetailAssessmentViewController()
         nextVC.timerAssessment = timerAssessment
+        navigationController?.pushViewController(nextVC, animated: true)
+    }
+
+    private func toPastAssessmentViewController() {
+        let storyboard = UIStoryboard(name: "PastAssessment", bundle: nil)
+        guard let nextVC = storyboard.instantiateViewController(withIdentifier: "pastAssessment") as? PastAssessmentViewController else {
+            return
+        }
+        nextVC.assessmentItem = assessmentItem
         navigationController?.pushViewController(nextVC, animated: true)
     }
     // MARK: - UIUIAlertController
