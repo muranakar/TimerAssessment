@@ -112,7 +112,6 @@
 				B2377159275EA64E00A48640 /* LaunchScreen.storyboard */,
 				B237715C275EA64E00A48640 /* Info.plist */,
 				B237714C275EA64D00A48640 /* Products */,
-				D903B93819F5545EF620C84B /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -229,13 +228,6 @@
 				B2AEFF142784E9CA0010F539 /* Colors.swift */,
 			);
 			path = Color;
-			sourceTree = "<group>";
-		};
-		D903B93819F5545EF620C84B /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
