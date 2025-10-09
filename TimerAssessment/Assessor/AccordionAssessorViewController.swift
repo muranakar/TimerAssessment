@@ -253,6 +253,13 @@ extension AccordionAssessorViewController: UITableViewDelegate, UITableViewDataS
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+
+        // セルをリセット
+        cell.contentView.subviews.forEach { $0.removeFromSuperview() }
+        cell.textLabel?.text = nil
+        cell.accessoryType = .none
+        cell.backgroundColor = .systemBackground
+        cell.indentationLevel = 0
         cell.selectionStyle = .default
 
         let assessors = timerAssessmentRepository.loadAssessor()
@@ -306,7 +313,6 @@ extension AccordionAssessorViewController: UITableViewDelegate, UITableViewDataS
                     addButton.heightAnchor.constraint(equalToConstant: 30)
                 ])
 
-                cell.contentView.subviews.forEach { $0.removeFromSuperview() }
                 cell.contentView.addSubview(containerView)
                 containerView.translatesAutoresizingMaskIntoConstraints = false
                 NSLayoutConstraint.activate([
@@ -329,6 +335,7 @@ extension AccordionAssessorViewController: UITableViewDelegate, UITableViewDataS
                 let assessmentItems = timerAssessmentRepository.loadAssessmentItem(targetPerson: targetPerson)
                 for (aiIndex, assessmentItem) in assessmentItems.enumerated() {
                     if currentRow == indexPath.row {
+                        // テキストラベルで表示
                         cell.textLabel?.text = "⏱ \(assessmentItem.name)"
                         cell.textLabel?.font = .systemFont(ofSize: 15)
                         cell.backgroundColor = .systemBackground
