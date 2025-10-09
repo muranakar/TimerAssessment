@@ -158,7 +158,8 @@ extension AccordionAssessorViewController: UITableViewDelegate, UITableViewDataS
         guard section < assessors.count else { return 0 }
 
         let assessor = assessors[section]
-        let isExpanded = expandedAssessors.contains(assessor.uuid)
+        guard let assessorUUID = assessor.uuid else { return 0 }
+        let isExpanded = expandedAssessors.contains(assessorUUID)
 
         if !isExpanded {
             return 0
@@ -169,7 +170,8 @@ extension AccordionAssessorViewController: UITableViewDelegate, UITableViewDataS
 
         // 各対象者の評価項目をカウント
         for targetPerson in targetPersons {
-            if expandedTargetPersons.contains(targetPerson.uuid) {
+            guard let targetPersonUUID = targetPerson.uuid else { continue }
+            if expandedTargetPersons.contains(targetPersonUUID) {
                 let assessmentItems = timerAssessmentRepository.loadAssessmentItem(targetPerson: targetPerson)
                 count += assessmentItems.count
             }
@@ -183,7 +185,8 @@ extension AccordionAssessorViewController: UITableViewDelegate, UITableViewDataS
         guard section < assessors.count else { return nil }
 
         let assessor = assessors[section]
-        let isExpanded = expandedAssessors.contains(assessor.uuid)
+        guard let assessorUUID = assessor.uuid else { return nil }
+        let isExpanded = expandedAssessors.contains(assessorUUID)
 
         let headerView = UIView()
         headerView.backgroundColor = UIColor(named: "navigation") ?? .systemBlue
@@ -264,7 +267,8 @@ extension AccordionAssessorViewController: UITableViewDelegate, UITableViewDataS
         // 対象者レベル
         for (tpIndex, targetPerson) in targetPersons.enumerated() {
             if currentRow == indexPath.row {
-                let isExpanded = expandedTargetPersons.contains(targetPerson.uuid)
+                guard let targetPersonUUID = targetPerson.uuid else { return cell }
+                let isExpanded = expandedTargetPersons.contains(targetPersonUUID)
 
                 // カスタムビューでプラスボタンを追加
                 let containerView = UIView()
@@ -321,7 +325,7 @@ extension AccordionAssessorViewController: UITableViewDelegate, UITableViewDataS
             targetPersonForRow = targetPerson
 
             // 評価項目レベル
-            if expandedTargetPersons.contains(targetPerson.uuid) {
+            if let targetPersonUUID = targetPerson.uuid, expandedTargetPersons.contains(targetPersonUUID) {
                 let assessmentItems = timerAssessmentRepository.loadAssessmentItem(targetPerson: targetPerson)
                 for (aiIndex, assessmentItem) in assessmentItems.enumerated() {
                     if currentRow == indexPath.row {
@@ -355,10 +359,11 @@ extension AccordionAssessorViewController: UITableViewDelegate, UITableViewDataS
         // 対象者タップ
         for targetPerson in targetPersons {
             if currentRow == indexPath.row {
-                if expandedTargetPersons.contains(targetPerson.uuid) {
-                    expandedTargetPersons.remove(targetPerson.uuid)
+                guard let targetPersonUUID = targetPerson.uuid else { return }
+                if expandedTargetPersons.contains(targetPersonUUID) {
+                    expandedTargetPersons.remove(targetPersonUUID)
                 } else {
-                    expandedTargetPersons.insert(targetPerson.uuid)
+                    expandedTargetPersons.insert(targetPersonUUID)
                 }
                 tableView.reloadSections(IndexSet(integer: indexPath.section), with: .automatic)
                 return
@@ -366,7 +371,7 @@ extension AccordionAssessorViewController: UITableViewDelegate, UITableViewDataS
             currentRow += 1
 
             // 評価項目タップ
-            if expandedTargetPersons.contains(targetPerson.uuid) {
+            if let targetPersonUUID = targetPerson.uuid, expandedTargetPersons.contains(targetPersonUUID) {
                 let assessmentItems = timerAssessmentRepository.loadAssessmentItem(targetPerson: targetPerson)
                 for assessmentItem in assessmentItems {
                     if currentRow == indexPath.row {
@@ -403,11 +408,12 @@ extension AccordionAssessorViewController: UITableViewDelegate, UITableViewDataS
         guard section < assessors.count else { return }
 
         let assessor = assessors[section]
-        if expandedAssessors.contains(assessor.uuid) {
-            expandedAssessors.remove(assessor.uuid)
+        guard let assessorUUID = assessor.uuid else { return }
+        if expandedAssessors.contains(assessorUUID) {
+            expandedAssessors.remove(assessorUUID)
             expandedTargetPersons.removeAll() // 閉じる時は全ての対象者も閉じる
         } else {
-            expandedAssessors.insert(assessor.uuid)
+            expandedAssessors.insert(assessorUUID)
         }
 
         tableView.reloadSections(IndexSet(integer: section), with: .automatic)
@@ -451,7 +457,7 @@ extension AccordionAssessorViewController: UITableViewDelegate, UITableViewDataS
                 return
             }
             currentRow += 1
-            if expandedTargetPersons.contains(targetPerson.uuid) {
+            if let targetPersonUUID = targetPerson.uuid, expandedTargetPersons.contains(targetPersonUUID) {
                 let assessmentItems = timerAssessmentRepository.loadAssessmentItem(targetPerson: targetPerson)
                 currentRow += assessmentItems.count
             }
@@ -575,7 +581,7 @@ extension AccordionAssessorViewController: UITableViewDelegate, UITableViewDataS
             currentRow += 1
 
             // 評価項目削除
-            if expandedTargetPersons.contains(targetPerson.uuid) {
+            if let targetPersonUUID = targetPerson.uuid, expandedTargetPersons.contains(targetPersonUUID) {
                 let assessmentItems = timerAssessmentRepository.loadAssessmentItem(targetPerson: targetPerson)
                 for assessmentItem in assessmentItems {
                     if currentRow == indexPath.row {

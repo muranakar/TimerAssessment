@@ -25,7 +25,6 @@
 		B275A30F27A8125C00623E99 /* AssessmentItem.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B275A30E27A8125C00623E99 /* AssessmentItem.storyboard */; };
 		B275A31327A8128900623E99 /* AssessmentItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B275A31227A8128900623E99 /* AssessmentItemViewController.swift */; };
 		B275A31727A812C000623E99 /* AssessmentItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B275A31627A812C000623E99 /* AssessmentItemTableViewCell.swift */; };
-		05BE9688FFA2489EA9177918 /* AccordionAssessorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BE9688FFA2489EA9177917 /* AccordionAssessorViewController.swift */; };
 		B277D4F4278D021800E6CADB /* AssessorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B277D4F3278D021800E6CADB /* AssessorViewController.swift */; };
 		B2892862278DBBE700965E86 /* TargetPersonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2892861278DBBE700965E86 /* TargetPersonViewController.swift */; };
 		B29038F627ADD07200CC69DE /* CopyAndPasteFunctionAssessment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29038F527ADD07200CC69DE /* CopyAndPasteFunctionAssessment.swift */; };
@@ -65,7 +64,6 @@
 		B275A31227A8128900623E99 /* AssessmentItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssessmentItemViewController.swift; sourceTree = "<group>"; };
 		B275A31627A812C000623E99 /* AssessmentItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssessmentItemTableViewCell.swift; sourceTree = "<group>"; };
 		B277D4F3278D021800E6CADB /* AssessorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssessorViewController.swift; sourceTree = "<group>"; };
-		05BE9688FFA2489EA9177917 /* AccordionAssessorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccordionAssessorViewController.swift; sourceTree = "<group>"; };
 		B2892861278DBBE700965E86 /* TargetPersonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetPersonViewController.swift; sourceTree = "<group>"; };
 		B29038F527ADD07200CC69DE /* CopyAndPasteFunctionAssessment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyAndPasteFunctionAssessment.swift; sourceTree = "<group>"; };
 		B2ADB23B27A0A01500BDF423 /* TimerAssessment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerAssessment.swift; sourceTree = "<group>"; };
@@ -161,7 +159,6 @@
 			isa = PBXGroup;
 			children = (
 				B277D4F3278D021800E6CADB /* AssessorViewController.swift */,
-				05BE9688FFA2489EA9177917 /* AccordionAssessorViewController.swift */,
 				B2377179275EAB8F00A48640 /* AssessorTableViewCell.swift */,
 				B2377154275EA64D00A48640 /* Main.storyboard */,
 				B24D14762865FEC900127B72 /* ReviewRepository.swift */,
@@ -403,7 +400,6 @@
 				B2AE981C27A89AE8003148ED /* AssessmentViewController.swift in Sources */,
 				B2AE981427A89A7D003148ED /* PastAssessmentViewController.swift in Sources */,
 				B277D4F4278D021800E6CADB /* AssessorViewController.swift in Sources */,
-				05BE9688FFA2489EA9177918 /* AccordionAssessorViewController.swift in Sources */,
 				B237717C275EABA300A48640 /* TargetPersonTableViewCell.swift in Sources */,
 				66250DFF2E96B0260085E13A /* SettingsViewController.swift in Sources */,
 				B237717A275EAB8F00A48640 /* AssessorTableViewCell.swift in Sources */,

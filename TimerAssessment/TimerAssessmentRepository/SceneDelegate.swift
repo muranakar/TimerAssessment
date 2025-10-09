@@ -15,16 +15,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
-        // TODO: AccordionAssessorViewController.swiftをXcodeプロジェクトに追加後、
-        // 以下のコメントを解除してください
-        /*
         let window = UIWindow(windowScene: windowScene)
         let rootViewController = AccordionAssessorViewController()
         let navigationController = UINavigationController(rootViewController: rootViewController)
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
         self.window = window
-        */
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
