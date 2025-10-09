@@ -22,6 +22,7 @@ final class AccordionAssessorViewController: UIViewController {
         table.delegate = self
         table.dataSource = self
         table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        table.backgroundColor = .systemGroupedBackground
         table.translatesAutoresizingMaskIntoConstraints = false
         return table
     }()
@@ -108,12 +109,25 @@ final class AccordionAssessorViewController: UIViewController {
                   let textField = alert?.textFields?.first,
                   let name = textField.text, !name.isEmpty else { return }
 
+            // 重複チェック
+            let existingAssessors = self.timerAssessmentRepository.loadAssessor()
+
             switch mode {
             case .input:
+                // 新規追加時: 同じ名前が既に存在するかチェック
+                if existingAssessors.contains(where: { $0.name == name }) {
+                    self.showDuplicateAlert(type: "評価者")
+                    return
+                }
                 let newAssessor = Assessor(name: name)
                 self.timerAssessmentRepository.apppendAssessor(assesor: newAssessor)
             case .edit:
                 guard let editingAssessor = editingAssessor else { return }
+                // 編集時: 自分以外に同じ名前が存在するかチェック
+                if existingAssessors.contains(where: { $0.uuidString != editingAssessor.uuidString && $0.name == name }) {
+                    self.showDuplicateAlert(type: "評価者")
+                    return
+                }
                 let updatedAssessor = Assessor(uuidString: editingAssessor.uuidString, name: name)
                 self.timerAssessmentRepository.updateAssessor(assessor: updatedAssessor)
             }
@@ -189,30 +203,30 @@ extension AccordionAssessorViewController: UITableViewDelegate, UITableViewDataS
         let isExpanded = expandedAssessors.contains(assessorUUID)
 
         let headerView = UIView()
-        headerView.backgroundColor = UIColor(named: "navigation") ?? .systemBlue
+        headerView.backgroundColor = .systemBackground
 
         let label = UILabel()
         label.text = "📋 \(assessor.name)"
         label.font = .boldSystemFont(ofSize: 18)
-        label.textColor = .white
+        label.textColor = .label
         label.translatesAutoresizingMaskIntoConstraints = false
 
         let arrowLabel = UILabel()
         arrowLabel.text = isExpanded ? "▼" : "▶"
         arrowLabel.font = .systemFont(ofSize: 14)
-        arrowLabel.textColor = .white
+        arrowLabel.textColor = .label
         arrowLabel.translatesAutoresizingMaskIntoConstraints = false
 
         let addButton = UIButton(type: .system)
         addButton.setImage(UIImage(systemName: "plus.circle.fill"), for: .normal)
-        addButton.tintColor = .white
+        addButton.tintColor = .systemBlue
         addButton.tag = section
         addButton.addTarget(self, action: #selector(addTargetPerson(_:)), for: .touchUpInside)
         addButton.translatesAutoresizingMaskIntoConstraints = false
 
         let editButton = UIButton(type: .system)
         editButton.setImage(UIImage(systemName: "info.circle"), for: .normal)
-        editButton.tintColor = .white
+        editButton.tintColor = .systemBlue
         editButton.tag = section
         editButton.addTarget(self, action: #selector(editAssessor(_:)), for: .touchUpInside)
         editButton.translatesAutoresizingMaskIntoConstraints = false
@@ -322,7 +336,7 @@ extension AccordionAssessorViewController: UITableViewDelegate, UITableViewDataS
                     containerView.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor)
                 ])
 
-                cell.backgroundColor = UIColor.systemGray5
+                cell.backgroundColor = .secondarySystemBackground
                 cell.accessoryType = .detailButton
                 cell.tag = tpIndex
                 return cell
@@ -372,7 +386,7 @@ extension AccordionAssessorViewController: UITableViewDelegate, UITableViewDataS
                 } else {
                     expandedTargetPersons.insert(targetPersonUUID)
                 }
-                tableView.reloadSections(IndexSet(integer: indexPath.section), with: .automatic)
+                tableView.reloadData()
                 return
             }
             currentRow += 1
@@ -423,7 +437,7 @@ extension AccordionAssessorViewController: UITableViewDelegate, UITableViewDataS
             expandedAssessors.insert(assessorUUID)
         }
 
-        tableView.reloadSections(IndexSet(integer: section), with: .automatic)
+        tableView.reloadData()
     }
 
     @objc private func editAssessor(_ sender: UIButton) {
@@ -480,6 +494,14 @@ extension AccordionAssessorViewController: UITableViewDelegate, UITableViewDataS
         for item in presetItems {
             let action = UIAlertAction(title: item, style: .default) { [weak self] _ in
                 guard let self = self else { return }
+
+                // 重複チェック
+                let existingAssessmentItems = self.timerAssessmentRepository.loadAssessmentItem(targetPerson: targetPerson)
+                if existingAssessmentItems.contains(where: { $0.name == item }) {
+                    self.showDuplicateAlert(type: "評価項目")
+                    return
+                }
+
                 let newAssessmentItem = AssessmentItem(name: item)
                 self.timerAssessmentRepository.appendAssessmentItem(targetPerson: targetPerson, assessmentItem: newAssessmentItem)
                 self.tableView.reloadData()
@@ -512,6 +534,13 @@ extension AccordionAssessorViewController: UITableViewDelegate, UITableViewDataS
                   let textField = alert?.textFields?.first,
                   let name = textField.text, !name.isEmpty else { return }
 
+            // 重複チェック
+            let existingAssessmentItems = self.timerAssessmentRepository.loadAssessmentItem(targetPerson: targetPerson)
+            if existingAssessmentItems.contains(where: { $0.name == name }) {
+                self.showDuplicateAlert(type: "評価項目")
+                return
+            }
+
             let newAssessmentItem = AssessmentItem(name: name)
             self.timerAssessmentRepository.appendAssessmentItem(targetPerson: targetPerson, assessmentItem: newAssessmentItem)
             self.tableView.reloadData()
@@ -541,12 +570,25 @@ extension AccordionAssessorViewController: UITableViewDelegate, UITableViewDataS
                   let textField = alert?.textFields?.first,
                   let name = textField.text, !name.isEmpty else { return }
 
+            // 重複チェック
+            let existingTargetPersons = self.timerAssessmentRepository.loadTargetPerson(assessor: assessor)
+
             switch mode {
             case .input:
+                // 新規追加時: 同じ評価者の中に同じ名前が既に存在するかチェック
+                if existingTargetPersons.contains(where: { $0.name == name }) {
+                    self.showDuplicateAlert(type: "対象者")
+                    return
+                }
                 let newTargetPerson = TargetPerson(name: name)
                 self.timerAssessmentRepository.appendTargetPerson(assessor: assessor, targetPerson: newTargetPerson)
             case .edit:
                 guard let editingTargetPerson = editingTargetPerson else { return }
+                // 編集時: 自分以外に同じ名前が存在するかチェック
+                if existingTargetPersons.contains(where: { $0.uuidString != editingTargetPerson.uuidString && $0.name == name }) {
+                    self.showDuplicateAlert(type: "対象者")
+                    return
+                }
                 let updatedTargetPerson = TargetPerson(uuidString: editingTargetPerson.uuidString, name: name)
                 self.timerAssessmentRepository.updateTargetPerson(targetPerson: updatedTargetPerson)
             }
@@ -565,6 +607,17 @@ extension AccordionAssessorViewController: UITableViewDelegate, UITableViewDataS
     enum TargetPersonInputMode {
         case input
         case edit
+    }
+
+    // MARK: - Helper Methods
+    private func showDuplicateAlert(type: String) {
+        let alert = UIAlertController(
+            title: "重複エラー",
+            message: "同じ名前の\(type)が既に存在します。\n別の名前を入力してください。",
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
     }
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
