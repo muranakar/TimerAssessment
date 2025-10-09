@@ -27,13 +27,55 @@ final class AssessmentViewController: UIViewController {
         print("Released👍🏻: \(self)")
     }
 
-    // MARK: - IBOutlet
-    @IBOutlet private weak var saveBarButton: UIBarButtonItem!
-    @IBOutlet private weak var assessmentItemLabel: UILabel!
-    @IBOutlet private weak var timerLabel: UILabel!
-    @IBOutlet private weak var startButton: UIButton!
-    @IBOutlet private weak var stopButton: UIButton!
-    @IBOutlet private weak var resetButton: UIButton!
+    // MARK: - UI Components
+    private let assessmentItemTitleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "評価項目"
+        label.font = .boldSystemFont(ofSize: 30)
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    private let assessmentItemLabel: UILabel = {
+        let label = UILabel()
+        label.font = .boldSystemFont(ofSize: 30)
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    private let timerLabel: UILabel = {
+        let label = UILabel()
+        label.text = "00:00:00"
+        label.font = .monospacedDigitSystemFont(ofSize: 60, weight: .medium)
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    private let startButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("start", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+
+    private let stopButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("stop", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+
+    private let resetButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("reset", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+
+    private var saveBarButton: UIBarButtonItem!
 
     // MARK: - Variable constant
     private var buttons: [UIButton] {
@@ -47,14 +89,74 @@ final class AssessmentViewController: UIViewController {
     // MARK: - Method
     override func viewDidLoad() {
         super.viewDidLoad()
-        assessmentItemLabel.text = assessmentItem?.name
-        stopButton.isEnabled = false
-        saveBarButton.isEnabled = false
-        configueViewButtonsStyle()
-        configueViewTimerLabel()
+        setupUI()
+        setupNavigationBar()
+        loadData()
     }
 
-    @IBAction private func save(_ sender: Any) {
+    private func setupUI() {
+        view.backgroundColor = .systemBackground
+
+        view.addSubview(assessmentItemTitleLabel)
+        view.addSubview(assessmentItemLabel)
+        view.addSubview(timerLabel)
+        view.addSubview(startButton)
+        view.addSubview(stopButton)
+        view.addSubview(resetButton)
+
+        NSLayoutConstraint.activate([
+            // Title Label
+            assessmentItemTitleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            assessmentItemTitleLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -220),
+
+            // Assessment Item Label
+            assessmentItemLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            assessmentItemLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            assessmentItemLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            assessmentItemLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -170),
+
+            // Timer Label
+            timerLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            timerLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -30),
+
+            // Start Button
+            startButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -80),
+            startButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 150),
+            startButton.widthAnchor.constraint(equalToConstant: 80),
+            startButton.heightAnchor.constraint(equalToConstant: 80),
+
+            // Stop Button
+            stopButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 80),
+            stopButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 150),
+            stopButton.widthAnchor.constraint(equalToConstant: 80),
+            stopButton.heightAnchor.constraint(equalToConstant: 80),
+
+            // Reset Button
+            resetButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            resetButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 250),
+            resetButton.widthAnchor.constraint(equalToConstant: 80),
+            resetButton.heightAnchor.constraint(equalToConstant: 80)
+        ])
+
+        startButton.addTarget(self, action: #selector(start), for: .touchUpInside)
+        stopButton.addTarget(self, action: #selector(stop), for: .touchUpInside)
+        resetButton.addTarget(self, action: #selector(reset), for: .touchUpInside)
+
+        stopButton.isEnabled = false
+        configueViewButtonsStyle()
+    }
+
+    private func setupNavigationBar() {
+        saveBarButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
+        saveBarButton.isEnabled = false
+        navigationItem.rightBarButtonItem = saveBarButton
+    }
+
+    private func loadData() {
+        assessmentItemLabel.text = assessmentItem?.name
+    }
+
+    @objc private func save() {
         if timerMode == nil || timerMode == .start || timerMode == .reset {
             timerAlert()
             timerMode = .reset
@@ -77,7 +179,7 @@ final class AssessmentViewController: UIViewController {
         toDetailAssessmentViewController(timerAssessment: timerAssessment!)
     }
 
-    @IBAction private func start(_ sender: Any) {
+    @objc private func start() {
         timerMode = .start
         disPlayLink.add(runloop: .main, forMode: .common)
         startTime = CFAbsoluteTimeGetCurrent()
@@ -86,7 +188,7 @@ final class AssessmentViewController: UIViewController {
         saveBarButton.isEnabled = false
     }
 
-    @IBAction private func stop(_ sender: Any) {
+    @objc private func stop() {
         timerMode = .stop
         disPlayLink.invalidate()
 
@@ -97,7 +199,7 @@ final class AssessmentViewController: UIViewController {
         stopButton.isEnabled = false
         saveBarButton.isEnabled = true
     }
-    @IBAction private func reset(_ sender: Any) {
+    @objc private func reset() {
         timerMode = .reset
         disPlayLink.invalidate()
         assessmentResultNum = nil
@@ -111,12 +213,9 @@ final class AssessmentViewController: UIViewController {
         let stopTimerString = timerFormatter(stopTime: stopTime)
         timerLabel.text = stopTimerString
     }
-    // MARK: - Method
+    // MARK: - Navigation
     private func toDetailAssessmentViewController(timerAssessment: TimerAssessment?) {
-        let storyboard = UIStoryboard(name: "DetailAssessment", bundle: nil)
-        let nextVC = storyboard.instantiateViewController(
-            withIdentifier: "detailAssessment"
-        ) as! DetailAssessmentViewController
+        let nextVC = DetailAssessmentViewController()
         nextVC.timerAssessment = timerAssessment
         navigationController?.pushViewController(nextVC, animated: true)
     }
@@ -163,11 +262,9 @@ final class AssessmentViewController: UIViewController {
             $0.layer.shadowOffset = CGSize(width: 1, height: 1)
         }
     }
-
-    private func configueViewTimerLabel() {
-        timerLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 60, weight: .medium)
-    }
 }
+
+// MARK: - DisplayLinkWrapper
 
 private final class DisplayLinkWrapper {
     private var handler = Handler()

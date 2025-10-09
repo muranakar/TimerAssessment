@@ -12,59 +12,122 @@ final class FunctionSelectionViewController: UIViewController {
     // 変数の受け皿
     var assessmentItem: AssessmentItem?
     let timerAssessmetRepository = TimerAssessmentRepository()
-    @IBOutlet weak private var asssessmentButton: UIButton!
-    @IBOutlet weak private var assessmentListButton: UIButton!
-    @IBOutlet weak private var assessmentItemLabel: UILabel!
+
+    // UI Components
+    private let assessmentItemTitleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "評価項目"
+        label.font = .boldSystemFont(ofSize: 30)
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    private let assessmentItemLabel: UILabel = {
+        let label = UILabel()
+        label.font = .boldSystemFont(ofSize: 30)
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    private let assessmentButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("評価開始", for: .normal)
+        button.setImage(UIImage(systemName: "applepencil"), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+
+    private let assessmentListButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("過去評価一覧", for: .normal)
+        button.setImage(UIImage(systemName: "list.dash"), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let targetPersonName = timerAssessmetRepository.loadTargetPerson(assessmentItem: assessmentItem!)?.name ?? ""
-        let assessmentItemName = assessmentItem?.name ?? ""
+        setupUI()
+        setupNavigationBar()
+        loadData()
+        addSettingsButton()
+    }
 
-        navigationItem.title = "対象者:\(targetPersonName)様"
-        assessmentItemLabel.text = assessmentItemName
-        configueViewNavigationBarColor()
+    private func setupUI() {
+        view.backgroundColor = .systemBackground
+
+        view.addSubview(assessmentItemTitleLabel)
+        view.addSubview(assessmentItemLabel)
+        view.addSubview(assessmentButton)
+        view.addSubview(assessmentListButton)
+
+        NSLayoutConstraint.activate([
+            // Title Label
+            assessmentItemTitleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            assessmentItemTitleLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -200),
+
+            // Assessment Item Label
+            assessmentItemLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            assessmentItemLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            assessmentItemLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            assessmentItemLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -150),
+
+            // Assessment Button
+            assessmentButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            assessmentButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -50),
+            assessmentButton.widthAnchor.constraint(equalToConstant: 200),
+            assessmentButton.heightAnchor.constraint(equalToConstant: 70),
+
+            // Assessment List Button
+            assessmentListButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            assessmentListButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 90),
+            assessmentListButton.widthAnchor.constraint(equalToConstant: 200),
+            assessmentListButton.heightAnchor.constraint(equalToConstant: 70)
+        ])
+
+        assessmentButton.addTarget(self, action: #selector(toAssessmentVC), for: .touchUpInside)
+        assessmentListButton.addTarget(self, action: #selector(toFIMTableVC), for: .touchUpInside)
+
         configueViewButtonStyle()
     }
-    @IBAction private func shareTwitter(_ sender: Any) {
-        shareOnTwitter()
-    }
-    @IBAction private func shareLine(_ sender: Any) {
-        shareOnLine()
-    }
-    @IBAction private func shareOtherApp(_ sender: Any) {
-        shareOnOtherApp()
-    }
-    @IBAction private func review(_ sender: Any) {
-        let urlString = URL(string: "https://apps.apple.com/app/id1612725154?action=write-review")
-        guard let writeReviewURL = urlString else {
-            fatalError("Expected a valid URL")
-        }
-        UIApplication.shared.open(writeReviewURL, options: [:], completionHandler: nil)
+
+    private func setupNavigationBar() {
+        configueViewNavigationBarColor()
     }
 
-    @IBAction private func toAssessmentVC(_ sender: Any) {
+    private func loadData() {
+        let targetPersonName = timerAssessmetRepository.loadTargetPerson(assessmentItem: assessmentItem!)?.name ?? ""
+        let assessmentItemName = assessmentItem?.name ?? ""
+        navigationItem.title = "対象者:\(targetPersonName)様"
+        assessmentItemLabel.text = assessmentItemName
+    }
+
+    // MARK: - Settings
+    private func addSettingsButton() {
+        let settingsButton = UIBarButtonItem(image: UIImage(systemName: "gearshape"), style: .plain, target: self, action: #selector(openSettings))
+        navigationItem.rightBarButtonItem = settingsButton
+    }
+
+    @objc private func openSettings() {
+        let storyboard = UIStoryboard(name: "Settings", bundle: nil)
+        let settingsVC = storyboard.instantiateInitialViewController()!
+        settingsVC.modalPresentationStyle = .fullScreen
+        present(settingsVC, animated: true)
+    }
+
+    @objc private func toAssessmentVC() {
         toAssessmentViewController(assessmentItem: assessmentItem!)
     }
 
-    @IBAction private func toFIMTableVC(_ sender: Any) {
+    @objc private func toFIMTableVC() {
         toPastAssessmentViewController(assessmentItem: assessmentItem!)
     }
 
-    // MARK: - Segue- FunctionSelectionViewController ← AssessmentViewController
-    @IBAction private func backToFunctionSelectionTableViewController(segue: UIStoryboardSegue) {
-        let reviewNum = ReviewRepository.processAfterAddReviewNumPulsOneAndSaveReviewNum()
-        print(reviewNum)
-        if reviewNum == 10 || reviewNum == 31 || reviewNum == 50 {
-            if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
-                SKStoreReviewController.requestReview(in: scene)
-            }
-        }
-    }
     // MARK: - Method
     private func toAssessmentViewController(assessmentItem: AssessmentItem) {
-        let storyboard = UIStoryboard(name: "Assessment", bundle: nil)
-        let nextVC =  storyboard.instantiateViewController(withIdentifier: "assessment") as! AssessmentViewController
+        let nextVC = AssessmentViewController()
         nextVC.assessmentItem = assessmentItem
         navigationController?.pushViewController(nextVC, animated: true)
     }
@@ -75,66 +138,6 @@ final class FunctionSelectionViewController: UIViewController {
         storyboard.instantiateViewController(withIdentifier: "pastAssessment") as! PastAssessmentViewController
         nextVC.assessmentItem = assessmentItem
         navigationController?.pushViewController(nextVC, animated: true)
-    }
-    private func shareOnTwitter() {
-        // シェアするテキストを作成
-        let text = "タイマー機能を用いて評価項目ごとに記録することが可能！"
-        // swiftlint:disable:next line_length
-        let hashTag = " #ADL #身体機能 #病院 #クリニック #在宅 #医師 #理学療法士 #作業療法士 #言語聴覚士 #介護 #評価　#認知評価   \nhttps://apps.apple.com/jp/app/id1612725154"
-        let completedText = text + "\n" + hashTag
-
-        // 作成したテキストをエンコード
-        let encodedText = completedText.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-
-        // エンコードしたテキストをURLに繋げ、URLを開いてツイート画面を表示させる
-        if let encodedText = encodedText,
-           let url = URL(string: "https://twitter.com/intent/tweet?text=\(encodedText)") {
-            UIApplication.shared.open(url)
-        }
-    }
-
-    private  func shareOnLine() {
-        let urlscheme: String = "https://line.me/R/share?text="
-        // swiftlint:disable:next line_length
-        let message = "タイマー機能を用いて評価項目ごとに記録することが可能！\n #ADL #身体機能 #病院 #クリニック #在宅 #医師 #理学療法士 #作業療法士 #言語聴覚士 #介護 #評価　#認知評価   \nhttps://apps.apple.com/jp/app/id1612725154"
-
-        // line:/msg/text/(メッセージ)
-        let urlstring = urlscheme + "/" + message
-
-        // URLエンコード
-        guard let  encodedURL =
-                urlstring.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed) else {
-            return
-        }
-
-        // URL作成
-        guard let url = URL(string: encodedURL) else {
-            return
-        }
-
-        if UIApplication.shared.canOpenURL(url) {
-            if #available(iOS 10.0, *) {
-                UIApplication.shared.open(url, options: [:], completionHandler: { (succes) in
-                    //  LINEアプリ表示成功
-                })
-            } else {
-                UIApplication.shared.openURL(url)
-            }
-        } else {
-            // LINEアプリが無い場合
-            let alertController = UIAlertController(title: "エラー",
-                                                    message: "LINEがインストールされていません",
-                                                    preferredStyle: UIAlertController.Style.alert)
-            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default))
-            present(alertController,animated: true,completion: nil)
-        }
-    }
-
-    private func shareOnOtherApp() {
-        let url = URL(string: "https://sites.google.com/view/muranakar")
-        if UIApplication.shared.canOpenURL(url!) {
-            UIApplication.shared.open(url!)
-        }
     }
 
 
@@ -149,19 +152,14 @@ final class FunctionSelectionViewController: UIViewController {
     }
 
     private func configueViewButtonStyle() {
-        asssessmentButton.tintColor = Colors.baseColor
-        asssessmentButton.backgroundColor = Colors.mainColor
-        asssessmentButton.layer.cornerRadius = 10
-        asssessmentButton.layer.shadowOpacity = 0.7
-        asssessmentButton.layer.shadowRadius = 3
-        asssessmentButton.layer.shadowColor = UIColor.black.cgColor
-        asssessmentButton.layer.shadowOffset = CGSize(width: 1, height: 1)
-        assessmentListButton.tintColor = Colors.baseColor
-        assessmentListButton.backgroundColor = Colors.mainColor
-        assessmentListButton.layer.cornerRadius = 10
-        assessmentListButton.layer.shadowOpacity = 0.7
-        assessmentListButton.layer.shadowRadius = 3
-        assessmentListButton.layer.shadowColor = UIColor.black.cgColor
-        assessmentListButton.layer.shadowOffset = CGSize(width: 1, height: 1)
+        [assessmentButton, assessmentListButton].forEach { button in
+            button.tintColor = Colors.baseColor
+            button.backgroundColor = Colors.mainColor
+            button.layer.cornerRadius = 10
+            button.layer.shadowOpacity = 0.7
+            button.layer.shadowRadius = 3
+            button.layer.shadowColor = UIColor.black.cgColor
+            button.layer.shadowOffset = CGSize(width: 1, height: 1)
+        }
     }
 }

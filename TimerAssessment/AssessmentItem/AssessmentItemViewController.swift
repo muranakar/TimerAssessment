@@ -196,13 +196,9 @@ final class AssessmentItemViewController: UIViewController, UITableViewDelegate,
     }
     // MARK: - Method
     private func toFunctionSelectionViewController(selectedAssessmentItem: AssessmentItem) {
-                let storyboard = UIStoryboard(name: "FunctionSelection", bundle: nil)
-                let nextVC =
-                storyboard.instantiateViewController(
-            withIdentifier: "functionSelection"
-                ) as! FunctionSelectionViewController
-                nextVC.assessmentItem = selectedAssessmentItem
-                navigationController?.pushViewController(nextVC, animated: true)
+        let nextVC = FunctionSelectionViewController()
+        nextVC.assessmentItem = selectedAssessmentItem
+        navigationController?.pushViewController(nextVC, animated: true)
     }
     // MARK: - View Configue
     private func configueViewColor() {
