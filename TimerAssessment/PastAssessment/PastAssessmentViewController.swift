@@ -61,6 +61,9 @@ final class PastAssessmentViewController: UIViewController, UITableViewDelegate,
     @IBOutlet weak private var tableView: UITableView!
     @IBOutlet weak private var assessmentItemTitleView: UIView!
 
+    // MARK: - Statistics Header View
+    private var statisticsHeaderView: UIView?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         guard let targetPersonName =  targetPerson?.name else {
@@ -81,6 +84,112 @@ final class PastAssessmentViewController: UIViewController, UITableViewDelegate,
         tableView.reloadData()
         configueViewNavigationbarColor()
         configureViewAssessmentItemTitleView()
+    }
+
+    private func createStatisticsHeaderView() -> UIView {
+        let assessments = loadSortedTimerAssessments()
+
+        let headerView = UIView()
+        headerView.backgroundColor = .secondarySystemGroupedBackground
+
+        // コンパクトな2列レイアウト
+        let containerStack = UIStackView()
+        containerStack.axis = .vertical
+        containerStack.spacing = 8
+        containerStack.translatesAutoresizingMaskIntoConstraints = false
+
+        // 1行目: 平均と記録数
+        let topStack = UIStackView()
+        topStack.axis = .horizontal
+        topStack.distribution = .fillEqually
+        topStack.spacing = 8
+
+        // 2行目: 最速と最遅
+        let bottomStack = UIStackView()
+        bottomStack.axis = .horizontal
+        bottomStack.distribution = .fillEqually
+        bottomStack.spacing = 8
+
+        if !assessments.isEmpty {
+            let times = assessments.map { $0.resultTimer }
+            let average = times.reduce(0, +) / Double(times.count)
+            let fastest = times.min() ?? 0
+            let slowest = times.max() ?? 0
+
+            topStack.addArrangedSubview(createStatCard(title: "平均", value: resultTimerStringFormatter(resultTimer: average), icon: "📊"))
+            topStack.addArrangedSubview(createStatCard(title: "記録数", value: "\(assessments.count)件", icon: "📝"))
+
+            bottomStack.addArrangedSubview(createStatCard(title: "最速", value: resultTimerStringFormatter(resultTimer: fastest), icon: "⚡"))
+            bottomStack.addArrangedSubview(createStatCard(title: "最遅", value: resultTimerStringFormatter(resultTimer: slowest), icon: "🐢"))
+        } else {
+            topStack.addArrangedSubview(createStatCard(title: "平均", value: "--", icon: "📊"))
+            topStack.addArrangedSubview(createStatCard(title: "記録数", value: "0件", icon: "📝"))
+
+            bottomStack.addArrangedSubview(createStatCard(title: "最速", value: "--", icon: "⚡"))
+            bottomStack.addArrangedSubview(createStatCard(title: "最遅", value: "--", icon: "🐢"))
+        }
+
+        containerStack.addArrangedSubview(topStack)
+        containerStack.addArrangedSubview(bottomStack)
+
+        headerView.addSubview(containerStack)
+
+        NSLayoutConstraint.activate([
+            containerStack.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 8),
+            containerStack.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 16),
+            containerStack.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -16),
+            containerStack.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -8)
+        ])
+
+        return headerView
+    }
+
+    private func createStatCard(title: String, value: String, icon: String) -> UIView {
+        let card = UIView()
+        card.backgroundColor = .systemBackground
+        card.layer.cornerRadius = 8
+        card.layer.shadowColor = UIColor.black.cgColor
+        card.layer.shadowOpacity = 0.05
+        card.layer.shadowOffset = CGSize(width: 0, height: 1)
+        card.layer.shadowRadius = 2
+
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.spacing = 2
+        stack.alignment = .center
+        stack.translatesAutoresizingMaskIntoConstraints = false
+
+        let iconLabel = UILabel()
+        iconLabel.text = icon
+        iconLabel.font = .systemFont(ofSize: 20)
+
+        let titleLabel = UILabel()
+        titleLabel.text = title
+        titleLabel.font = .systemFont(ofSize: 11, weight: .medium)
+        titleLabel.textColor = .secondaryLabel
+
+        let valueLabel = UILabel()
+        valueLabel.text = value
+        valueLabel.font = .monospacedDigitSystemFont(ofSize: 13, weight: .semibold)
+        valueLabel.textColor = .label
+        valueLabel.adjustsFontSizeToFitWidth = true
+        valueLabel.minimumScaleFactor = 0.8
+
+        stack.addArrangedSubview(iconLabel)
+        stack.addArrangedSubview(titleLabel)
+        stack.addArrangedSubview(valueLabel)
+
+        card.addSubview(stack)
+
+        NSLayoutConstraint.activate([
+            stack.topAnchor.constraint(equalTo: card.topAnchor, constant: 8),
+            stack.leadingAnchor.constraint(equalTo: card.leadingAnchor, constant: 8),
+            stack.trailingAnchor.constraint(equalTo: card.trailingAnchor, constant: -8),
+            stack.bottomAnchor.constraint(equalTo: card.bottomAnchor, constant: -8),
+            card.heightAnchor.constraint(equalToConstant: 70)
+        ])
+
+        return card
     }
 
     private func setupNavigationBar() {
@@ -340,8 +449,24 @@ final class PastAssessmentViewController: UIViewController, UITableViewDelegate,
     func numberOfSections(in tableView: UITableView) -> Int {
         1
     }
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = createStatisticsHeaderView()
+        statisticsHeaderView = headerView
+        return headerView
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 164 // 8 (上) + 70 (上段) + 8 (間隔) + 70 (下段) + 8 (下) = 164
+    }
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        80
+        // メモがある場合は高さを増やす
+        let timerAssessment = loadSortedTimerAssessments()[indexPath.row]
+        if let memo = timerAssessment.memo, !memo.isEmpty {
+            return 100 // メモがある場合は高さを増やす
+        }
+        return 80
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         loadSortedTimerAssessments().count
@@ -363,6 +488,7 @@ final class PastAssessmentViewController: UIViewController, UITableViewDelegate,
         cell.configure(
             timerResultNumLabelString: resultTimerStringFormatter(resultTimer: timerAssessment.resultTimer),
             createdAtLabelString: createdAtString,
+            memo: timerAssessment.memo,
             copyAssessmentTextHandler: {[weak self] in
                 UIPasteboard.general.string =
                 CopyAndPasteFunctionAssessment(timerAssessment: timerAssessment).copyAndPasteString

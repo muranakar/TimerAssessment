@@ -70,6 +70,7 @@ final class RealmAssessmentItem: Object {
 final class RealmTimerAssessment: Object {
     @objc dynamic var uuidString = ""
     @objc dynamic var resultTimer: Double = 0
+    @objc dynamic var memo: String? = nil
     @objc dynamic var createdAt: Date?
     @objc dynamic var updatedAt: Date?
     var uuid: UUID? {
@@ -82,10 +83,12 @@ final class RealmTimerAssessment: Object {
     }
 
     convenience init(resultTimer: Double,
+                     memo: String? = nil,
                      createdAt: Date? = nil,
                      updatedAt: Date? = nil) {
         self.init()
         self.resultTimer = resultTimer
+        self.memo = memo
         if let createdAt = createdAt {
             self.createdAt = createdAt
         }
@@ -353,6 +356,7 @@ final class TimerAssessmentRepository {
                 forPrimaryKey: timerAssessment.uuidString
             )
             loadedTimerAssessment?.resultTimer = timerAssessment.resultTimer
+            loadedTimerAssessment?.memo = timerAssessment.memo
             loadedTimerAssessment?.updatedAt = timerAssessment.updatedAt
         }
     }
@@ -417,6 +421,7 @@ private extension TimerAssessment {
     init(managedObject: RealmTimerAssessment) {
         self.uuidString = managedObject.uuidString
         self.resultTimer = managedObject.resultTimer
+        self.memo = managedObject.memo
         self.createdAt = managedObject.createdAt
         self.updatedAt = managedObject.updatedAt
     }
@@ -425,6 +430,7 @@ private extension TimerAssessment {
         let realmTimerAssessment = RealmTimerAssessment()
         realmTimerAssessment.uuidString = self.uuidString
         realmTimerAssessment.resultTimer = self.resultTimer
+        realmTimerAssessment.memo = self.memo
         realmTimerAssessment.createdAt = self.createdAt
         realmTimerAssessment.updatedAt = self.updatedAt
         return realmTimerAssessment

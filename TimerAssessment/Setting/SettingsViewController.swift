@@ -8,17 +8,32 @@
 import UIKit
 import StoreKit
 import MessageUI
+import UniformTypeIdentifiers
 
-final class SettingsViewController: UITableViewController, MFMailComposeViewControllerDelegate {
+final class SettingsViewController: UITableViewController, MFMailComposeViewControllerDelegate, UIDocumentPickerDelegate {
 
     private enum Section: Int, CaseIterable {
+        case dataManagement
         case share
         case support
 
         var title: String {
             switch self {
+            case .dataManagement: return "データ管理"
             case .share: return "共有"
             case .support: return "サポート"
+            }
+        }
+    }
+
+    private enum DataManagementRow: Int, CaseIterable {
+        case backup
+        case restore
+
+        var title: String {
+            switch self {
+            case .backup: return "データをバックアップ"
+            case .restore: return "データを復元"
             }
         }
     }
@@ -68,6 +83,8 @@ final class SettingsViewController: UITableViewController, MFMailComposeViewCont
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let sectionType = Section(rawValue: section) else { return 0 }
         switch sectionType {
+        case .dataManagement:
+            return DataManagementRow.allCases.count
         case .share:
             return ShareRow.allCases.count
         case .support:
@@ -90,6 +107,10 @@ final class SettingsViewController: UITableViewController, MFMailComposeViewCont
         guard let sectionType = Section(rawValue: indexPath.section) else { return cell }
 
         switch sectionType {
+        case .dataManagement:
+            if let row = DataManagementRow(rawValue: indexPath.row) {
+                cell.textLabel?.text = row.title
+            }
         case .share:
             if let row = ShareRow(rawValue: indexPath.row) {
                 cell.textLabel?.text = row.title
@@ -109,11 +130,122 @@ final class SettingsViewController: UITableViewController, MFMailComposeViewCont
         guard let sectionType = Section(rawValue: indexPath.section) else { return }
 
         switch sectionType {
+        case .dataManagement:
+            handleDataManagementAction(row: indexPath.row)
         case .share:
             handleShareAction(row: indexPath.row)
         case .support:
             handleSupportAction(row: indexPath.row)
         }
+    }
+
+    // MARK: - Data Management Actions
+    private func handleDataManagementAction(row: Int) {
+        guard let dataRow = DataManagementRow(rawValue: row) else { return }
+
+        switch dataRow {
+        case .backup:
+            backupData()
+        case .restore:
+            restoreData()
+        }
+    }
+
+    private func backupData() {
+        let backupManager = DataBackupManager()
+
+        do {
+            let data = try backupManager.exportData()
+
+            // ファイル名を生成
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyyMMdd_HHmmss"
+            let dateString = dateFormatter.string(from: Date())
+            let fileName = "TimerAssessment_Backup_\(dateString).json"
+
+            // 一時ファイルに保存
+            let tempURL = FileManager.default.temporaryDirectory.appendingPathComponent(fileName)
+            try data.write(to: tempURL)
+
+            // 共有シート表示
+            let activityVC = UIActivityViewController(activityItems: [tempURL], applicationActivities: nil)
+
+            if let popoverController = activityVC.popoverPresentationController {
+                popoverController.sourceView = view
+                popoverController.sourceRect = CGRect(x: view.bounds.midX, y: view.bounds.midY, width: 0, height: 0)
+                popoverController.permittedArrowDirections = []
+            }
+
+            activityVC.completionWithItemsHandler = { _, completed, _, error in
+                // 一時ファイルを削除
+                try? FileManager.default.removeItem(at: tempURL)
+
+                if completed {
+                    self.showAlert(title: "バックアップ完了", message: "データのバックアップが完了しました。")
+                }
+            }
+
+            present(activityVC, animated: true)
+
+        } catch {
+            showAlert(title: "エラー", message: "バックアップに失敗しました: \(error.localizedDescription)")
+        }
+    }
+
+    private func restoreData() {
+        let documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: [.json])
+        documentPicker.delegate = self
+        documentPicker.allowsMultipleSelection = false
+        present(documentPicker, animated: true)
+    }
+
+    private func performRestore(from url: URL) {
+        let alert = UIAlertController(
+            title: "データを復元",
+            message: "既存のデータがある場合、どのように処理しますか？",
+            preferredStyle: .alert
+        )
+
+        alert.addAction(UIAlertAction(title: "既存データをスキップ", style: .default) { [weak self] _ in
+            self?.executeRestore(from: url, mergeStrategy: .skipExisting)
+        })
+
+        alert.addAction(UIAlertAction(title: "既存データを上書き", style: .destructive) { [weak self] _ in
+            self?.executeRestore(from: url, mergeStrategy: .overwrite)
+        })
+
+        alert.addAction(UIAlertAction(title: "キャンセル", style: .cancel))
+
+        present(alert, animated: true)
+    }
+
+    private func executeRestore(from url: URL, mergeStrategy: DataBackupManager.MergeStrategy) {
+        let backupManager = DataBackupManager()
+
+        do {
+            let data = try Data(contentsOf: url)
+            let result = try backupManager.importData(from: data, mergeStrategy: mergeStrategy)
+
+            var message = "インポート: \(result.imported)件\n"
+            if result.skipped > 0 {
+                message += "スキップ: \(result.skipped)件\n"
+            }
+            if result.updated > 0 {
+                message += "更新: \(result.updated)件\n"
+            }
+            message += "\n復元が完了しました。"
+
+            showAlert(title: "復元完了", message: message)
+
+        } catch {
+            showAlert(title: "エラー", message: "復元に失敗しました: \(error.localizedDescription)")
+        }
+    }
+
+    private func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
     }
 
     // MARK: - Share Actions
@@ -231,6 +363,27 @@ final class SettingsViewController: UITableViewController, MFMailComposeViewCont
     // MARK: - MFMailComposeViewControllerDelegate
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true)
+    }
+
+    // MARK: - UIDocumentPickerDelegate
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        guard let url = urls.first else { return }
+
+        // セキュリティスコープ付きリソースへのアクセス開始
+        guard url.startAccessingSecurityScopedResource() else {
+            showAlert(title: "エラー", message: "ファイルにアクセスできませんでした。")
+            return
+        }
+
+        defer {
+            url.stopAccessingSecurityScopedResource()
+        }
+
+        performRestore(from: url)
+    }
+
+    func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
+        // キャンセル時は何もしない
     }
 
     // MARK: - View Configure

@@ -36,8 +36,14 @@ final class CopyAndPasteFunctionAssessment {
         }
         let creatAtString = createdAtdateFormatter(date: creatAt)
 
-    //     swiftlint:disable:next line_length
-        return "評価結果\n評価日:\(creatAtString)\n評価者:\(assessor!.name)\n対象者:\(targetPerson!.name)\n評価項目:\(assessmentItem!.name)\n評価結果:\(resultTimerStringFormatter(resultTimer: timerAssessment.resultTimer))"
+        var result = "評価結果\n評価日:\(creatAtString)\n評価者:\(assessor!.name)\n対象者:\(targetPerson!.name)\n評価項目:\(assessmentItem!.name)\n評価結果:\(resultTimerStringFormatter(resultTimer: timerAssessment.resultTimer))"
+
+        // メモがある場合は追加
+        if let memo = timerAssessment.memo, !memo.isEmpty {
+            result += "\nメモ:\(memo)"
+        }
+
+        return result
     }
 
     // MARK: - Formatter　Double・Date型→String型へ変更

@@ -38,6 +38,7 @@ struct AssessmentItem {
 struct TimerAssessment {
     var uuidString = UUID().uuidString
     var resultTimer: Double
+    var memo: String? = nil
     var createdAt: Date? = Date()
     var updatedAt: Date?
     var uuid: UUID? {

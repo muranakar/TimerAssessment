@@ -243,14 +243,53 @@ final class AssessmentViewController: UIViewController {
             print("メソッド名：[\(#function)] stopTimerNumに値が入っていない。")
             return
         }
+
+        // メモ入力アラートを表示
+        showMemoInputAlert(stopTimerNum: stopTimerNum)
+    }
+
+    private func showMemoInputAlert(stopTimerNum: Double) {
+        let resultString = timerFormatter(stopTime: stopTimerNum)
+
+        let alert = UIAlertController(
+            title: "測定結果を保存",
+            message: "測定結果: \(resultString)\n\nメモを入力できます（任意）",
+            preferredStyle: .alert
+        )
+
+        // メモ入力用テキストフィールド
+        alert.addTextField { textField in
+            textField.placeholder = "例: 杖使用、介助あり、雨天"
+            textField.autocapitalizationType = .none
+        }
+
+        // 保存アクション
+        alert.addAction(UIAlertAction(
+            title: "保存",
+            style: .default,
+            handler: { [weak self] _ in
+                guard let self = self else { return }
+                let memo = alert.textFields?.first?.text
+                self.saveTimerAssessment(stopTimerNum: stopTimerNum, memo: memo)
+            }
+        ))
+
+        // キャンセルアクション
+        alert.addAction(UIAlertAction(title: "キャンセル", style: .cancel))
+
+        present(alert, animated: true)
+    }
+
+    private func saveTimerAssessment(stopTimerNum: Double, memo: String?) {
         let newTruncationStopTimerNum = floor(stopTimerNum * 100) / 100
-        timerAssessment = TimerAssessment(resultTimer: newTruncationStopTimerNum)
+        let memoToSave = (memo?.isEmpty ?? true) ? nil : memo
+        timerAssessment = TimerAssessment(resultTimer: newTruncationStopTimerNum, memo: memoToSave)
         timerAssessmetRepository.appendTimerAssessment(
             assessmentItem: assessmentItem!,
             timerAssessment: timerAssessment!
         )
 
-        // 保存後のアラートを表示（測定結果画面への遷移は行わない）
+        // 保存後のアラートを表示
         showSaveCompletedAlert()
 
         // 測定値をリセット

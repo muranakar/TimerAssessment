@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -13,8 +14,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
-        // Override point for customization after application launch.
+        // Realmのマイグレーション設定
+        configureRealm()
         return true
+    }
+
+    private func configureRealm() {
+        let config = Realm.Configuration(
+            schemaVersion: 2, // memoフィールド追加のためバージョンを2に
+            migrationBlock: { migration, oldSchemaVersion in
+                if oldSchemaVersion < 2 {
+                    // memo フィールドは Optional なので、既存データには自動的に nil が設定される
+                    // 特別な処理は不要
+                }
+            }
+        )
+        Realm.Configuration.defaultConfiguration = config
     }
 
     // MARK: UISceneSession Lifecycle
