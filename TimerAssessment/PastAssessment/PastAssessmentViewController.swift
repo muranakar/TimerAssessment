@@ -143,8 +143,10 @@ final class PastAssessmentViewController: UIViewController, UITableViewDelegate,
         let headerView = UIView()
         headerView.backgroundColor = .systemBackground
 
-        // 検索バー
-        headerView.addSubview(searchBar)
+        // 検索中は統計を非表示
+        if isSearching {
+            return headerView
+        }
 
         // アコーディオンボタン + 統計コンテナ
         let statsContainer = UIView()
@@ -211,58 +213,40 @@ final class PastAssessmentViewController: UIViewController, UITableViewDelegate,
 
         headerView.addSubview(statsContainer)
 
-        // 検索バーの制約（常に表示）
+        // 統計コンテナの制約
         NSLayoutConstraint.activate([
-            searchBar.topAnchor.constraint(equalTo: headerView.topAnchor),
-            searchBar.leadingAnchor.constraint(equalTo: headerView.leadingAnchor),
-            searchBar.trailingAnchor.constraint(equalTo: headerView.trailingAnchor)
+            statsContainer.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 4),
+            statsContainer.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 16),
+            statsContainer.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -16),
+            statsContainer.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -8)
         ])
 
-        // 統計コンテナの制約
-        if isSearching {
-            // 検索中は統計コンテナを非表示
-            statsContainer.isHidden = true
+        if isStatisticsExpanded {
+            // 展開時: コンテンツを表示
+            statsContentStack.isHidden = false
 
             NSLayoutConstraint.activate([
-                searchBar.bottomAnchor.constraint(equalTo: headerView.bottomAnchor)
+                accordionButton.topAnchor.constraint(equalTo: statsContainer.topAnchor, constant: 6),
+                accordionButton.leadingAnchor.constraint(equalTo: statsContainer.leadingAnchor, constant: 12),
+                accordionButton.trailingAnchor.constraint(equalTo: statsContainer.trailingAnchor, constant: -12),
+                accordionButton.heightAnchor.constraint(equalToConstant: 30),
+
+                statsContentStack.topAnchor.constraint(equalTo: accordionButton.bottomAnchor, constant: 6),
+                statsContentStack.leadingAnchor.constraint(equalTo: statsContainer.leadingAnchor, constant: 12),
+                statsContentStack.trailingAnchor.constraint(equalTo: statsContainer.trailingAnchor, constant: -12),
+                statsContentStack.bottomAnchor.constraint(equalTo: statsContainer.bottomAnchor, constant: -6)
             ])
         } else {
-            statsContainer.isHidden = false
+            // 閉じた時: コンテンツを非表示
+            statsContentStack.isHidden = true
 
             NSLayoutConstraint.activate([
-                statsContainer.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 4),
-                statsContainer.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 16),
-                statsContainer.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -16),
-                statsContainer.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -8)
+                accordionButton.topAnchor.constraint(equalTo: statsContainer.topAnchor, constant: 4),
+                accordionButton.leadingAnchor.constraint(equalTo: statsContainer.leadingAnchor, constant: 12),
+                accordionButton.trailingAnchor.constraint(equalTo: statsContainer.trailingAnchor, constant: -12),
+                accordionButton.bottomAnchor.constraint(equalTo: statsContainer.bottomAnchor, constant: -4),
+                accordionButton.heightAnchor.constraint(equalToConstant: 30)
             ])
-
-            if isStatisticsExpanded {
-                // 展開時: コンテンツを表示
-                statsContentStack.isHidden = false
-
-                NSLayoutConstraint.activate([
-                    accordionButton.topAnchor.constraint(equalTo: statsContainer.topAnchor, constant: 6),
-                    accordionButton.leadingAnchor.constraint(equalTo: statsContainer.leadingAnchor, constant: 12),
-                    accordionButton.trailingAnchor.constraint(equalTo: statsContainer.trailingAnchor, constant: -12),
-                    accordionButton.heightAnchor.constraint(equalToConstant: 30),
-
-                    statsContentStack.topAnchor.constraint(equalTo: accordionButton.bottomAnchor, constant: 6),
-                    statsContentStack.leadingAnchor.constraint(equalTo: statsContainer.leadingAnchor, constant: 12),
-                    statsContentStack.trailingAnchor.constraint(equalTo: statsContainer.trailingAnchor, constant: -12),
-                    statsContentStack.bottomAnchor.constraint(equalTo: statsContainer.bottomAnchor, constant: -6)
-                ])
-            } else {
-                // 閉じた時: コンテンツを非表示
-                statsContentStack.isHidden = true
-
-                NSLayoutConstraint.activate([
-                    accordionButton.topAnchor.constraint(equalTo: statsContainer.topAnchor, constant: 4),
-                    accordionButton.leadingAnchor.constraint(equalTo: statsContainer.leadingAnchor, constant: 12),
-                    accordionButton.trailingAnchor.constraint(equalTo: statsContainer.trailingAnchor, constant: -12),
-                    accordionButton.bottomAnchor.constraint(equalTo: statsContainer.bottomAnchor, constant: -4),
-                    accordionButton.heightAnchor.constraint(equalToConstant: 30)
-                ])
-            }
         }
 
         return headerView
@@ -606,10 +590,9 @@ final class PastAssessmentViewController: UIViewController, UITableViewDelegate,
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         // 検索中は統計を非表示
         if isSearching {
-            return 52  // 検索バーのみ
+            return 0  // 検索中はヘッダーなし
         }
 
-        // 検索バー: 52pt
         // 統計ボタン: 30pt (高さ制約)
         // 統計コンテンツ（展開時）: 28 * 2 + 4 = 60pt
         // 余白の計算:
@@ -617,9 +600,9 @@ final class PastAssessmentViewController: UIViewController, UITableViewDelegate,
         // - 閉じる時: 4(上) + 4(ボタン上下) + 4(ボタン上下) + 8(下) = 20pt
 
         if isStatisticsExpanded {
-            return 52 + 30 + 60 + 30  // = 172pt (展開時)
+            return 30 + 60 + 30  // = 120pt (展開時)
         } else {
-            return 52 + 30 + 20  // = 102pt（閉じた時）- より小さく
+            return 30 + 20  // = 50pt（閉じた時）- より小さく
         }
     }
 
