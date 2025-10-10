@@ -12,6 +12,8 @@
 		66250E002E96B0260085E13A /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 66250DFD2E96B0260085E13A /* Settings.storyboard */; };
 		66250E0A2E97A8670085E13A /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 66250E092E97A8670085E13A /* RealmSwift */; };
 		66250E0B2E97AABB0085E13A /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 66250E092E97A8670085E13A /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		664C085D2E99AB27007FE218 /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = 664C085C2E99AB27007FE218 /* RevenueCat */; };
+		664C085F2E99AB27007FE218 /* RevenueCatUI in Frameworks */ = {isa = PBXBuildFile; productRef = 664C085E2E99AB27007FE218 /* RevenueCatUI */; };
 		B22FBF00275FFCB200DA71C8 /* TargetPerson.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B22FBEFF275FFCB200DA71C8 /* TargetPerson.storyboard */; };
 		B234EA3127AF1A2C00D7D406 /* PastAssessmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B234EA2F27AF1A2C00D7D406 /* PastAssessmentTableViewCell.swift */; };
 		B234EA3227AF1A2C00D7D406 /* PastAssessmentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B234EA3027AF1A2C00D7D406 /* PastAssessmentTableViewCell.xib */; };
@@ -97,7 +99,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				664C085D2E99AB27007FE218 /* RevenueCat in Frameworks */,
 				66250E0A2E97A8670085E13A /* RealmSwift in Frameworks */,
+				664C085F2E99AB27007FE218 /* RevenueCatUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -303,6 +307,7 @@
 			mainGroup = B2377142275EA64D00A48640;
 			packageReferences = (
 				66250E062E97A8670085E13A /* XCRemoteSwiftPackageReference "realm-swift" */,
+				664C085B2E99AB27007FE218 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */,
 			);
 			productRefGroup = B237714C275EA64D00A48640 /* Products */;
 			projectDirPath = "";
@@ -612,6 +617,14 @@
 				kind = branch;
 			};
 		};
+		664C085B2E99AB27007FE218 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RevenueCat/purchases-ios-spm.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.43.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -619,6 +632,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 66250E062E97A8670085E13A /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
+		};
+		664C085C2E99AB27007FE218 /* RevenueCat */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 664C085B2E99AB27007FE218 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */;
+			productName = RevenueCat;
+		};
+		664C085E2E99AB27007FE218 /* RevenueCatUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 664C085B2E99AB27007FE218 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */;
+			productName = RevenueCatUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
