@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class PastAssessmentViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+final class PastAssessmentViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     //　画面遷移で値を受け取る変数
     var assessmentItem: AssessmentItem?
 
@@ -21,6 +21,15 @@ final class PastAssessmentViewController: UIViewController, UITableViewDelegate,
     // 複数選択モード
     private var isEditingMode = false
     private var selectedIndexPaths: Set<IndexPath> = []
+
+    // 検索機能
+    private var searchText: String = ""
+    private var isSearching: Bool {
+        return !searchText.isEmpty
+    }
+
+    // 統計サマリーの表示状態
+    private var isStatisticsExpanded = true
 
     enum SortType {
         case dateAscending   // 日付: 古い順
@@ -61,8 +70,15 @@ final class PastAssessmentViewController: UIViewController, UITableViewDelegate,
     @IBOutlet weak private var tableView: UITableView!
     @IBOutlet weak private var assessmentItemTitleView: UIView!
 
-    // MARK: - Statistics Header View
+    // MARK: - Header Views
     private var statisticsHeaderView: UIView?
+    private let searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.placeholder = "メモを検索"
+        searchBar.searchBarStyle = .minimal
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        return searchBar
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,35 +96,51 @@ final class PastAssessmentViewController: UIViewController, UITableViewDelegate,
 
         // 戻るボタンをプログラムで設定
         setupNavigationBar()
+        setupSearchBar()
 
         tableView.reloadData()
         configueViewNavigationbarColor()
         configureViewAssessmentItemTitleView()
     }
 
+    private func setupSearchBar() {
+        searchBar.delegate = self
+    }
+
     private func createStatisticsHeaderView() -> UIView {
-        let assessments = loadSortedTimerAssessments()
-
         let headerView = UIView()
-        headerView.backgroundColor = .secondarySystemGroupedBackground
+        headerView.backgroundColor = .systemBackground
 
-        // コンパクトな2列レイアウト
-        let containerStack = UIStackView()
-        containerStack.axis = .vertical
-        containerStack.spacing = 8
-        containerStack.translatesAutoresizingMaskIntoConstraints = false
+        // 検索バー
+        headerView.addSubview(searchBar)
 
-        // 1行目: 平均と記録数
-        let topStack = UIStackView()
-        topStack.axis = .horizontal
-        topStack.distribution = .fillEqually
-        topStack.spacing = 8
+        // アコーディオンボタン + 統計コンテナ
+        let statsContainer = UIView()
+        statsContainer.translatesAutoresizingMaskIntoConstraints = false
+        statsContainer.backgroundColor = .secondarySystemGroupedBackground
+        statsContainer.layer.cornerRadius = 8
 
-        // 2行目: 最速と最遅
-        let bottomStack = UIStackView()
-        bottomStack.axis = .horizontal
-        bottomStack.distribution = .fillEqually
-        bottomStack.spacing = 8
+        // アコーディオンボタン
+        let accordionButton = UIButton(type: .system)
+        accordionButton.translatesAutoresizingMaskIntoConstraints = false
+        let chevron = isStatisticsExpanded ? "chevron.down" : "chevron.right"
+        accordionButton.setImage(UIImage(systemName: chevron), for: .normal)
+        accordionButton.setTitle(" 統計", for: .normal)
+        accordionButton.titleLabel?.font = .systemFont(ofSize: 14, weight: .semibold)
+        accordionButton.contentHorizontalAlignment = .left
+        accordionButton.addTarget(self, action: #selector(toggleStatistics), for: .touchUpInside)
+        accordionButton.tag = 999  // タグを設定して後で識別できるように
+
+        statsContainer.addSubview(accordionButton)
+
+        // 統計コンテンツ
+        let statsContentStack = UIStackView()
+        statsContentStack.axis = .vertical
+        statsContentStack.spacing = 4
+        statsContentStack.translatesAutoresizingMaskIntoConstraints = false
+        statsContentStack.tag = 998  // タグを設定
+
+        let assessments = loadSortedTimerAssessments()
 
         if !assessments.isEmpty {
             let times = assessments.map { $0.resultTimer }
@@ -116,80 +148,151 @@ final class PastAssessmentViewController: UIViewController, UITableViewDelegate,
             let fastest = times.min() ?? 0
             let slowest = times.max() ?? 0
 
-            topStack.addArrangedSubview(createStatCard(title: "平均", value: resultTimerStringFormatter(resultTimer: average), icon: "📊"))
-            topStack.addArrangedSubview(createStatCard(title: "記録数", value: "\(assessments.count)件", icon: "📝"))
+            // 1行目: 平均 | 記録数
+            let topRow = createStatRow(
+                left: ("平均", resultTimerStringFormatter(resultTimer: average)),
+                right: ("記録数", "\(assessments.count)件")
+            )
 
-            bottomStack.addArrangedSubview(createStatCard(title: "最速", value: resultTimerStringFormatter(resultTimer: fastest), icon: "⚡"))
-            bottomStack.addArrangedSubview(createStatCard(title: "最遅", value: resultTimerStringFormatter(resultTimer: slowest), icon: "🐢"))
+            // 2行目: 最速 | 最遅
+            let bottomRow = createStatRow(
+                left: ("最速", resultTimerStringFormatter(resultTimer: fastest)),
+                right: ("最遅", resultTimerStringFormatter(resultTimer: slowest))
+            )
+
+            statsContentStack.addArrangedSubview(topRow)
+            statsContentStack.addArrangedSubview(bottomRow)
         } else {
-            topStack.addArrangedSubview(createStatCard(title: "平均", value: "--", icon: "📊"))
-            topStack.addArrangedSubview(createStatCard(title: "記録数", value: "0件", icon: "📝"))
-
-            bottomStack.addArrangedSubview(createStatCard(title: "最速", value: "--", icon: "⚡"))
-            bottomStack.addArrangedSubview(createStatCard(title: "最遅", value: "--", icon: "🐢"))
+            let topRow = createStatRow(
+                left: ("平均", "--"),
+                right: ("記録数", "0件")
+            )
+            let bottomRow = createStatRow(
+                left: ("最速", "--"),
+                right: ("最遅", "--")
+            )
+            statsContentStack.addArrangedSubview(topRow)
+            statsContentStack.addArrangedSubview(bottomRow)
         }
 
-        containerStack.addArrangedSubview(topStack)
-        containerStack.addArrangedSubview(bottomStack)
+        statsContainer.addSubview(statsContentStack)
 
-        headerView.addSubview(containerStack)
+        headerView.addSubview(statsContainer)
 
+        // 検索バーの制約（常に表示）
         NSLayoutConstraint.activate([
-            containerStack.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 8),
-            containerStack.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 16),
-            containerStack.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -16),
-            containerStack.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -8)
+            searchBar.topAnchor.constraint(equalTo: headerView.topAnchor),
+            searchBar.leadingAnchor.constraint(equalTo: headerView.leadingAnchor),
+            searchBar.trailingAnchor.constraint(equalTo: headerView.trailingAnchor)
         ])
+
+        // 統計コンテナの制約
+        if isSearching {
+            // 検索中は統計コンテナを非表示
+            statsContainer.isHidden = true
+
+            NSLayoutConstraint.activate([
+                searchBar.bottomAnchor.constraint(equalTo: headerView.bottomAnchor)
+            ])
+        } else {
+            statsContainer.isHidden = false
+
+            NSLayoutConstraint.activate([
+                statsContainer.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 4),
+                statsContainer.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 16),
+                statsContainer.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -16),
+                statsContainer.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -8)
+            ])
+
+            if isStatisticsExpanded {
+                // 展開時: コンテンツを表示
+                statsContentStack.isHidden = false
+
+                NSLayoutConstraint.activate([
+                    accordionButton.topAnchor.constraint(equalTo: statsContainer.topAnchor, constant: 6),
+                    accordionButton.leadingAnchor.constraint(equalTo: statsContainer.leadingAnchor, constant: 12),
+                    accordionButton.trailingAnchor.constraint(equalTo: statsContainer.trailingAnchor, constant: -12),
+                    accordionButton.heightAnchor.constraint(equalToConstant: 30),
+
+                    statsContentStack.topAnchor.constraint(equalTo: accordionButton.bottomAnchor, constant: 6),
+                    statsContentStack.leadingAnchor.constraint(equalTo: statsContainer.leadingAnchor, constant: 12),
+                    statsContentStack.trailingAnchor.constraint(equalTo: statsContainer.trailingAnchor, constant: -12),
+                    statsContentStack.bottomAnchor.constraint(equalTo: statsContainer.bottomAnchor, constant: -6)
+                ])
+            } else {
+                // 閉じた時: コンテンツを非表示
+                statsContentStack.isHidden = true
+
+                NSLayoutConstraint.activate([
+                    accordionButton.topAnchor.constraint(equalTo: statsContainer.topAnchor, constant: 4),
+                    accordionButton.leadingAnchor.constraint(equalTo: statsContainer.leadingAnchor, constant: 12),
+                    accordionButton.trailingAnchor.constraint(equalTo: statsContainer.trailingAnchor, constant: -12),
+                    accordionButton.bottomAnchor.constraint(equalTo: statsContainer.bottomAnchor, constant: -4),
+                    accordionButton.heightAnchor.constraint(equalToConstant: 30)
+                ])
+            }
+        }
 
         return headerView
     }
 
-    private func createStatCard(title: String, value: String, icon: String) -> UIView {
-        let card = UIView()
-        card.backgroundColor = .systemBackground
-        card.layer.cornerRadius = 8
-        card.layer.shadowColor = UIColor.black.cgColor
-        card.layer.shadowOpacity = 0.05
-        card.layer.shadowOffset = CGSize(width: 0, height: 1)
-        card.layer.shadowRadius = 2
+    private func createStatRow(left: (String, String), right: (String, String)) -> UIView {
+        let row = UIStackView()
+        row.axis = .horizontal
+        row.distribution = .fillEqually
+        row.spacing = 8
 
-        let stack = UIStackView()
-        stack.axis = .vertical
-        stack.spacing = 2
-        stack.alignment = .center
-        stack.translatesAutoresizingMaskIntoConstraints = false
+        let leftItem = createStatItem(title: left.0, value: left.1)
+        let rightItem = createStatItem(title: right.0, value: right.1)
 
-        let iconLabel = UILabel()
-        iconLabel.text = icon
-        iconLabel.font = .systemFont(ofSize: 20)
+        row.addArrangedSubview(leftItem)
+        row.addArrangedSubview(rightItem)
 
-        let titleLabel = UILabel()
-        titleLabel.text = title
-        titleLabel.font = .systemFont(ofSize: 11, weight: .medium)
-        titleLabel.textColor = .secondaryLabel
+        return row
+    }
+
+    private func createStatItem(title: String, value: String) -> UIView {
+        let container = UIView()
+        container.backgroundColor = .systemBackground
+        container.layer.cornerRadius = 6
+
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: 12)
+        label.textColor = .secondaryLabel
+        label.text = title
 
         let valueLabel = UILabel()
-        valueLabel.text = value
+        valueLabel.translatesAutoresizingMaskIntoConstraints = false
         valueLabel.font = .monospacedDigitSystemFont(ofSize: 13, weight: .semibold)
-        valueLabel.textColor = .label
+        valueLabel.text = value
         valueLabel.adjustsFontSizeToFitWidth = true
         valueLabel.minimumScaleFactor = 0.8
 
-        stack.addArrangedSubview(iconLabel)
-        stack.addArrangedSubview(titleLabel)
-        stack.addArrangedSubview(valueLabel)
-
-        card.addSubview(stack)
+        container.addSubview(label)
+        container.addSubview(valueLabel)
 
         NSLayoutConstraint.activate([
-            stack.topAnchor.constraint(equalTo: card.topAnchor, constant: 8),
-            stack.leadingAnchor.constraint(equalTo: card.leadingAnchor, constant: 8),
-            stack.trailingAnchor.constraint(equalTo: card.trailingAnchor, constant: -8),
-            stack.bottomAnchor.constraint(equalTo: card.bottomAnchor, constant: -8),
-            card.heightAnchor.constraint(equalToConstant: 70)
+            label.topAnchor.constraint(equalTo: container.topAnchor, constant: 6),
+            label.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 8),
+
+            valueLabel.topAnchor.constraint(equalTo: container.topAnchor, constant: 6),
+            valueLabel.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -8),
+            valueLabel.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -6),
+
+            container.heightAnchor.constraint(equalToConstant: 28)
         ])
 
-        return card
+        return container
+    }
+
+    @objc private func toggleStatistics() {
+        isStatisticsExpanded.toggle()
+        tableView.reloadData()
+
+        // フィードバック
+        let generator = UIImpactFeedbackGenerator(style: .light)
+        generator.impactOccurred()
     }
 
     private func setupNavigationBar() {
@@ -417,32 +520,44 @@ final class PastAssessmentViewController: UIViewController, UITableViewDelegate,
     private func loadSortedTimerAssessments() -> [TimerAssessment] {
         guard let assessmentItem = assessmentItem else { return [] }
 
+        var assessments: [TimerAssessment]
+
         switch sortType {
         case .dateAscending:
-            return timerAssessmentRepository.loadTimerAssessment(
+            assessments = timerAssessmentRepository.loadTimerAssessment(
                 assessmentItem: assessmentItem,
                 sortBy: "createdAt",
                 ascending: true
             )
         case .dateDescending:
-            return timerAssessmentRepository.loadTimerAssessment(
+            assessments = timerAssessmentRepository.loadTimerAssessment(
                 assessmentItem: assessmentItem,
                 sortBy: "createdAt",
                 ascending: false
             )
         case .timeAscending:
-            return timerAssessmentRepository.loadTimerAssessment(
+            assessments = timerAssessmentRepository.loadTimerAssessment(
                 assessmentItem: assessmentItem,
                 sortBy: "resultTimer",
                 ascending: true
             )
         case .timeDescending:
-            return timerAssessmentRepository.loadTimerAssessment(
+            assessments = timerAssessmentRepository.loadTimerAssessment(
                 assessmentItem: assessmentItem,
                 sortBy: "resultTimer",
                 ascending: false
             )
         }
+
+        // 検索フィルタリング
+        if isSearching {
+            assessments = assessments.filter { assessment in
+                guard let memo = assessment.memo else { return false }
+                return memo.localizedCaseInsensitiveContains(searchText)
+            }
+        }
+
+        return assessments
     }
 
     // MARK: - Table view data source
@@ -457,7 +572,23 @@ final class PastAssessmentViewController: UIViewController, UITableViewDelegate,
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 164 // 8 (上) + 70 (上段) + 8 (間隔) + 70 (下段) + 8 (下) = 164
+        // 検索中は統計を非表示
+        if isSearching {
+            return 52  // 検索バーのみ
+        }
+
+        // 検索バー: 52pt
+        // 統計ボタン: 30pt (高さ制約)
+        // 統計コンテンツ（展開時）: 28 * 2 + 4 = 60pt
+        // 余白の計算:
+        // - 展開時: 4(上) + 6(ボタン上) + 6(ボタン下) + 6(コンテンツ下) + 8(下) = 30pt
+        // - 閉じる時: 4(上) + 4(ボタン上下) + 4(ボタン上下) + 8(下) = 20pt
+
+        if isStatisticsExpanded {
+            return 52 + 30 + 60 + 30  // = 172pt (展開時)
+        } else {
+            return 52 + 30 + 20  // = 102pt（閉じた時）- より小さく
+        }
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -604,5 +735,23 @@ final class PastAssessmentViewController: UIViewController, UITableViewDelegate,
         dateFormatter.dateFormat = "yyyy'年'MM'月'dd'日'　HH'時'mm'分'"
         let dateString = dateFormatter.string(from: date)
         return dateString
+    }
+
+    // MARK: - UISearchBarDelegate
+
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.searchText = searchText
+        tableView.reloadData()
+    }
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = ""
+        searchText = ""
+        searchBar.resignFirstResponder()
+        tableView.reloadData()
     }
 }
