@@ -72,12 +72,22 @@ final class PastAssessmentViewController: UIViewController, UITableViewDelegate,
 
     // MARK: - Header Views
     private var statisticsHeaderView: UIView?
+
+    // 検索バー（Viewに直接配置）
     private let searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.placeholder = "メモを検索"
         searchBar.searchBarStyle = .minimal
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         return searchBar
+    }()
+
+    // 検索バーのコンテナ
+    private let searchBarContainer: UIView = {
+        let view = UIView()
+        view.backgroundColor = .systemBackground
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
 
     override func viewDidLoad() {
@@ -105,6 +115,28 @@ final class PastAssessmentViewController: UIViewController, UITableViewDelegate,
 
     private func setupSearchBar() {
         searchBar.delegate = self
+
+        // 検索バーをViewに直接追加（TableViewの外側）
+        view.addSubview(searchBarContainer)
+        searchBarContainer.addSubview(searchBar)
+
+        NSLayoutConstraint.activate([
+            // 検索バーコンテナの配置
+            searchBarContainer.topAnchor.constraint(equalTo: assessmentItemTitleView.bottomAnchor),
+            searchBarContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            searchBarContainer.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            searchBarContainer.heightAnchor.constraint(equalToConstant: 52),
+
+            // 検索バーの配置
+            searchBar.topAnchor.constraint(equalTo: searchBarContainer.topAnchor),
+            searchBar.leadingAnchor.constraint(equalTo: searchBarContainer.leadingAnchor),
+            searchBar.trailingAnchor.constraint(equalTo: searchBarContainer.trailingAnchor),
+            searchBar.bottomAnchor.constraint(equalTo: searchBarContainer.bottomAnchor)
+        ])
+
+        // TableViewの上部余白を調整（検索バーの下から開始するように）
+        tableView.contentInset = UIEdgeInsets(top: 52, left: 0, bottom: 0, right: 0)
+        tableView.scrollIndicatorInsets = tableView.contentInset
     }
 
     private func createStatisticsHeaderView() -> UIView {
