@@ -138,7 +138,6 @@
 				B237714D275EA64D00A48640 /* TimerAssessment */,
 				B2377157275EA64E00A48640 /* Assets.xcassets */,
 				B2377159275EA64E00A48640 /* LaunchScreen.storyboard */,
-				B237715C275EA64E00A48640 /* Info.plist */,
 				66250E0D2E97AAF30085E13A /* Frameworks */,
 				B237714C275EA64D00A48640 /* Products */,
 			);
