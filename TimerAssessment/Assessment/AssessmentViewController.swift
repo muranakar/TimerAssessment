@@ -55,22 +55,37 @@ final class AssessmentViewController: UIViewController {
     }()
 
     private let startButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("start", for: .normal)
+        var config = UIButton.Configuration.filled()
+        config.title = "start"
+        config.baseForegroundColor = .white
+        config.baseBackgroundColor = .systemBlue
+        config.cornerStyle = .medium
+
+        let button = UIButton(configuration: config)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
 
     private let stopButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("stop", for: .normal)
+        var config = UIButton.Configuration.filled()
+        config.title = "stop"
+        config.baseForegroundColor = .white
+        config.baseBackgroundColor = .systemRed
+        config.cornerStyle = .medium
+
+        let button = UIButton(configuration: config)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
 
     private let resetButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("reset", for: .normal)
+        var config = UIButton.Configuration.filled()
+        config.title = "reset"
+        config.baseForegroundColor = .white
+        config.baseBackgroundColor = .systemGray
+        config.cornerStyle = .medium
+
+        let button = UIButton(configuration: config)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -120,22 +135,22 @@ final class AssessmentViewController: UIViewController {
             timerLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -30),
 
             // Start Button
-            startButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -80),
-            startButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 150),
-            startButton.widthAnchor.constraint(equalToConstant: 80),
-            startButton.heightAnchor.constraint(equalToConstant: 80),
+            startButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            startButton.topAnchor.constraint(equalTo: timerLabel.bottomAnchor, constant: 60),
+            startButton.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 0.8),
+            startButton.heightAnchor.constraint(equalToConstant: 70),
 
             // Stop Button
-            stopButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 80),
-            stopButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 150),
-            stopButton.widthAnchor.constraint(equalToConstant: 80),
-            stopButton.heightAnchor.constraint(equalToConstant: 80),
+            stopButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            stopButton.topAnchor.constraint(equalTo: startButton.bottomAnchor, constant: 20),
+            stopButton.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 0.8),
+            stopButton.heightAnchor.constraint(equalToConstant: 70),
 
             // Reset Button
             resetButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            resetButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 250),
-            resetButton.widthAnchor.constraint(equalToConstant: 80),
-            resetButton.heightAnchor.constraint(equalToConstant: 80)
+            resetButton.topAnchor.constraint(equalTo: stopButton.bottomAnchor, constant: 20),
+            resetButton.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 0.8),
+            resetButton.heightAnchor.constraint(equalToConstant: 70)
         ])
 
         startButton.addTarget(self, action: #selector(start), for: .touchUpInside)
@@ -143,7 +158,7 @@ final class AssessmentViewController: UIViewController {
         resetButton.addTarget(self, action: #selector(reset), for: .touchUpInside)
 
         stopButton.isEnabled = false
-        configueViewButtonsStyle()
+        updateButtonFontSizes()
     }
 
     private func setupNavigationBar() {
@@ -237,6 +252,9 @@ final class AssessmentViewController: UIViewController {
 
         // 保存後のアラートを表示（測定結果画面への遷移は行わない）
         showSaveCompletedAlert()
+
+        // 測定値をリセット
+        resetAndContinue()
     }
 
     // 保存完了アラート
@@ -370,18 +388,17 @@ final class AssessmentViewController: UIViewController {
     }
 
     // MARK: - ViewConfigue
-    private func configueViewButtonsStyle() {
-        // 選択ボタンのView
-        buttons.forEach {
-            $0.backgroundColor = Colors.baseColor
-            $0.setTitleColor(Colors.mainColor, for: .normal)
-            $0.layer.cornerRadius = 40
-            $0.layer.borderWidth = 2
-            $0.layer.borderColor = Colors.mainColor.cgColor
-            $0.layer.shadowOpacity = 0.5
-            $0.layer.shadowRadius = 2
-            $0.layer.shadowColor = UIColor.black.cgColor
-            $0.layer.shadowOffset = CGSize(width: 1, height: 1)
+    private func updateButtonFontSizes() {
+        let fontSize: CGFloat = 24
+
+        buttons.forEach { button in
+            var config = button.configuration
+            config?.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { incoming in
+                var outgoing = incoming
+                outgoing.font = UIFont.systemFont(ofSize: fontSize, weight: .semibold)
+                return outgoing
+            }
+            button.configuration = config
         }
     }
 }
